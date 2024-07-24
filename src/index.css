@@ -1,0 +1,17 @@
+:root {
+  /* application */
+  --application-background-color: #f5f5f5;
+}
+
+/* Styling */
+html,
+body,
+#app {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  min-height: 100%;
+  display: flex;
+  justify-content: center;
+  background-color: var(--application-background-color);
+}

@@ -1,0 +1,13 @@
+.text {
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+.normal {
+  color: #121212;
+}
+
+.subtle {
+  color: #898989;
+}

@@ -1,0 +1,156 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json",
+    "tsconfigRootDir": ".",
+    "extraFileExtensions": [".css"]
+  },
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true,
+    "mocha": true,
+    "cypress/globals": true
+  },
+  "plugins": ["@typescript-eslint", "testing-library", "react-hooks", "prettier", "cypress", "eslint-plugin-cypress", "jest"],
+  "extends": [
+    "airbnb",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended",
+    "plugin:cypress/recommended",
+    "plugin:jest/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript"
+  ],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"],
+        "moduleDirectory": ["node_modules", "src/"]
+      }
+    }
+  },
+  "rules": {
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": ["error"],
+    /**
+     * @description rules of eslint official
+     */
+    /**
+     * @bug https://github.com/benmosher/eslint-plugin-import/issues/1282
+     * "import/named" temporary disable.
+     */
+    "import/named": "off",
+    /**
+     * @bug?
+     * "import/export" temporary disable.
+     */
+    "react/jsx-curly-newline": "off",
+    "no-multiple-empty-lines": [2, {"max": 99999, "maxEOF": 0}],
+    "react/require-default-props": ["off"],
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": [
+          "test.{ts,tsx}", // repos with a single test file
+          "test-*.{ts,tsx}", // repos with multiple top-level test files
+          "**/*{.,_}{test,spec}.{ts,tsx}", // tests where the extension or filename suffix denotes that it is a test
+          "**/jest.config.ts", // jest config
+          "**/jest.setup.ts" // jest setup
+        ],
+        "optionalDependencies": false
+      }
+    ],
+    "import/order": ["error", {
+      "groups": [["index", "sibling", "parent", "internal", "external", "builtin"]],
+      "newlines-between": "never"
+    }],
+    "no-plusplus": "off",
+    "no-bitwise": "off",
+    "react/jsx-props-no-spreading": "off",
+    "no-use-before-define": "off",
+    "@typescript-eslint/no-use-before-define": ["error"],
+    "import/export": "off",
+    "react/function-component-definition": [
+      2,
+      {
+        "unnamedComponents": "arrow-function"
+      }
+    ],
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
+    ],
+    "import/prefer-default-export": "off", // Allow single Named-export
+    "no-unused-expressions": ["warn", {
+      "allowShortCircuit": true,
+      "allowTernary": true
+    }], // https://eslint.org/docs/rules/no-unused-expressions
+
+    /**
+     * @description rules of @typescript-eslint
+     */
+    "@typescript-eslint/prefer-interface": "off", // also want to use "type"
+    "@typescript-eslint/explicit-function-return-type": "off", // annoying to force return type
+
+    /**
+     * @description rules of eslint-plugin-react
+     */
+    "react/jsx-filename-extension": ["warn", {
+      "extensions": [".tsx", ".ts", ".js"]
+    }], // also want to use with ".tsx"
+    "react/prop-types": "off", // Is this incompatible with TS props type?
+
+    /**
+     * @description rules of eslint-plugin-react-hooks
+     */
+    "react-hooks/rules-of-hooks": "error",
+    "jsx-a11y/label-has-associated-control": [ "warn", {
+      "required": {
+        "some": [ "nesting", "id"  ]
+      }
+    }],
+    "jsx-a11y/label-has-for": [ "error", {
+      "required": {
+        "some": [ "nesting", "id"  ]
+      }
+    }],
+    "jest/expect-expect": [
+      1,
+      {
+        "assertFunctionNames": [
+          "expect", "cy.contains", "contains", "cy.should"
+        ]
+      }
+    ],
+    /**
+     * @description rules of eslint-plugin-prettier
+     */
+    "prettier/prettier": [
+      "error", {
+        "singleQuote": true,
+        "semi": true,
+        "endOfLine": "auto"
+      }
+    ]
+  },
+  "globals": {
+    "cy": true
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/*.test.tsx"
+      ],
+      "env": {
+        "jest": true
+      }
+    }
+  ]
+}

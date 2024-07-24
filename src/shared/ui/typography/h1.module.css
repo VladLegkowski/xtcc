@@ -1,0 +1,8 @@
+@import url(./typography.css);
+
+.h1 {
+  font-weight: 400;
+  font-size: 2rem;
+  line-height: 2.5rem;
+  color: #121212;
+}

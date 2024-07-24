@@ -1,0 +1,27 @@
+.nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  width: 100%;
+  max-width: 58rem;
+  background: #121212;
+  border-radius: 1rem;
+}
+
+.iconContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 1.8125rem;
+  background: #FFFFFF;
+}
+
+.icon {
+  font-size: 1.5rem;
+  color: #121212;
+  font-weight: bold;
+}

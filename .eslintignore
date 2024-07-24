@@ -1,0 +1,6 @@
+node_modules/
+coverage/
+package.json
+*.css
+reportWebVitals.ts
+style-mock.js

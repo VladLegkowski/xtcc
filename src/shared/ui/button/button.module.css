@@ -1,0 +1,83 @@
+.button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  cursor: pointer;
+  font-weight: 400;
+  transition: background-color 0.3s ease;
+}
+
+.primary {
+  background: #121212;
+  color: #FFFFFF;
+}
+
+.secondary {
+  background: #FFFFFF;
+  color: #121212;
+  border: 1px solid #D8D8D8;
+}
+
+.search {
+  background: #121212;
+  color: #FFFFFF;
+}
+
+.default {
+  padding: 0.75rem;
+  height: 3rem;
+  border-radius: 6.25rem;
+  font-size: 1rem;
+}
+
+.small {
+  padding: 0.5rem;
+  width: 4.625rem;
+  height: 2.25rem;
+  border-radius: 6.25rem;
+  font-size: 0.875rem;
+}
+
+.link, .link-danger {
+  background: none;
+  padding: 0;
+  text-decoration: underline;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 150%;
+  justify-content: normal;
+}
+
+.link {
+  color: #121212; /* Base/Polar Night */
+}
+
+.link-danger {
+  color: #C93957; /* Red/Red Desert Medium */
+}
+
+.link:hover, .link-danger:hover {
+  opacity: 0.8;
+}
+
+.link:active, .link-danger:active {
+  opacity: 0.6;
+}
+
+.button:hover {
+  opacity: 0.9;
+}
+
+.button:active {
+  opacity: 0.8;
+}
+
+.button:disabled {
+  opacity: 0.9;
+}
+
+.active {
+  opacity: 0.6;
+}

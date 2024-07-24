@@ -1,0 +1,41 @@
+.buttonGroup {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0;
+  width: 19.0625rem;
+  height: 3rem;
+  border: 1px solid #D8D8D8;
+  border-radius: 6.25rem;
+  overflow: hidden;
+}
+
+.groupButton {
+  flex: 1;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.groupButton:not(:last-child) {
+  border-right: 1px solid #D8D8D8;
+}
+
+.groupButton:hover {
+  opacity: .7;
+}
+
+.groupButton.selected {
+  opacity: .8;
+}
+
+.groupButton:not(.first):not(.last) {
+  border-radius: 0;
+}
+
+.first {
+  border-radius: 6.25rem 0 0 6.25rem;
+}
+
+.last {
+  border-radius: 0 6.25rem 6.25rem 0;
+}
