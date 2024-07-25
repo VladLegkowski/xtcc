@@ -2,14 +2,14 @@ import React from 'react';
 import { H4 } from '../../shared/ui/typography/h4';
 import { Text } from '../../shared/ui/typography/text';
 import { Button } from '../../shared/ui/button/button';
-import { TripValue } from '../../types/trip';
+import { Trip } from '../../types/trip';
 import styles from './card.module.css';
 
 interface CardProps {
-  trip: TripValue;
-  handleDetails: (trip: TripValue['id']) => void;
-  handleEdit: (trip: TripValue['id']) => void;
-  handleDelete: (tripId: TripValue['id']) => void;
+  trip: Trip;
+  handleDetails: (trip: Trip['id']) => void;
+  handleEdit: (trip: Trip['id']) => void;
+  handleDelete: (tripId: Trip['id']) => void;
 }
 
 export function Card({
@@ -21,12 +21,12 @@ export function Card({
   return (
     <div className={styles.card}>
       <div className={styles.imageContainer}>
-        <img src={trip.image} alt={trip.name} className={styles.image} />
+        <img src={trip.photo_url} alt={trip.title} className={styles.image} />
       </div>
       <div className={styles.content}>
-        <H4>{trip.name}</H4>
+        <H4>{trip.title}</H4>
         <Text variant="normal" className={styles.introduction}>
-          {trip.introduction}
+          {`${trip.description.split('.')[0]}.`}
         </Text>
         <div className={styles.actions}>
           <Button variant="link" onClick={() => handleDetails(trip.id)}>

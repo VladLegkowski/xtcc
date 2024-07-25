@@ -1,16 +1,15 @@
-import { TripValue } from '../types/trip';
+import { Itinerary, Trip } from '../types/trip';
 
 export const filterTrips = (
-  trips: TripValue[],
+  trips: (string | Itinerary[] | 'todo' | 'done')[],
   search: string,
-): TripValue[] => {
+): Trip[] => {
   if (!search) return trips;
 
   const lowercasedSearch = search.toLowerCase();
   return trips.filter(
     (trip) =>
-      trip.name.toLowerCase().includes(lowercasedSearch) ||
-      trip.introduction.toLowerCase().includes(lowercasedSearch) ||
+      trip.title.toLowerCase().includes(lowercasedSearch) ||
       trip.description.toLowerCase().includes(lowercasedSearch) ||
       trip.itinerary.some(
         (item) =>

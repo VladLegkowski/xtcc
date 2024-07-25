@@ -2,4 +2,7 @@
   align-items: center;
   display: flex;
   flex-direction: column;
+  gap: 1rem;
+  max-width: 57.5rem;
+  padding: 1.25rem;
 }

@@ -4,18 +4,13 @@ export type Itinerary = {
   description: string;
 };
 
-export type TripValue = {
+export type Trip = {
   id: string;
-  image: string;
-  name: string;
-  completed: boolean;
-  introduction: string;
+  photo_url: string;
+  title: string;
+  status: 'todo' | 'done';
   description: string;
   itinerary: Itinerary[];
-};
-
-export type Trip = {
-  [key: string]: TripValue;
 };
 
 export enum TripFilters {

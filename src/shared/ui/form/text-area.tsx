@@ -1,36 +1,26 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import styles from './form-field.module.css';
 import { Label } from './label';
 
-interface TextAreaProps
-  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
-  label: string;
-  id: string;
-  maxLength?: number;
-  initialHeight?: string;
-}
+export const TextArea = forwardRef(
+  ({ label, id, maxLength, placeholder, ...props }, ref) => {
+    return (
+      <div className={styles.fieldContainer}>
+        <Label htmlFor={id} maxLength={maxLength}>
+          {label}
+        </Label>
+        <textarea
+          ref={ref}
+          id={id}
+          className={styles.textarea}
+          placeholder={placeholder}
+          maxLength={maxLength}
+          style={{ height: '150px' }}
+          {...props}
+        />
+      </div>
+    );
+  },
+);
 
-export function TextArea({
-  label,
-  id,
-  maxLength,
-  initialHeight = '150px',
-  placeholder,
-  ...props
-}: TextAreaProps) {
-  return (
-    <div className={styles.fieldContainer}>
-      <Label htmlFor={id} maxLength={maxLength}>
-        {label}
-      </Label>
-      <textarea
-        id={id}
-        className={styles.textarea}
-        placeholder={placeholder}
-        maxLength={maxLength}
-        style={{ height: initialHeight }}
-        {...props}
-      />
-    </div>
-  );
-}
+TextArea.displayName = 'TextArea';

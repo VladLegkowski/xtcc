@@ -105,6 +105,7 @@ module.export = {};
     "compose-function": "^3.0.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-hook-form": "^7.52.1",
     "react-router-dom": "^6.25.1"
   },
   "lint-staged": {
@@ -583,6 +584,68 @@ _
 
 ```
 
+# src/types/trip.ts
+
+```ts
+export type Itinerary = {
+  day: number;
+  location: string;
+  description: string;
+};
+
+export type Trip = {
+  id: string;
+  photo_url: string;
+  title: string;
+  status: 'todo' | 'done';
+  description: string;
+  itinerary: Itinerary[];
+};
+
+export type Trip = {
+  [key: string]: Trip;
+};
+
+export enum TripFilters {
+  All = 0,
+  Upcoming = 1,
+  Completed = 2,
+}
+
+export enum TripMode {
+  View = 'View',
+  Create = 'Create',
+}
+
+```
+
+# src/utils/utils.tsx
+
+```tsx
+import { Trip } from '../types/trip';
+
+export const filterTrips = (
+  trips: Trip[],
+  search: string,
+): Trip[] => {
+  if (!search) return trips;
+
+  const lowercasedSearch = search.toLowerCase();
+  return trips.filter(
+    (trip) =>
+      trip.name.toLowerCase().includes(lowercasedSearch) ||
+      trip.introduction.toLowerCase().includes(lowercasedSearch) ||
+      trip.description.toLowerCase().includes(lowercasedSearch) ||
+      trip.itinerary.some(
+        (item) =>
+          item.location.toLowerCase().includes(lowercasedSearch) ||
+          item.description.toLowerCase().includes(lowercasedSearch),
+      ),
+  );
+};
+
+```
+
 # src/pages/routing.tsx
 
 ```tsx
@@ -618,28 +681,28 @@ export const Routing = withProviders(() => <RouterProvider router={router} />);
 # src/pages/home.tsx
 
 ```tsx
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Card } from '../enteties/card/card';
 import { Header } from '../enteties/header/header';
 import { Modal } from '../enteties/modal/modal';
 import { SearchBar } from '../enteties/search-bar/search-bar';
 import { TripView } from '../enteties/trip-view/trip-view';
+import { TripForm } from '../feature/trip-form/trip-form';
 import { ButtonGroup } from '../shared/ui/button-group/button-group';
 import { Button } from '../shared/ui/button/button';
 import { H1 } from '../shared/ui/typography/h1';
 import { H5 } from '../shared/ui/typography/h5';
-import { Trip, TripFilters, TripValue } from '../types/trip';
+import { Trip, TripFilters, TripMode, Trip } from '../types/trip';
+import { filterTrips } from '../utils/utils';
 import styles from './home.module.css';
 
 export const sampleTrips: Trip = {
   qwjoiedjq0w102: {
     id: 'qwjoiedjq0w102',
-    image:
+    photo_url:
       'https://fastly.picsum.photos/id/0/5000/3333.jpg?hmac=_j6ghY5fCfSD6tvtcV74zXivkJSPIfR9B8w34XeQmvU',
-    name: 'Portugal',
-    completed: false,
-    introduction:
-      "Classic tour of Portugal's vibrant cities and cultural heritage, including Lisbon, Porto, Fatima and the flamboyant architecture of Sintra.",
+    title: 'Portugal',
+    status: 'todo',
     description:
       'Be captivated by the vibrant cities of Portugal on a spellbinding journey through its most inspiring destinations. Explore the lively neighborhoods of Lisbon and the fairytale castles of Sintra before traveling to the holy city of Fatima, filled with enigmatic spiritual landmarks. Finally, uncover the heart of Porto, known for its delicious wine and colorful buildings.',
     itinerary: [
@@ -669,96 +732,15 @@ export const sampleTrips: Trip = {
       },
     ],
   },
-  qw9eiq0wie1i23112: {
-    id: 'qw9eiq0wie1i23112',
-    image:
-      'https://fastly.picsum.photos/id/0/5000/3333.jpg?hmac=_j6ghY5fCfSD6tvtcV74zXivkJSPIfR9B8w34XeQmvU',
-    name: 'Norway',
-    completed: false,
-    introduction:
-      'Lose yourself in the magical beauty of the natural wonders Norway has to offer; from colossal Nordic landscapes such as the otherworldly Fjord of Dreams.',
-    description:
-      "Embark on an unforgettable journey through Norway's breathtaking landscapes. From the vibrant city of Oslo to the serene beauty of the fjords, experience the unique blend of urban culture and natural wonders. Explore picturesque villages, witness the Northern Lights, and indulge in the rich Viking history that shapes this remarkable country.",
-    itinerary: [
-      {
-        day: 1,
-        location: 'Oslo',
-        description:
-          'Begin your Norwegian adventure in the capital city. Visit the Viking Ship Museum and stroll through the sculpture-filled Vigeland Park.',
-      },
-      {
-        day: 2,
-        location: 'Bergen',
-        description:
-          'Travel to Bergen, the gateway to the fjords. Explore the colorful Bryggen district, a UNESCO World Heritage site, and take the funicular to Mount Fløyen for panoramic views.',
-      },
-      {
-        day: 3,
-        location: 'Geirangerfjord',
-        description:
-          'Journey to the stunning Geirangerfjord, another UNESCO site. Take a fjord cruise to see the Seven Sisters waterfall and enjoy the dramatic scenery.',
-      },
-      {
-        day: 4,
-        location: 'Tromsø',
-        description:
-          "Fly to Tromsø, located in the Arctic Circle. Visit the Arctic Cathedral and, if you're lucky, witness the mesmerizing Northern Lights.",
-      },
-    ],
-  },
-  qweqw0ei10021293dsa: {
-    id: 'qweqw0ei10021293dsa',
-    image:
-      'https://fastly.picsum.photos/id/0/5000/3333.jpg?hmac=_j6ghY5fCfSD6tvtcV74zXivkJSPIfR9B8w34XeQmvU',
-    name: 'Vietnam & Cambodia',
-    completed: true,
-    introduction:
-      'A fascinating journey of discovery through Vietnam, Cambodia and Thailand!',
-    description:
-      'Immerse yourself in the rich cultures and stunning landscapes of Southeast Asia. From the bustling streets of Hanoi to the ancient temples of Angkor Wat, this journey takes you through the heart of Vietnam and Cambodia. Experience the vibrant local markets, serene rice paddies, and the warmth of the local people in this unforgettable adventure.',
-    itinerary: [
-      {
-        day: 1,
-        location: 'Hanoi, Vietnam',
-        description:
-          'Arrive in Hanoi and explore the Old Quarter. Visit the Temple of Literature and enjoy a traditional water puppet show.',
-      },
-      {
-        day: 2,
-        location: 'Ha Long Bay, Vietnam',
-        description:
-          'Cruise through the emerald waters of Ha Long Bay, a UNESCO World Heritage site. Explore limestone caves and enjoy fresh seafood on board.',
-      },
-      {
-        day: 3,
-        location: 'Hoi An, Vietnam',
-        description:
-          'Fly to Hoi An, a charming ancient town. Walk through the narrow streets, visit the Japanese Covered Bridge, and enjoy a cooking class.',
-      },
-      {
-        day: 4,
-        location: 'Siem Reap, Cambodia',
-        description:
-          'Travel to Siem Reap, the gateway to Angkor. Watch the sunset over the majestic Angkor Wat temple complex.',
-      },
-      {
-        day: 5,
-        location: 'Angkor, Cambodia',
-        description:
-          'Spend a full day exploring the Angkor Archaeological Park, including Angkor Thom and the Ta Prohm temple.',
-      },
-    ],
-  },
 };
 function Home() {
   const [searchValue, setSearchValue] = useState<string>('');
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [filter, setFilter] = React.useState<TripFilters>(TripFilters.All);
+  const [mode, setMode] = React.useState<TripMode | undefined>(undefined);
   const [selectedTripId, setSelectedTripId] = React.useState<
-    TripValue['id'] | null
+    Trip['id'] | null
   >(null);
-
-  console.log(searchValue);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -767,27 +749,50 @@ function Home() {
   const closeModal = () => {
     setIsModalOpen(false);
     setSelectedTripId(null);
+    setMode(undefined);
   };
   const handleCreateNewTrip = () => {
     openModal();
+    setMode(TripMode.Create);
   };
 
-  const handleDetails = (tripId: TripValue['id']) => {
+  const handleDetails = (tripId: Trip['id']) => {
+    setMode(TripMode.View);
     setSelectedTripId(tripId);
     openModal();
   };
 
-  const handleEdit = (tripId: TripValue['id']) => {
+  const handleEdit = (tripId: Trip['id']) => {
     console.log('Edit', tripId);
     // Implement logic to edit trip
   };
 
-  const handleDelete = (tripId: TripValue['id']) => {
+  const handleDelete = (tripId: Trip['id']) => {
     console.log('Delete', tripId);
     // Implement logic to delete trip
   };
 
-  const selectedTrip = sampleTrips[selectedTripId];
+  const handleSubmit = (data: Trip) => {
+    // Handle form submission (create or update trip)
+    console.log(data);
+    closeModal();
+  };
+
+  const filteredTrips = useMemo(() => {
+    const allTrips = Object.values(sampleTrips);
+    const searchFiltered = filterTrips(allTrips, searchValue);
+
+    switch (filter) {
+      case TripFilters.Upcoming:
+        return searchFiltered.filter((trip) => trip.status === 'todo');
+      case TripFilters.Completed:
+        return searchFiltered.filter((trip) => trip.status === 'done');
+      default:
+        return searchFiltered;
+    }
+  }, [searchValue, filter]);
+
+  const selectedTrip = selectedTripId ? sampleTrips[selectedTripId] : null;
 
   return (
     <div className={styles.homePage}>
@@ -800,7 +805,7 @@ function Home() {
         <Button>Upcoming</Button>
         <Button>Completed</Button>
       </ButtonGroup>
-      {Object.values(sampleTrips).map((trip) => (
+      {filteredTrips.map((trip) => (
         <Card
           key={trip.id}
           trip={trip}
@@ -810,10 +815,17 @@ function Home() {
         />
       ))}
       <Modal isOpen={isModalOpen} onClose={closeModal}>
-        {selectedTrip && (
+        {mode === TripMode.View && selectedTrip && (
           <TripView
             trip={selectedTrip}
             onMarkAsCompleted={() => console.log('MarkAsCompleted')}
+          />
+        )}
+        {mode === TripMode.Create && (
+          <TripForm
+            title="Create New Trip"
+            buttonText="Create Trip"
+            onSubmit={handleSubmit}
           />
         )}
       </Modal>
@@ -836,38 +848,7 @@ export default Home;
 
 ```
 
-# src/types/trip.ts
-
-```ts
-export type Itinerary = {
-  day: number;
-  location: string;
-  description: string;
-};
-
-export type TripValue = {
-  id: string;
-  image: string;
-  name: string;
-  completed: boolean;
-  introduction: string;
-  description: string;
-  itinerary: Itinerary[];
-};
-
-export type Trip = {
-  [key: string]: TripValue;
-};
-
-export enum TripFilters {
-  All = 0,
-  Upcoming = 1,
-  Completed = 2,
-}
-
-```
-
-# src/app/App.tsx
+# src/app/app.tsx
 
 ```tsx
 import React from 'react';
@@ -1008,6 +989,26 @@ context('End to end test for the application', () => {
 
 ```
 
+# src/shared/utils/classNames.ts
+
+```ts
+function classNames(
+  ...args: Array<
+    string | string[] | { [key: string]: string | number | boolean }
+  >
+): string {
+  const objClasses =
+    typeof args === 'object'
+      ? Object.keys(args).filter((key) => args[key])
+      : [];
+  const allClasses = [...args, ...objClasses].filter(Boolean);
+  return allClasses.join(' ');
+}
+
+export { classNames };
+
+```
+
 # src/pages/providers/with-providers.tsx
 
 ```tsx
@@ -1025,34 +1026,31 @@ export const withProviders = compose(providers);
 
 ```tsx
 import React from 'react';
-import { TripValue } from '../../types/trip';
+import { Trip } from '../../types/trip';
 import { H1 } from '../../shared/ui/typography/h1';
 import { Text } from '../../shared/ui/typography/text';
 import { Button } from '../../shared/ui/button/button';
 import styles from './trip-view.module.css';
 
 interface TripViewProps {
-  trip: TripValue;
+  trip: Trip;
   onMarkAsCompleted: (tripId: string) => void;
 }
 
 export function TripView({ trip, onMarkAsCompleted }: TripViewProps) {
   return (
     <div className={styles.tripView}>
-      <img src={trip.image} alt={trip.name} className={styles.image} />
-      <H1>{trip.name}</H1>
-      {!trip.completed && (
+      <img src={trip.photo_url} alt={trip.title} className={styles.image} />
+      <H1>{trip.title}</H1>
+      {trip.status === 'todo' && (
         <Button
           variant="link"
           onClick={() => onMarkAsCompleted(trip.id)}
-          disabled={trip.completed}
+          disabled={trip.status === 'completed'}
         >
           Mark as completed ☑️
         </Button>
       )}
-      <Text variant="normal" className={styles.introduction}>
-        {trip.introduction}
-      </Text>
       <Text variant="normal" className={styles.description}>
         {trip.description}
       </Text>
@@ -1115,132 +1113,6 @@ export function TripView({ trip, onMarkAsCompleted }: TripViewProps) {
 .itineraryDay {
   font-size: 1.2rem;
   margin-bottom: 10px;
-}
-
-```
-
-# src/shared/utils/classNames.ts
-
-```ts
-function classNames(
-  ...args: Array<
-    string | string[] | { [key: string]: string | number | boolean }
-  >
-): string {
-  const objClasses =
-    typeof args === 'object'
-      ? Object.keys(args).filter((key) => args[key])
-      : [];
-  const allClasses = [...args, ...objClasses].filter(Boolean);
-  return allClasses.join(' ');
-}
-
-export { classNames };
-
-```
-
-# src/enteties/card/card.tsx
-
-```tsx
-import React from 'react';
-import { H4 } from '../../shared/ui/typography/h4';
-import { Text } from '../../shared/ui/typography/text';
-import { Button } from '../../shared/ui/button/button';
-import { TripValue } from '../../types/trip';
-import styles from './card.module.css';
-
-interface CardProps {
-  trip: TripValue;
-  handleDetails: (trip: TripValue['id']) => void;
-  handleEdit: (trip: TripValue['id']) => void;
-  handleDelete: (tripId: TripValue['id']) => void;
-}
-
-export function Card({
-  trip,
-  handleDetails,
-  handleEdit,
-  handleDelete,
-}: CardProps) {
-  return (
-    <div className={styles.card}>
-      <div className={styles.imageContainer}>
-        <img src={trip.image} alt={trip.name} className={styles.image} />
-      </div>
-      <div className={styles.content}>
-        <H4>{trip.name}</H4>
-        <Text variant="normal" className={styles.introduction}>
-          {trip.introduction}
-        </Text>
-        <div className={styles.actions}>
-          <Button variant="link" onClick={() => handleDetails(trip.id)}>
-            See trip details
-          </Button>
-          <div className={styles.subactions}>
-            <Button variant="link" onClick={() => handleEdit(trip.id)}>
-              Edit
-            </Button>
-            <Button variant="link-danger" onClick={() => handleDelete(trip.id)}>
-              Delete
-            </Button>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-```
-
-# src/enteties/card/card.module.css
-
-```css
-.card {
-  display: flex;
-  border: 0.0625rem solid #e0e0e0;
-  border-radius: 0.5rem;
-  overflow: hidden;
-  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
-
-  width: 100%;
-  height: 12.875rem;
-}
-
-.imageContainer {
-  flex: 1;
-  max-width: 50%;
-}
-
-.image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.content {
-  flex: 1;
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-}
-
-.introduction {
-  margin-top: 0.5rem;
-  margin-bottom: 1rem;
-}
-
-.actions {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-top: auto;
-}
-
-.subactions {
-  display: flex;
-  justify-content: flex-start;
-  gap: 1rem;
-  margin-top: auto;
 }
 
 ```
@@ -1365,26 +1237,30 @@ export function Modal({ isOpen, onClose, children }: ModalProps) {
 
 ```tsx
 import React from 'react';
+import { useForm } from 'react-hook-form';
+import { UseFormRegister, FieldValues } from 'react-hook-form';
 import { Button } from '../../shared/ui/button/button';
 import { TextInput } from '../../shared/ui/form/text-input';
 
 type SearchBarProps = {
   onClick: (value: string) => void;
 };
-export function SearchBar(props: SearchBarProps) {
-  const [searchValue, setSearchValue] = React.useState('');
-  const { value, onClick } = props;
+
+export function SearchBar({ onClick }: SearchBarProps) {
+  const { register, handleSubmit } = useForm();
+
+  const onSubmit = (data) => {
+    onClick(data.searchValue);
+  };
+
   return (
-    <TextInput
-      value={searchValue}
-      onChange={setSearchValue}
-      placeholder="Search trips"
-      id="search-bar-input"
-    >
-      <Button icon="search" size="small" onClick={() => onClick(value)}>
-        Search
-      </Button>
-    </TextInput>
+    <form onSubmit={handleSubmit(onSubmit)} className="search-bar-form">
+      <TextInput
+        {...register('searchValue')}
+        placeholder="Search trips"
+        id="search-bar-input"
+      ></TextInput>
+    </form>
   );
 }
 
@@ -1450,6 +1326,247 @@ export function Header({ onCreateNewTrip }: HeaderProps) {
   font-size: 1.5rem;
   color: #121212;
   font-weight: bold;
+}
+
+```
+
+# src/enteties/card/card.tsx
+
+```tsx
+import React from 'react';
+import { H4 } from '../../shared/ui/typography/h4';
+import { Text } from '../../shared/ui/typography/text';
+import { Button } from '../../shared/ui/button/button';
+import { Trip } from '../../types/trip';
+import styles from './card.module.css';
+
+interface CardProps {
+  trip: Trip;
+  handleDetails: (trip: Trip['id']) => void;
+  handleEdit: (trip: Trip['id']) => void;
+  handleDelete: (tripId: Trip['id']) => void;
+}
+
+export function Card({
+  trip,
+  handleDetails,
+  handleEdit,
+  handleDelete,
+}: CardProps) {
+  return (
+    <div className={styles.card}>
+      <div className={styles.imageContainer}>
+        <img src={trip.photo_url} alt={trip.title} className={styles.image} />
+      </div>
+      <div className={styles.content}>
+        <H4>{trip.title}</H4>
+        <Text variant="normal" className={styles.introduction}>
+          {trip.description}
+        </Text>
+        <div className={styles.actions}>
+          <Button variant="link" onClick={() => handleDetails(trip.id)}>
+            See trip details
+          </Button>
+          <div className={styles.subactions}>
+            <Button variant="link" onClick={() => handleEdit(trip.id)}>
+              Edit
+            </Button>
+            <Button variant="link-danger" onClick={() => handleDelete(trip.id)}>
+              Delete
+            </Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+```
+
+# src/enteties/card/card.module.css
+
+```css
+.card {
+  display: flex;
+  border: 0.0625rem solid #e0e0e0;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
+
+  width: 100%;
+  height: 12.875rem;
+}
+
+.imageContainer {
+  flex: 1;
+  max-width: 50%;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.content {
+  flex: 1;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.introduction {
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: auto;
+}
+
+.subactions {
+  display: flex;
+  justify-content: flex-start;
+  gap: 1rem;
+  margin-top: auto;
+}
+
+```
+
+# src/feature/trip-form/trip-form.tsx
+
+```tsx
+import React from 'react';
+import { useForm, useFieldArray } from 'react-hook-form';
+import { H1 } from '../../shared/ui/typography/h1';
+import { H4 } from '../../shared/ui/typography/h4';
+import { Trip } from '../../types/trip';
+import { TextInput } from '../../shared/ui/form/text-input';
+import { TextArea } from '../../shared/ui/form/text-area';
+import { Button } from '../../shared/ui/button/button';
+import styles from './trip-form.module.css';
+
+interface TripFormProps {
+  initialData?: Trip;
+  onSubmit: (data: Trip) => void;
+  title: string;
+  buttonText: string;
+}
+
+export function TripForm({
+  initialData,
+  onSubmit,
+  title,
+  buttonText,
+}: TripFormProps) {
+  const { register, control, handleSubmit } = useForm({
+    defaultValues: initialData || {
+      id: '',
+      name: '',
+      image: '',
+      introduction: '',
+      description: '',
+      completed: false,
+      itinerary: [{ day: 1, location: '', description: '' }],
+    },
+  });
+
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: 'itinerary',
+  });
+
+  const onFormSubmit = (data: Trip) => {
+    onSubmit(data);
+  };
+
+  return (
+    <form onSubmit={handleSubmit(onFormSubmit)} className={styles.form}>
+      <H1>{title}</H1>
+
+      <TextInput label="Title" id="title" {...register('title')} />
+
+      <TextInput label="Image URL" id="photo_url" {...register('photo_url')} />
+
+      <TextArea
+        label="Description"
+        id="description"
+        {...register('description')}
+      />
+
+      <div className={styles.itinerarySection}>
+        <H4>Itinerary</H4>
+        {fields.map((field, index) => (
+          <div key={field.id} className={styles.itineraryItem}>
+            <TextInput
+              id={`itinerary.${index}.day`}
+              type="number"
+              {...register(`itinerary.${index}.day` as const)}
+            />
+            <TextInput
+              label="Location"
+              id={`itinerary.${index}.location`}
+              {...register(`itinerary.${index}.location` as const)}
+            />
+            <TextArea
+              label="Description"
+              id={`itinerary.${index}.description`}
+              {...register(`itinerary.${index}.description` as const)}
+            />
+            <Button
+              type="button"
+              onClick={() => remove(index)}
+              variant="link-danger"
+            >
+              Remove Day
+            </Button>
+          </div>
+        ))}
+        <Button
+          type="button"
+          onClick={() =>
+            append({ day: fields.length + 1, location: '', description: '' })
+          }
+        >
+          Add Day
+        </Button>
+      </div>
+
+      <Button type="submit">{buttonText}</Button>
+    </form>
+  );
+}
+
+```
+
+# src/feature/trip-form/trip-form.module.css
+
+```css
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 37.5rem;
+  margin: 0 auto;
+}
+.itinerarySection {
+  border: 0.0625rem solid #ccc;
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+.itineraryItem {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 0.0625rem solid #eee;
+}
+.itineraryItem:last-child {
+  border-bottom: none;
 }
 
 ```
@@ -1598,91 +1715,100 @@ export { H1 };
 
 ```
 
+# src/shared/ui/header/Header.tsx
+
+```tsx
+import React from 'react';
+import styles from './Header.module.css';
+
+function HeaderComponent(props: React.PropsWithChildren) {
+  const { children } = props;
+  return <header className={styles.header}>{children}</header>;
+}
+const Header = React.memo(HeaderComponent);
+export { Header };
+
+```
+
+# src/shared/ui/header/Header.module.css
+
+```css
+.header {
+  display: flex;
+  align-items: baseline;
+  gap: 0.9375em;
+
+  > *:first-child,
+  *:last-child {
+    flex-shrink: 0;
+  }
+}
+
+```
+
 # src/shared/ui/form/text-input.tsx
 
 ```tsx
-import React, { ChangeEvent } from 'react';
+import React, { forwardRef } from 'react';
 import styles from './form-field.module.css';
 import { Label } from './label';
 
-interface TextInputProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
-  label?: string;
-  id: string;
-  children?: React.ReactNode;
-  onChange?: (value: string) => void;
-}
+export const TextInput = forwardRef(
+  (
+    { label, id, placeholder, type = 'text', children, value, ...props },
+    ref,
+  ) => {
+    return (
+      <div className={styles.fieldContainer}>
+        <Label htmlFor={id}>{label}</Label>
+        <input
+          ref={ref}
+          value={value}
+          id={id}
+          className={styles.input}
+          type={type}
+          placeholder={placeholder}
+          {...props}
+        />
+        {children}
+      </div>
+    );
+  },
+);
 
-export function TextInput({
-  label,
-  id,
-  placeholder,
-  type = 'text',
-  children,
-  onChange,
-  value,
-  ...props
-}: TextInputProps) {
-  return (
-    <div className={styles.fieldContainer}>
-      <Label htmlFor={id}>{label}</Label>
-      <input
-        value={value}
-        id={id}
-        className={styles.input}
-        type={type}
-        placeholder={placeholder}
-        onChange={(event: ChangeEvent<HTMLInputElement>) =>
-          onChange && onChange(event.target.value)
-        }
-        {...props}
-      />
-      {children}
-    </div>
-  );
-}
+TextInput.displayName = 'TextInput';
 
 ```
 
 # src/shared/ui/form/text-area.tsx
 
 ```tsx
-import React from 'react';
+import React, { forwardRef } from 'react';
 import styles from './form-field.module.css';
 import { Label } from './label';
 
-interface TextAreaProps
-  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
-  label: string;
-  id: string;
-  maxLength?: number;
-  initialHeight?: string;
-}
+export const TextArea = forwardRef(
+  ({ label, id, maxLength, placeholder, ...props }, ref) => {
+    return (
+      <div className={styles.fieldContainer}>
+        <Label htmlFor={id} maxLength={maxLength}>
+          {label}
+        </Label>
+        <textarea
+          ref={ref}
+          id={id}
+          className={styles.textarea}
+          placeholder={placeholder}
+          maxLength={maxLength}
+          style={{ height: '150px' }}
+          {...props}
+        />
+      </div>
+    );
+  },
+);
 
-export function TextArea({
-  label,
-  id,
-  maxLength,
-  initialHeight = '150px',
-  placeholder,
-  ...props
-}: TextAreaProps) {
-  return (
-    <div className={styles.fieldContainer}>
-      <Label htmlFor={id} maxLength={maxLength}>
-        {label}
-      </Label>
-      <textarea
-        id={id}
-        className={styles.textarea}
-        placeholder={placeholder}
-        maxLength={maxLength}
-        style={{ height: initialHeight }}
-        {...props}
-      />
-    </div>
-  );
-}
+TextArea.displayName = 'TextArea';
 
 ```
 
@@ -1849,131 +1975,6 @@ export function Label({ htmlFor, children, maxLength, ...props }: LabelProps) {
 
 ```
 
-# src/shared/ui/header/Header.tsx
-
-```tsx
-import React from 'react';
-import styles from './Header.module.css';
-
-function HeaderComponent(props: React.PropsWithChildren) {
-  const { children } = props;
-  return <header className={styles.header}>{children}</header>;
-}
-const Header = React.memo(HeaderComponent);
-export { Header };
-
-```
-
-# src/shared/ui/header/Header.module.css
-
-```css
-.header {
-  display: flex;
-  align-items: baseline;
-  gap: 0.9375em;
-
-  > *:first-child,
-  *:last-child {
-    flex-shrink: 0;
-  }
-}
-
-```
-
-# src/shared/ui/button-group/button-group.tsx
-
-```tsx
-import React from 'react';
-import { TripFilters } from '../../../types/trip';
-import styles from './button-group.module.css';
-
-type ButtonGroupProps = {
-  children: React.ReactNode;
-  className?: string;
-  value: TripFilters;
-  onClick: (value: number) => void;
-};
-
-export function ButtonGroup({
-  children,
-  className = '',
-  value,
-  onClick,
-}: ButtonGroupProps) {
-  return (
-    <div className={`${styles.buttonGroup} ${className}`}>
-      {React.Children.map(children, (child, index) => {
-        if (
-          React.isValidElement<React.HTMLAttributes<HTMLButtonElement>>(child)
-        ) {
-          let positionClass = '';
-          if (index === 0) {
-            positionClass = styles.first;
-          } else if (index === React.Children.count(children) - 1) {
-            positionClass = styles.last;
-          }
-
-          return React.cloneElement(child, {
-            className: `${child.props.className || ''} ${styles.groupButton} ${positionClass}`,
-            active: index === value,
-            onClick: () => onClick(index),
-          });
-        }
-        return child;
-      })}
-    </div>
-  );
-}
-
-```
-
-# src/shared/ui/button-group/button-group.module.css
-
-```css
-.buttonGroup {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  padding: 0;
-  width: 19.0625rem;
-  height: 3rem;
-  border: 1px solid #D8D8D8;
-  border-radius: 6.25rem;
-  overflow: hidden;
-}
-
-.groupButton {
-  flex: 1;
-  border: none;
-  transition: background-color 0.3s ease;
-}
-
-.groupButton:not(:last-child) {
-  border-right: 1px solid #D8D8D8;
-}
-
-.groupButton:hover {
-  opacity: .7;
-}
-
-.groupButton.selected {
-  opacity: .8;
-}
-
-.groupButton:not(.first):not(.last) {
-  border-radius: 0;
-}
-
-.first {
-  border-radius: 6.25rem 0 0 6.25rem;
-}
-
-.last {
-  border-radius: 0 6.25rem 6.25rem 0;
-}
-
-```
-
 # src/shared/ui/button/button.tsx
 
 ```tsx
@@ -2098,6 +2099,100 @@ export function Button({
 
 .active {
   opacity: 0.6;
+}
+
+```
+
+# src/shared/ui/button-group/button-group.tsx
+
+```tsx
+import React from 'react';
+import { TripFilters } from '../../../types/trip';
+import styles from './button-group.module.css';
+
+type ButtonGroupProps = {
+  children: React.ReactNode;
+  className?: string;
+  value: TripFilters;
+  onClick: (value: number) => void;
+};
+
+export function ButtonGroup({
+  children,
+  className = '',
+  value,
+  onClick,
+}: ButtonGroupProps) {
+  return (
+    <div className={`${styles.buttonGroup} ${className}`}>
+      {React.Children.map(children, (child, index) => {
+        if (
+          React.isValidElement<React.HTMLAttributes<HTMLButtonElement>>(child)
+        ) {
+          let positionClass = '';
+          if (index === 0) {
+            positionClass = styles.first;
+          } else if (index === React.Children.count(children) - 1) {
+            positionClass = styles.last;
+          }
+
+          return React.cloneElement(child, {
+            className: `${child.props.className || ''} ${styles.groupButton} ${positionClass}`,
+            active: index === value,
+            onClick: () => onClick(index),
+          });
+        }
+        return child;
+      })}
+    </div>
+  );
+}
+
+```
+
+# src/shared/ui/button-group/button-group.module.css
+
+```css
+.buttonGroup {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0;
+  width: 19.0625rem;
+  height: 3rem;
+  border: 1px solid #D8D8D8;
+  border-radius: 6.25rem;
+  overflow: hidden;
+}
+
+.groupButton {
+  flex: 1;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.groupButton:not(:last-child) {
+  border-right: 1px solid #D8D8D8;
+}
+
+.groupButton:hover {
+  opacity: .7;
+}
+
+.groupButton.selected {
+  opacity: .8;
+}
+
+.groupButton:not(.first):not(.last) {
+  border-radius: 0;
+}
+
+.first {
+  border-radius: 6.25rem 0 0 6.25rem;
+}
+
+.last {
+  border-radius: 0 6.25rem 6.25rem 0;
 }
 
 ```
