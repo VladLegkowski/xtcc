@@ -10,16 +10,17 @@ type SearchBarProps = {
 export function SearchBar({ onClick }: SearchBarProps) {
   const { register, handleSubmit } = useForm();
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: { searchValue: string }) => {
     onClick(data.searchValue);
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form role="search" onSubmit={handleSubmit(onSubmit)}>
       <TextInput
         {...register('searchValue')}
         placeholder="Search trips"
         id="search-bar-input"
+        aria-label="search-bar-input"
       >
         <Button icon="search" size="small" type="submit">
           Search

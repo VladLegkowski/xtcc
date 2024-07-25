@@ -5,19 +5,16 @@ import { Button } from '../../shared/ui/button/button';
 import { Trip } from '../../types/trip';
 import styles from './card.module.css';
 
-interface CardProps {
+type CardProps = {
   trip: Trip;
   handleDetails: (trip: Trip['id']) => void;
   handleEdit: (trip: Trip['id']) => void;
   handleDelete: (tripId: Trip['id']) => void;
-}
+};
 
-export function Card({
-  trip,
-  handleDetails,
-  handleEdit,
-  handleDelete,
-}: CardProps) {
+export function Card(props: CardProps) {
+  const { trip, handleDetails, handleEdit, handleDelete } = props;
+
   return (
     <div className={styles.card}>
       <div className={styles.imageContainer}>

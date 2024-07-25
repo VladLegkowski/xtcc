@@ -9,12 +9,9 @@ type ButtonGroupProps = {
   onClick: (value: number) => void;
 };
 
-export function ButtonGroup({
-  children,
-  className = '',
-  value,
-  onClick,
-}: ButtonGroupProps) {
+export function ButtonGroup(props: ButtonGroupProps) {
+  const { children, className = '', value, onClick } = props;
+
   return (
     <div className={`${styles.buttonGroup} ${className}`}>
       {React.Children.map(children, (child, index) => {

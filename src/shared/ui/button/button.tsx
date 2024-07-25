@@ -1,4 +1,5 @@
 import React from 'react';
+import clsx from 'clsx';
 import styles from './button.module.css';
 
 type ButtonVariant =
@@ -9,24 +10,33 @@ type ButtonVariant =
   | 'link-danger';
 type ButtonSize = 'default' | 'small';
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: ButtonVariant;
   size?: ButtonSize;
   className?: string;
   active?: boolean;
-}
+};
 
-export function Button({
-  children,
-  variant = 'primary',
-  size = 'default',
-  className = '',
-  active,
-  ...props
-}: ButtonProps) {
-  const buttonClass = `${styles.button} ${styles[variant]} ${styles[size]} ${className} ${active ? styles.active : undefined}`;
+export function Button(props: ButtonProps) {
+  const {
+    children,
+    variant = 'primary',
+    size = 'default',
+    className = '',
+    active,
+    ...otherProps
+  } = props;
+
+  const buttonClass: string = clsx(
+    styles.button,
+    styles[variant],
+    styles[size],
+    className,
+    { [styles.active]: active },
+  );
+
   return (
-    <button type="button" className={buttonClass} {...props}>
+    <button type="button" className={buttonClass} {...otherProps}>
       {children}
     </button>
   );

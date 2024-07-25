@@ -3,13 +3,14 @@ import { createPortal } from 'react-dom';
 import { Button } from '../../shared/ui/button/button';
 import styles from './modal.module.css';
 
-interface ModalProps {
+type ModalProps = {
   isOpen: boolean;
   onClose: () => void;
   children: React.ReactNode;
-}
+};
 
-export function Modal({ isOpen, onClose, children }: ModalProps) {
+export function Modal(props: ModalProps) {
+  const { isOpen, onClose, children } = props;
   const modalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

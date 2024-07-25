@@ -1,9 +1,9 @@
 import React from 'react';
 import styles from './Header.module.css';
 
-function HeaderComponent(props: React.PropsWithChildren) {
+type HeaderProps = { children: React.ReactNode };
+
+export function Header(props: HeaderProps) {
   const { children } = props;
   return <header className={styles.header}>{children}</header>;
 }
-const Header = React.memo(HeaderComponent);
-export { Header };

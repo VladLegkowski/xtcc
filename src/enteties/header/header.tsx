@@ -1,23 +1,20 @@
 import React from 'react';
-import styles from './header.module.css';
 import { Button } from '../../shared/ui/button/button';
+import styles from './header.module.css';
 
-interface HeaderProps {
+type HeaderProps = {
   onCreateNewTrip: () => void;
-}
+};
 
-export function Header({ onCreateNewTrip }: HeaderProps) {
+export function Header(props: HeaderProps) {
+  const { onCreateNewTrip } = props;
+
   return (
     <nav className={styles.nav}>
       <div className={styles.iconContainer}>
         <span className={styles.icon}>e</span>
       </div>
-      <Button
-        variant="secondary"
-        size="default"
-        onClick={onCreateNewTrip}
-        className={styles.createButton}
-      >
+      <Button variant="secondary" size="default" onClick={onCreateNewTrip}>
         Create new trip
       </Button>
     </nav>

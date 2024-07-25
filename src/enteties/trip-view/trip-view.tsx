@@ -1,6 +1,5 @@
 import React from 'react';
 import { useLoaderData, useNavigate, useParams } from 'react-router-dom';
-import { Trip } from '../../types/trip';
 import { H1 } from '../../shared/ui/typography/h1';
 import { Text } from '../../shared/ui/typography/text';
 import { Button } from '../../shared/ui/button/button';
@@ -8,10 +7,9 @@ import { Modal } from '../modal/modal';
 import styles from './trip-view.module.css';
 
 export function TripView() {
-  const trip = useLoaderData() as { trip: Trip };
+  const trip = useLoaderData();
   const navigate = useNavigate();
   const params = useParams();
-
   const [isModalOpen, setIsModalOpen] = React.useState(false);
 
   const closeModal = () => {
