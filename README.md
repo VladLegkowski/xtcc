@@ -1,44 +1,66 @@
-![image](https://user-images.githubusercontent.com/17318500/220427659-6a340aa6-19a4-4cdb-95a2-7f48646555cf.png)
+![Dream Travels Logo](https://private-user-images.githubusercontent.com/17318500/352107907-25fd86ad-52cc-45c4-91e1-872c2d24703b.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MjE5MTEzNzAsIm5iZiI6MTcyMTkxMTA3MCwicGF0aCI6Ii8xNzMxODUwMC8zNTIxMDc5MDctMjVmZDg2YWQtNTJjYy00NWM0LTkxZTEtODcyYzJkMjQ3MDNiLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDA3MjUlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwNzI1VDEyMzc1MFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTQxNDYxY2M1OTAxNTQ4ZjEyMzIzMTVhYzkzMzBjMmQ1ZTIwNjg2OWQwMTA3ZGIyNDEwMDAxZmExZjk3N2E4YzImWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.DaUyCZqUVx6OR8HxptMg8GrESks5a8m0R2eIQBwVuHE)
+
+# Dream Travels
+
+Dream Travels is your personal space to add wild destinations and keep the flame of your past adventures alive. It's like your own dream journal, but with a passport!
+
+## Table of Contents
+
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Running the Application](#running-the-application)
+- [Features](#features)
+- [Architecture and Design](#architecture-and-design)
+- [Testing](#testing)
+- [Technologies Used](#technologies-used)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## Prerequisites
 
 - node<sub><sup>`v20.10.0`</sup></sub>
 - npm<sub><sup>`v10.2.3`</sup></sub>
 
-## Install
+## Installation
 
 1. Run `npm install`.
 
-## Running the application
+## Running the Application
 
-1. Run `npm start` to start the client.
+1. Run `json:server` and then `npm start` to start the client.
 2. Check it out under:  `http://localhost:1234/`.
 
-### The Application
+## Features
 
+- Add and manage travel destinations
+- View detailed information about each trip
+- Mark trips as completed
+- Search and filter trips
+- Responsive design for various screen sizes
 
-### General Approach
+## Architecture and Design
 
-* The architecture is loosely based on feature sliced design architecture.
-* The app bundler is `ParcelJs`.
-* The application is written in `Typescript`.
-* The styles are written in `CSS`, using `PostCss` `css modules`.
-* Apart of the `React` itself, I used only one module - `React Router`. Although it is an overkill for this app, its a good fundamental in case the app has to grow and display more interfaces.
+- The architecture is loosely based on the Feature Sliced Design architecture.
+- App uses slightly unconventional approach, where each modal is a page, meaning that user can enter directly http://localhost:1234/trip/1 and see the modal loaded with the content. Same goes for edit and create. I wanted to take opportunity to try something new while doing this task.
+- The application uses ParcelJS as the bundler.
+- Typescript is used throughout the application for type safety.
+- Styles are written in CSS, utilizing PostCSS and CSS modules for scoped styling.
+- React Router is used for navigation, providing a foundation for potential future growth.
 
-### Testing
+## Testing
 
-**Unit testing** `npm run test:unit`  | `Jest` &  `@testing-library/react`.
+- **Unit Testing**: Run `npm run test:unit`
+- Uses Jest and @testing-library/react
+- **E2E Testing**: Run `npm run test:e2e`
+- Uses Cypress for end-to-end testing
 
-**e2e testing** `npm run test:e2e` | `Cypress`
-
-Currently, there are test only for the main business logic and a happy path for e2e.
-
-### Libs/tools used
+## Technologies Used
 
 * [Typescript](https://www.typescriptlang.org/)
 * [ES2019](https://262.ecma-international.org/10.0/)
 * [React](https://facebook.github.io/react/)
 * [React Router](https://reactrouter.com/en/main)
+* [React Hook Form](https://react-hook-form.com)
 * [Jest](https://jestjs.io/)
 * [React Testing Library](https://testing-library.com/docs/react-testing-library/intro)
 * [Cypress](https://www.cypress.io/)

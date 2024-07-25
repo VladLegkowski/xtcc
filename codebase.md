@@ -59,6 +59,7 @@ module.export = {};
     "build": "parcel build",
     "test:unit": "jest --watchAll=false",
     "test:e2e": "cypress run --browser chrome",
+    "json:server": "npx json-server db.json",
     "cypress:open": "cypress open",
     "prettier": "prettier --write ."
   },
@@ -107,9 +108,10 @@ module.export = {};
   },
   "dependencies": {
     "clsx": "^2.1.1",
+    "compose-function": "^3.0.3",
     "react": "^18.3.1",
-    "react-error-boundary": "^4.0.13",
     "react-dom": "^18.3.1",
+    "react-error-boundary": "^4.0.13",
     "react-hook-form": "^7.52.1",
     "react-router-dom": "^6.25.1",
     "uuid": "^10.0.0"
@@ -227,7 +229,7 @@ module.exports = {
     },
     {
       "id": "6",
-      "title": "South Korea",
+      "title": "South Koreaa",
       "description": "Explore the enchanting landscapes and rich cultural heritage of South Korea. From the bustling streets of Seoul to the historic sites of Gyeongju, and the serene beauty of Jeju Island, South Korea invites you on an immersive journey through its vibrant cities and picturesque landscapes.",
       "photo_url": "https://lp-cms-production.imgix.net/2019-06/09a64fea2933f6da77ab07d671d1f678-south-korea.jpg",
       "status": "done",
@@ -253,34 +255,9 @@ module.exports = {
           "description": "Stroll through the picturesque streets of the Yangdong Folk Village and visit the beautiful Anapji Pond."
         }
       ]
-    },
-    {
-      "id": "7",
-      "title": "Slovenia",
-      "description": "Embark on a picturesque journey to Slovenia, where the charming streets of Ljubljana enchant, the emerald waters of Lake Bled captivate, and the flavors of Slovenian cuisine delight your taste buds. From the medieval charm of Škofja Loka to the majestic Triglav National Park, Slovenia invites you to explore its diverse landscapes and embrace the warmth of its rich cultural heritage.",
-      "photo_url": "https://miro.medium.com/v2/resize:fit:1400/1*h_nQx6iZZ3wUe-RTgzlMjw.jpeg",
-      "status": "done",
-      "itinerary": [
-        {
-          "day": 1,
-          "location": "Ljubljana",
-          "description": "Stroll through the historic streets of Ljubljana, visit Ljubljana Castle, and indulge in local delicacies at the Central Market."
-        },
-        {
-          "day": 2,
-          "location": "Bled",
-          "description": "Experience the magic of Lake Bled, take a traditional pletna boat to Bled Island, and hike to Bled Castle for panoramic views."
-        },
-        {
-          "day": 3,
-          "location": "Škofja Loka",
-          "description": "Explore the medieval town of Škofja Loka, wander through its charming old town, and visit the Škofja Loka Castle."
-        }
-      ]
     }
   ]
 }
-
 ```
 
 # cypress.config.ts
@@ -306,7 +283,7 @@ export default defineConfig({
 # README.md
 
 ```md
-![image](https://user-images.githubusercontent.com/17318500/220427659-6a340aa6-19a4-4cdb-95a2-7f48646555cf.png)
+![image](https://private-user-images.githubusercontent.com/17318500/352107907-25fd86ad-52cc-45c4-91e1-872c2d24703b.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MjE5MTEzNzAsIm5iZiI6MTcyMTkxMTA3MCwicGF0aCI6Ii8xNzMxODUwMC8zNTIxMDc5MDctMjVmZDg2YWQtNTJjYy00NWM0LTkxZTEtODcyYzJkMjQ3MDNiLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDA3MjUlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwNzI1VDEyMzc1MFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTQxNDYxY2M1OTAxNTQ4ZjEyMzIzMTVhYzkzMzBjMmQ1ZTIwNjg2OWQwMTA3ZGIyNDEwMDAxZmExZjk3N2E4YzImWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.DaUyCZqUVx6OR8HxptMg8GrESks5a8m0R2eIQBwVuHE)
 
 ## Prerequisites
 
@@ -319,10 +296,11 @@ export default defineConfig({
 
 ## Running the application
 
-1. Run `npm start` to start the client.
+1. Run `json:server` and then `npm start` to start the client.
 2. Check it out under:  `http://localhost:1234/`.
 
 ### The Application
+Dream Travels is your space to add wild destinations and keep the flame of your past adventures alive. It's like your own dream journal, but with a passport!
 
 
 ### General Approach
@@ -665,7 +643,8 @@ root.render(
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Apdex Board</title>
+    <title>Dream Travels</title>
+    <link rel="shortcut icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✈️</text></svg>">
     <link rel="stylesheet" href="index.css" />
   </head>
   <body>
@@ -725,53 +704,40 @@ BRH:0
 end_of_record
 TN:
 SF:src/api/trips.tsx
-FN:5,getTrips
-FN:13,getTrip
-FN:21,createTrip
-FN:37,updateTrip
-FN:53,deleteTrip
-FNF:5
-FNH:0
-FNDA:0,getTrips
-FNDA:0,getTrip
-FNDA:0,createTrip
-FNDA:0,updateTrip
-FNDA:0,deleteTrip
-DA:3,0
-DA:6,0
-DA:7,0
-DA:8,0
-DA:10,0
-DA:14,0
-DA:15,0
-DA:16,0
-DA:18,0
-DA:22,0
-DA:30,0
-DA:31,0
-DA:34,0
-DA:38,0
-DA:46,0
-DA:47,0
-DA:50,0
-DA:54,0
-DA:55,0
-DA:58,0
-DA:59,0
-LF:21
-LH:0
-BRDA:7,0,0,0
-BRDA:7,0,1,0
-BRDA:15,1,0,0
-BRDA:15,1,1,0
-BRDA:30,2,0,0
-BRDA:30,2,1,0
-BRDA:46,3,0,0
-BRDA:46,3,1,0
-BRDA:58,4,0,0
-BRDA:58,4,1,0
-BRF:10
-BRH:0
+FN:10,apiCall
+FN:29,getTrips
+FN:33,getTrip
+FN:39,createTrip
+FN:49,updateTrip
+FN:59,deleteTrip
+FNF:6
+FNH:6
+FNDA:10,apiCall
+FNDA:2,getTrips
+FNDA:2,getTrip
+FNDA:2,createTrip
+FNDA:2,updateTrip
+FNDA:2,deleteTrip
+DA:3,1
+DA:14,10
+DA:15,10
+DA:16,5
+DA:17,0
+DA:19,5
+DA:21,5
+DA:30,2
+DA:36,2
+DA:40,2
+DA:50,2
+DA:60,2
+LF:12
+LH:11
+BRDA:16,0,0,0
+BRDA:16,0,1,5
+BRDA:24,1,0,5
+BRDA:24,1,1,0
+BRF:4
+BRH:2
 end_of_record
 TN:
 SF:src/app/app.tsx
@@ -887,15 +853,15 @@ SF:src/enteties/search-bar/search-bar.tsx
 FN:10,SearchBar
 FN:13,(anonymous_1)
 FNF:2
-FNH:0
-FNDA:0,SearchBar
-FNDA:0,(anonymous_1)
-DA:11,0
-DA:13,0
-DA:14,0
-DA:17,0
+FNH:2
+FNDA:3,SearchBar
+FNDA:2,(anonymous_1)
+DA:11,3
+DA:13,3
+DA:14,2
+DA:17,3
 LF:4
-LH:0
+LH:4
 BRF:0
 BRH:0
 end_of_record
@@ -1069,17 +1035,17 @@ SF:src/shared/ui/button/button.tsx
 FN:20,Button
 FNF:1
 FNH:1
-FNDA:2,Button
-DA:28,2
-DA:30,2
-DA:38,2
+FNDA:5,Button
+DA:28,5
+DA:30,5
+DA:38,5
 LF:3
 LH:3
-BRDA:23,0,0,0
+BRDA:23,0,0,3
 BRDA:24,1,0,2
-BRDA:25,2,0,2
+BRDA:25,2,0,5
 BRF:3
-BRH:2
+BRH:3
 end_of_record
 TN:
 SF:src/shared/ui/button-group/button-group.tsx
@@ -1120,16 +1086,16 @@ TN:
 SF:src/shared/ui/form/label.tsx
 FN:9,Label
 FNF:1
-FNH:0
-FNDA:0,Label
-DA:10,0
-DA:12,0
+FNH:1
+FNDA:3,Label
+DA:10,3
+DA:12,3
 LF:2
-LH:0
-BRDA:15,0,0,0
+LH:2
+BRDA:15,0,0,3
 BRDA:15,0,1,0
 BRF:2
-BRH:0
+BRH:1
 end_of_record
 TN:
 SF:src/shared/ui/form/select.tsx
@@ -1166,26 +1132,26 @@ TN:
 SF:src/shared/ui/form/text-input.tsx
 FN:5,(anonymous_0)
 FNF:1
-FNH:0
-FNDA:0,(anonymous_0)
-DA:5,0
-DA:14,0
-DA:16,0
-DA:33,0
+FNH:1
+FNDA:3,(anonymous_0)
+DA:5,1
+DA:14,3
+DA:16,3
+DA:33,1
 LF:4
-LH:0
-BRDA:10,0,0,0
+LH:4
+BRDA:10,0,0,3
 BRF:1
-BRH:0
+BRH:1
 end_of_record
 TN:
 SF:src/shared/ui/header/Header.tsx
-FN:4,Header
+FN:6,Header
 FNF:1
 FNH:0
 FNDA:0,Header
-DA:5,0
-DA:6,0
+DA:7,0
+DA:8,0
 LF:2
 LH:0
 BRF:0
@@ -1193,12 +1159,12 @@ BRH:0
 end_of_record
 TN:
 SF:src/shared/ui/typography/h1.tsx
-FN:4,H1
+FN:8,H1
 FNF:1
 FNH:0
 FNDA:0,H1
-DA:5,0
-DA:6,0
+DA:9,0
+DA:10,0
 LF:2
 LH:0
 BRF:0
@@ -1206,12 +1172,12 @@ BRH:0
 end_of_record
 TN:
 SF:src/shared/ui/typography/h4.tsx
-FN:4,H4
+FN:8,H4
 FNF:1
 FNH:0
 FNDA:0,H4
-DA:5,0
-DA:6,0
+DA:9,0
+DA:10,0
 LF:2
 LH:0
 BRF:0
@@ -1219,12 +1185,12 @@ BRH:0
 end_of_record
 TN:
 SF:src/shared/ui/typography/h5.tsx
-FN:4,H5
+FN:8,H5
 FNF:1
 FNH:0
 FNDA:0,H5
-DA:5,0
-DA:6,0
+DA:9,0
+DA:10,0
 LF:2
 LH:0
 BRF:0
@@ -1293,26 +1259,26 @@ end_of_record
 ```json
 {"/Users/vlad.legkovskii/Desktop/exoticca-test/src/index.tsx": {"path":"/Users/vlad.legkovskii/Desktop/exoticca-test/src/index.tsx","statementMap":{"0":{"start":{"line":5,"column":18},"end":{"line":5,"column":48}},"1":{"start":{"line":6,"column":13},"end":{"line":6,"column":45}},"2":{"start":{"line":7,"column":0},"end":{"line":11,"column":2}}},"fnMap":{},"branchMap":{},"s":{"0":0,"1":0,"2":0},"f":{},"b":{}}
 ,"/Users/vlad.legkovskii/Desktop/exoticca-test/src/style.module.css.d.ts": {"path":"/Users/vlad.legkovskii/Desktop/exoticca-test/src/style.module.css.d.ts","statementMap":{},"fnMap":{},"branchMap":{},"s":{},"f":{},"b":{}}
-,"/Users/vlad.legkovskii/Desktop/exoticca-test/src/api/trips.tsx": {"path":"/Users/vlad.legkovskii/Desktop/exoticca-test/src/api/trips.tsx","statementMap":{"0":{"start":{"line":3,"column":16},"end":{"line":3,"column":47}},"1":{"start":{"line":6,"column":19},"end":{"line":6,"column":39}},"2":{"start":{"line":7,"column":2},"end":{"line":9,"column":3}},"3":{"start":{"line":8,"column":4},"end":{"line":8,"column":45}},"4":{"start":{"line":10,"column":2},"end":{"line":10,"column":25}},"5":{"start":{"line":14,"column":19},"end":{"line":14,"column":50}},"6":{"start":{"line":15,"column":2},"end":{"line":17,"column":3}},"7":{"start":{"line":16,"column":4},"end":{"line":16,"column":44}},"8":{"start":{"line":18,"column":2},"end":{"line":18,"column":25}},"9":{"start":{"line":22,"column":19},"end":{"line":28,"column":4}},"10":{"start":{"line":30,"column":2},"end":{"line":32,"column":3}},"11":{"start":{"line":31,"column":4},"end":{"line":31,"column":45}},"12":{"start":{"line":34,"column":2},"end":{"line":34,"column":25}},"13":{"start":{"line":38,"column":19},"end":{"line":44,"column":4}},"14":{"start":{"line":46,"column":2},"end":{"line":48,"column":3}},"15":{"start":{"line":47,"column":4},"end":{"line":47,"column":45}},"16":{"start":{"line":50,"column":2},"end":{"line":50,"column":25}},"17":{"start":{"line":54,"column":2},"end":{"line":54,"column":28}},"18":{"start":{"line":55,"column":19},"end":{"line":57,"column":4}},"19":{"start":{"line":58,"column":2},"end":{"line":60,"column":3}},"20":{"start":{"line":59,"column":4},"end":{"line":59,"column":45}}},"fnMap":{"0":{"name":"getTrips","decl":{"start":{"line":5,"column":22},"end":{"line":5,"column":30}},"loc":{"start":{"line":5,"column":50},"end":{"line":11,"column":1}},"line":5},"1":{"name":"getTrip","decl":{"start":{"line":13,"column":22},"end":{"line":13,"column":29}},"loc":{"start":{"line":13,"column":69},"end":{"line":19,"column":1}},"line":13},"2":{"name":"createTrip","decl":{"start":{"line":21,"column":22},"end":{"line":21,"column":32}},"loc":{"start":{"line":21,"column":64},"end":{"line":35,"column":1}},"line":21},"3":{"name":"updateTrip","decl":{"start":{"line":37,"column":22},"end":{"line":37,"column":32}},"loc":{"start":{"line":37,"column":64},"end":{"line":51,"column":1}},"line":37},"4":{"name":"deleteTrip","decl":{"start":{"line":53,"column":22},"end":{"line":53,"column":32}},"loc":{"start":{"line":53,"column":60},"end":{"line":61,"column":1}},"line":53}},"branchMap":{"0":{"loc":{"start":{"line":7,"column":2},"end":{"line":9,"column":3}},"type":"if","locations":[{"start":{"line":7,"column":2},"end":{"line":9,"column":3}},{"start":{},"end":{}}],"line":7},"1":{"loc":{"start":{"line":15,"column":2},"end":{"line":17,"column":3}},"type":"if","locations":[{"start":{"line":15,"column":2},"end":{"line":17,"column":3}},{"start":{},"end":{}}],"line":15},"2":{"loc":{"start":{"line":30,"column":2},"end":{"line":32,"column":3}},"type":"if","locations":[{"start":{"line":30,"column":2},"end":{"line":32,"column":3}},{"start":{},"end":{}}],"line":30},"3":{"loc":{"start":{"line":46,"column":2},"end":{"line":48,"column":3}},"type":"if","locations":[{"start":{"line":46,"column":2},"end":{"line":48,"column":3}},{"start":{},"end":{}}],"line":46},"4":{"loc":{"start":{"line":58,"column":2},"end":{"line":60,"column":3}},"type":"if","locations":[{"start":{"line":58,"column":2},"end":{"line":60,"column":3}},{"start":{},"end":{}}],"line":58}},"s":{"0":0,"1":0,"2":0,"3":0,"4":0,"5":0,"6":0,"7":0,"8":0,"9":0,"10":0,"11":0,"12":0,"13":0,"14":0,"15":0,"16":0,"17":0,"18":0,"19":0,"20":0},"f":{"0":0,"1":0,"2":0,"3":0,"4":0},"b":{"0":[0,0],"1":[0,0],"2":[0,0],"3":[0,0],"4":[0,0]}}
+,"/Users/vlad.legkovskii/Desktop/exoticca-test/src/api/trips.tsx": {"path":"/Users/vlad.legkovskii/Desktop/exoticca-test/src/api/trips.tsx","statementMap":{"0":{"start":{"line":3,"column":16},"end":{"line":3,"column":47}},"1":{"start":{"line":14,"column":2},"end":{"line":26,"column":3}},"2":{"start":{"line":15,"column":21},"end":{"line":15,"column":46}},"3":{"start":{"line":16,"column":4},"end":{"line":18,"column":5}},"4":{"start":{"line":17,"column":6},"end":{"line":17,"column":64}},"5":{"start":{"line":19,"column":4},"end":{"line":19,"column":33}},"6":{"start":{"line":21,"column":4},"end":{"line":25,"column":6}},"7":{"start":{"line":30,"column":2},"end":{"line":30,"column":34}},"8":{"start":{"line":36,"column":2},"end":{"line":36,"column":43}},"9":{"start":{"line":40,"column":2},"end":{"line":46,"column":5}},"10":{"start":{"line":50,"column":2},"end":{"line":56,"column":5}},"11":{"start":{"line":60,"column":2},"end":{"line":62,"column":5}}},"fnMap":{"0":{"name":"apiCall","decl":{"start":{"line":10,"column":15},"end":{"line":10,"column":22}},"loc":{"start":{"line":13,"column":27},"end":{"line":27,"column":1}},"line":13},"1":{"name":"getTrips","decl":{"start":{"line":29,"column":22},"end":{"line":29,"column":30}},"loc":{"start":{"line":29,"column":63},"end":{"line":31,"column":1}},"line":29},"2":{"name":"getTrip","decl":{"start":{"line":33,"column":22},"end":{"line":33,"column":29}},"loc":{"start":{"line":35,"column":30},"end":{"line":37,"column":1}},"line":35},"3":{"name":"createTrip","decl":{"start":{"line":39,"column":22},"end":{"line":39,"column":32}},"loc":{"start":{"line":39,"column":77},"end":{"line":47,"column":1}},"line":39},"4":{"name":"updateTrip","decl":{"start":{"line":49,"column":22},"end":{"line":49,"column":32}},"loc":{"start":{"line":49,"column":77},"end":{"line":57,"column":1}},"line":49},"5":{"name":"deleteTrip","decl":{"start":{"line":59,"column":22},"end":{"line":59,"column":32}},"loc":{"start":{"line":59,"column":73},"end":{"line":63,"column":1}},"line":59}},"branchMap":{"0":{"loc":{"start":{"line":16,"column":4},"end":{"line":18,"column":5}},"type":"if","locations":[{"start":{"line":16,"column":4},"end":{"line":18,"column":5}},{"start":{},"end":{}}],"line":16},"1":{"loc":{"start":{"line":24,"column":8},"end":{"line":24,"column":79}},"type":"cond-expr","locations":[{"start":{"line":24,"column":33},"end":{"line":24,"column":38}},{"start":{"line":24,"column":41},"end":{"line":24,"column":79}}],"line":24}},"s":{"0":1,"1":10,"2":10,"3":5,"4":0,"5":5,"6":5,"7":2,"8":2,"9":2,"10":2,"11":2},"f":{"0":10,"1":2,"2":2,"3":2,"4":2,"5":2},"b":{"0":[0,5],"1":[5,0]},"_coverageSchema":"1a1c01bbd47fc00a2c39e90264f33305004495a9","hash":"06f910f30bfad252e80140a692defac52dd02cd9"}
 ,"/Users/vlad.legkovskii/Desktop/exoticca-test/src/app/app.tsx": {"path":"/Users/vlad.legkovskii/Desktop/exoticca-test/src/app/app.tsx","statementMap":{"0":{"start":{"line":9,"column":15},"end":{"line":37,"column":2}},"1":{"start":{"line":14,"column":6},"end":{"line":14,"column":24}},"2":{"start":{"line":21,"column":10},"end":{"line":21,"column":36}},"3":{"start":{"line":32,"column":10},"end":{"line":32,"column":36}},"4":{"start":{"line":38,"column":23},"end":{"line":38,"column":78}},"5":{"start":{"line":38,"column":43},"end":{"line":38,"column":77}},"6":{"start":{"line":41,"column":2},"end":{"line":41,"column":21}}},"fnMap":{"0":{"name":"(anonymous_0)","decl":{"start":{"line":13,"column":12},"end":{"line":13,"column":13}},"loc":{"start":{"line":13,"column":24},"end":{"line":15,"column":5}},"line":13},"1":{"name":"(anonymous_1)","decl":{"start":{"line":20,"column":16},"end":{"line":20,"column":17}},"loc":{"start":{"line":20,"column":38},"end":{"line":22,"column":9}},"line":20},"2":{"name":"(anonymous_2)","decl":{"start":{"line":31,"column":16},"end":{"line":31,"column":17}},"loc":{"start":{"line":31,"column":38},"end":{"line":33,"column":9}},"line":31},"3":{"name":"(anonymous_3)","decl":{"start":{"line":38,"column":37},"end":{"line":38,"column":38}},"loc":{"start":{"line":38,"column":43},"end":{"line":38,"column":77}},"line":38},"4":{"name":"App","decl":{"start":{"line":40,"column":9},"end":{"line":40,"column":12}},"loc":{"start":{"line":40,"column":15},"end":{"line":42,"column":1}},"line":40}},"branchMap":{},"s":{"0":0,"1":0,"2":0,"3":0,"4":0,"5":0,"6":0},"f":{"0":0,"1":0,"2":0,"3":0,"4":0},"b":{}}
 ,"/Users/vlad.legkovskii/Desktop/exoticca-test/src/enteties/card/card.tsx": {"path":"/Users/vlad.legkovskii/Desktop/exoticca-test/src/enteties/card/card.tsx","statementMap":{"0":{"start":{"line":16,"column":60},"end":{"line":16,"column":65}},"1":{"start":{"line":18,"column":2},"end":{"line":43,"column":4}},"2":{"start":{"line":29,"column":48},"end":{"line":29,"column":70}},"3":{"start":{"line":33,"column":50},"end":{"line":33,"column":69}},"4":{"start":{"line":36,"column":57},"end":{"line":36,"column":78}}},"fnMap":{"0":{"name":"Card","decl":{"start":{"line":15,"column":16},"end":{"line":15,"column":20}},"loc":{"start":{"line":15,"column":39},"end":{"line":44,"column":1}},"line":15},"1":{"name":"(anonymous_1)","decl":{"start":{"line":29,"column":42},"end":{"line":29,"column":43}},"loc":{"start":{"line":29,"column":48},"end":{"line":29,"column":70}},"line":29},"2":{"name":"(anonymous_2)","decl":{"start":{"line":33,"column":44},"end":{"line":33,"column":45}},"loc":{"start":{"line":33,"column":50},"end":{"line":33,"column":69}},"line":33},"3":{"name":"(anonymous_3)","decl":{"start":{"line":36,"column":51},"end":{"line":36,"column":52}},"loc":{"start":{"line":36,"column":57},"end":{"line":36,"column":78}},"line":36}},"branchMap":{},"s":{"0":0,"1":0,"2":0,"3":0,"4":0},"f":{"0":0,"1":0,"2":0,"3":0},"b":{}}
 ,"/Users/vlad.legkovskii/Desktop/exoticca-test/src/enteties/header/header.tsx": {"path":"/Users/vlad.legkovskii/Desktop/exoticca-test/src/enteties/header/header.tsx","statementMap":{"0":{"start":{"line":10,"column":30},"end":{"line":10,"column":35}},"1":{"start":{"line":12,"column":2},"end":{"line":21,"column":4}}},"fnMap":{"0":{"name":"Header","decl":{"start":{"line":9,"column":16},"end":{"line":9,"column":22}},"loc":{"start":{"line":9,"column":43},"end":{"line":22,"column":1}},"line":9}},"branchMap":{},"s":{"0":0,"1":0},"f":{"0":0},"b":{}}
 ,"/Users/vlad.legkovskii/Desktop/exoticca-test/src/enteties/modal/modal.tsx": {"path":"/Users/vlad.legkovskii/Desktop/exoticca-test/src/enteties/modal/modal.tsx","statementMap":{"0":{"start":{"line":13,"column":40},"end":{"line":13,"column":45}},"1":{"start":{"line":14,"column":19},"end":{"line":14,"column":47}},"2":{"start":{"line":16,"column":2},"end":{"line":32,"column":24}},"3":{"start":{"line":17,"column":25},"end":{"line":21,"column":5}},"4":{"start":{"line":18,"column":6},"end":{"line":20,"column":7}},"5":{"start":{"line":19,"column":8},"end":{"line":19,"column":18}},"6":{"start":{"line":23,"column":4},"end":{"line":26,"column":5}},"7":{"start":{"line":24,"column":6},"end":{"line":24,"column":57}},"8":{"start":{"line":25,"column":6},"end":{"line":25,"column":46}},"9":{"start":{"line":28,"column":4},"end":{"line":31,"column":6}},"10":{"start":{"line":29,"column":6},"end":{"line":29,"column":60}},"11":{"start":{"line":30,"column":6},"end":{"line":30,"column":45}},"12":{"start":{"line":34,"column":2},"end":{"line":38,"column":15}},"13":{"start":{"line":35,"column":4},"end":{"line":37,"column":5}},"14":{"start":{"line":36,"column":6},"end":{"line":36,"column":31}},"15":{"start":{"line":40,"column":2},"end":{"line":40,"column":27}},"16":{"start":{"line":40,"column":15},"end":{"line":40,"column":27}},"17":{"start":{"line":42,"column":2},"end":{"line":63,"column":4}},"18":{"start":{"line":46,"column":24},"end":{"line":46,"column":43}}},"fnMap":{"0":{"name":"Modal","decl":{"start":{"line":12,"column":16},"end":{"line":12,"column":21}},"loc":{"start":{"line":12,"column":41},"end":{"line":64,"column":1}},"line":12},"1":{"name":"(anonymous_1)","decl":{"start":{"line":16,"column":12},"end":{"line":16,"column":13}},"loc":{"start":{"line":16,"column":18},"end":{"line":32,"column":3}},"line":16},"2":{"name":"(anonymous_2)","decl":{"start":{"line":17,"column":25},"end":{"line":17,"column":26}},"loc":{"start":{"line":17,"column":51},"end":{"line":21,"column":5}},"line":17},"3":{"name":"(anonymous_3)","decl":{"start":{"line":28,"column":11},"end":{"line":28,"column":12}},"loc":{"start":{"line":28,"column":17},"end":{"line":31,"column":5}},"line":28},"4":{"name":"(anonymous_4)","decl":{"start":{"line":34,"column":12},"end":{"line":34,"column":13}},"loc":{"start":{"line":34,"column":18},"end":{"line":38,"column":3}},"line":34},"5":{"name":"(anonymous_5)","decl":{"start":{"line":46,"column":17},"end":{"line":46,"column":18}},"loc":{"start":{"line":46,"column":24},"end":{"line":46,"column":43}},"line":46}},"branchMap":{"0":{"loc":{"start":{"line":18,"column":6},"end":{"line":20,"column":7}},"type":"if","locations":[{"start":{"line":18,"column":6},"end":{"line":20,"column":7}},{"start":{},"end":{}}],"line":18},"1":{"loc":{"start":{"line":23,"column":4},"end":{"line":26,"column":5}},"type":"if","locations":[{"start":{"line":23,"column":4},"end":{"line":26,"column":5}},{"start":{},"end":{}}],"line":23},"2":{"loc":{"start":{"line":35,"column":4},"end":{"line":37,"column":5}},"type":"if","locations":[{"start":{"line":35,"column":4},"end":{"line":37,"column":5}},{"start":{},"end":{}}],"line":35},"3":{"loc":{"start":{"line":35,"column":8},"end":{"line":35,"column":34}},"type":"binary-expr","locations":[{"start":{"line":35,"column":8},"end":{"line":35,"column":14}},{"start":{"line":35,"column":18},"end":{"line":35,"column":34}}],"line":35},"4":{"loc":{"start":{"line":40,"column":2},"end":{"line":40,"column":27}},"type":"if","locations":[{"start":{"line":40,"column":2},"end":{"line":40,"column":27}},{"start":{},"end":{}}],"line":40}},"s":{"0":3,"1":3,"2":3,"3":3,"4":1,"5":1,"6":3,"7":2,"8":2,"9":3,"10":3,"11":3,"12":3,"13":3,"14":2,"15":3,"16":1,"17":2,"18":0},"f":{"0":3,"1":3,"2":1,"3":3,"4":3,"5":0},"b":{"0":[1,0],"1":[2,1],"2":[2,1],"3":[3,2],"4":[1,2]},"_coverageSchema":"1a1c01bbd47fc00a2c39e90264f33305004495a9","hash":"551686db7d65c69534d6fca3681b4703c2fdb1cb"}
-,"/Users/vlad.legkovskii/Desktop/exoticca-test/src/enteties/search-bar/search-bar.tsx": {"path":"/Users/vlad.legkovskii/Desktop/exoticca-test/src/enteties/search-bar/search-bar.tsx","statementMap":{"0":{"start":{"line":11,"column":37},"end":{"line":11,"column":46}},"1":{"start":{"line":13,"column":19},"end":{"line":15,"column":3}},"2":{"start":{"line":14,"column":4},"end":{"line":14,"column":30}},"3":{"start":{"line":17,"column":2},"end":{"line":30,"column":4}}},"fnMap":{"0":{"name":"SearchBar","decl":{"start":{"line":10,"column":16},"end":{"line":10,"column":25}},"loc":{"start":{"line":10,"column":55},"end":{"line":31,"column":1}},"line":10},"1":{"name":"(anonymous_1)","decl":{"start":{"line":13,"column":19},"end":{"line":13,"column":20}},"loc":{"start":{"line":13,"column":54},"end":{"line":15,"column":3}},"line":13}},"branchMap":{},"s":{"0":0,"1":0,"2":0,"3":0},"f":{"0":0,"1":0},"b":{}}
+,"/Users/vlad.legkovskii/Desktop/exoticca-test/src/enteties/search-bar/search-bar.tsx": {"path":"/Users/vlad.legkovskii/Desktop/exoticca-test/src/enteties/search-bar/search-bar.tsx","statementMap":{"0":{"start":{"line":11,"column":37},"end":{"line":11,"column":46}},"1":{"start":{"line":13,"column":19},"end":{"line":15,"column":3}},"2":{"start":{"line":14,"column":4},"end":{"line":14,"column":30}},"3":{"start":{"line":17,"column":2},"end":{"line":30,"column":4}}},"fnMap":{"0":{"name":"SearchBar","decl":{"start":{"line":10,"column":16},"end":{"line":10,"column":25}},"loc":{"start":{"line":10,"column":55},"end":{"line":31,"column":1}},"line":10},"1":{"name":"(anonymous_1)","decl":{"start":{"line":13,"column":19},"end":{"line":13,"column":20}},"loc":{"start":{"line":13,"column":54},"end":{"line":15,"column":3}},"line":13}},"branchMap":{},"s":{"0":3,"1":3,"2":2,"3":3},"f":{"0":3,"1":2},"b":{},"_coverageSchema":"1a1c01bbd47fc00a2c39e90264f33305004495a9","hash":"41be296df61079e8dceb2fbee97bf79da87258e0"}
 ,"/Users/vlad.legkovskii/Desktop/exoticca-test/src/enteties/trip-form/trip-form.tsx": {"path":"/Users/vlad.legkovskii/Desktop/exoticca-test/src/enteties/trip-form/trip-form.tsx","statementMap":{"0":{"start":{"line":21,"column":19},"end":{"line":21,"column":32}},"1":{"start":{"line":22,"column":19},"end":{"line":22,"column":32}},"2":{"start":{"line":23,"column":17},"end":{"line":23,"column":28}},"3":{"start":{"line":24,"column":15},"end":{"line":24,"column":38}},"4":{"start":{"line":25,"column":40},"end":{"line":25,"column":61}},"5":{"start":{"line":26,"column":46},"end":{"line":35,"column":4}},"6":{"start":{"line":37,"column":21},"end":{"line":41,"column":3}},"7":{"start":{"line":38,"column":4},"end":{"line":38,"column":26}},"8":{"start":{"line":39,"column":4},"end":{"line":39,"column":18}},"9":{"start":{"line":40,"column":4},"end":{"line":40,"column":18}},"10":{"start":{"line":43,"column":2},"end":{"line":50,"column":26}},"11":{"start":{"line":44,"column":4},"end":{"line":49,"column":5}},"12":{"start":{"line":48,"column":6},"end":{"line":48,"column":27}},"13":{"start":{"line":52,"column":37},"end":{"line":55,"column":4}},"14":{"start":{"line":57,"column":23},"end":{"line":64,"column":3}},"15":{"start":{"line":58,"column":4},"end":{"line":63,"column":5}},"16":{"start":{"line":59,"column":6},"end":{"line":59,"column":50}},"17":{"start":{"line":60,"column":6},"end":{"line":60,"column":19}},"18":{"start":{"line":62,"column":6},"end":{"line":62,"column":46}},"19":{"start":{"line":66,"column":21},"end":{"line":73,"column":3}},"20":{"start":{"line":67,"column":4},"end":{"line":72,"column":5}},"21":{"start":{"line":68,"column":6},"end":{"line":68,"column":29}},"22":{"start":{"line":69,"column":6},"end":{"line":69,"column":19}},"23":{"start":{"line":71,"column":6},"end":{"line":71,"column":44}},"24":{"start":{"line":75,"column":2},"end":{"line":138,"column":4}},"25":{"start":{"line":100,"column":12},"end":{"line":123,"column":18}},"26":{"start":{"line":118,"column":31},"end":{"line":118,"column":44}},"27":{"start":{"line":128,"column":14},"end":{"line":128,"column":79}}},"fnMap":{"0":{"name":"TripForm","decl":{"start":{"line":20,"column":16},"end":{"line":20,"column":24}},"loc":{"start":{"line":20,"column":27},"end":{"line":139,"column":1}},"line":20},"1":{"name":"(anonymous_1)","decl":{"start":{"line":37,"column":21},"end":{"line":37,"column":22}},"loc":{"start":{"line":37,"column":27},"end":{"line":41,"column":3}},"line":37},"2":{"name":"(anonymous_2)","decl":{"start":{"line":43,"column":18},"end":{"line":43,"column":19}},"loc":{"start":{"line":43,"column":24},"end":{"line":50,"column":3}},"line":43},"3":{"name":"(anonymous_3)","decl":{"start":{"line":57,"column":23},"end":{"line":57,"column":24}},"loc":{"start":{"line":57,"column":45},"end":{"line":64,"column":3}},"line":57},"4":{"name":"(anonymous_4)","decl":{"start":{"line":66,"column":21},"end":{"line":66,"column":22}},"loc":{"start":{"line":66,"column":43},"end":{"line":73,"column":3}},"line":66},"5":{"name":"(anonymous_5)","decl":{"start":{"line":99,"column":22},"end":{"line":99,"column":23}},"loc":{"start":{"line":100,"column":12},"end":{"line":123,"column":18}},"line":100},"6":{"name":"(anonymous_6)","decl":{"start":{"line":118,"column":25},"end":{"line":118,"column":26}},"loc":{"start":{"line":118,"column":31},"end":{"line":118,"column":44}},"line":118},"7":{"name":"(anonymous_7)","decl":{"start":{"line":127,"column":21},"end":{"line":127,"column":22}},"loc":{"start":{"line":128,"column":14},"end":{"line":128,"column":79}},"line":128}},"branchMap":{"0":{"loc":{"start":{"line":27,"column":19},"end":{"line":34,"column":5}},"type":"binary-expr","locations":[{"start":{"line":27,"column":19},"end":{"line":27,"column":23}},{"start":{"line":27,"column":27},"end":{"line":34,"column":5}}],"line":27},"1":{"loc":{"start":{"line":44,"column":4},"end":{"line":49,"column":5}},"type":"if","locations":[{"start":{"line":44,"column":4},"end":{"line":49,"column":5}},{"start":{},"end":{}}],"line":44},"2":{"loc":{"start":{"line":45,"column":6},"end":{"line":46,"column":53}},"type":"binary-expr","locations":[{"start":{"line":45,"column":6},"end":{"line":45,"column":42}},{"start":{"line":46,"column":6},"end":{"line":46,"column":53}}],"line":45},"3":{"loc":{"start":{"line":78,"column":31},"end":{"line":78,"column":63}},"type":"cond-expr","locations":[{"start":{"line":78,"column":38},"end":{"line":78,"column":48}},{"start":{"line":78,"column":51},"end":{"line":78,"column":63}}],"line":78},"4":{"loc":{"start":{"line":81,"column":13},"end":{"line":81,"column":67}},"type":"cond-expr","locations":[{"start":{"line":81,"column":20},"end":{"line":81,"column":51}},{"start":{"line":81,"column":54},"end":{"line":81,"column":67}}],"line":81},"5":{"loc":{"start":{"line":135,"column":31},"end":{"line":135,"column":65}},"type":"cond-expr","locations":[{"start":{"line":135,"column":38},"end":{"line":135,"column":49}},{"start":{"line":135,"column":52},"end":{"line":135,"column":65}}],"line":135}},"s":{"0":0,"1":0,"2":0,"3":0,"4":0,"5":0,"6":0,"7":0,"8":0,"9":0,"10":0,"11":0,"12":0,"13":0,"14":0,"15":0,"16":0,"17":0,"18":0,"19":0,"20":0,"21":0,"22":0,"23":0,"24":0,"25":0,"26":0,"27":0},"f":{"0":0,"1":0,"2":0,"3":0,"4":0,"5":0,"6":0,"7":0},"b":{"0":[0,0],"1":[0,0],"2":[0,0],"3":[0,0],"4":[0,0],"5":[0,0]}}
 ,"/Users/vlad.legkovskii/Desktop/exoticca-test/src/enteties/trip-view/trip-view.tsx": {"path":"/Users/vlad.legkovskii/Desktop/exoticca-test/src/enteties/trip-view/trip-view.tsx","statementMap":{"0":{"start":{"line":10,"column":15},"end":{"line":10,"column":30}},"1":{"start":{"line":11,"column":19},"end":{"line":11,"column":32}},"2":{"start":{"line":12,"column":17},"end":{"line":12,"column":28}},"3":{"start":{"line":13,"column":40},"end":{"line":13,"column":61}},"4":{"start":{"line":15,"column":21},"end":{"line":18,"column":3}},"5":{"start":{"line":16,"column":4},"end":{"line":16,"column":26}},"6":{"start":{"line":17,"column":4},"end":{"line":17,"column":18}},"7":{"start":{"line":20,"column":2},"end":{"line":24,"column":18}},"8":{"start":{"line":21,"column":4},"end":{"line":23,"column":5}},"9":{"start":{"line":22,"column":6},"end":{"line":22,"column":27}},"10":{"start":{"line":26,"column":2},"end":{"line":52,"column":4}},"11":{"start":{"line":42,"column":12},"end":{"line":47,"column":17}}},"fnMap":{"0":{"name":"TripView","decl":{"start":{"line":9,"column":16},"end":{"line":9,"column":24}},"loc":{"start":{"line":9,"column":27},"end":{"line":53,"column":1}},"line":9},"1":{"name":"(anonymous_1)","decl":{"start":{"line":15,"column":21},"end":{"line":15,"column":22}},"loc":{"start":{"line":15,"column":27},"end":{"line":18,"column":3}},"line":15},"2":{"name":"(anonymous_2)","decl":{"start":{"line":20,"column":18},"end":{"line":20,"column":19}},"loc":{"start":{"line":20,"column":24},"end":{"line":24,"column":3}},"line":20},"3":{"name":"(anonymous_3)","decl":{"start":{"line":41,"column":30},"end":{"line":41,"column":31}},"loc":{"start":{"line":42,"column":12},"end":{"line":47,"column":17}},"line":42}},"branchMap":{"0":{"loc":{"start":{"line":21,"column":4},"end":{"line":23,"column":5}},"type":"if","locations":[{"start":{"line":21,"column":4},"end":{"line":23,"column":5}},{"start":{},"end":{}}],"line":21},"1":{"loc":{"start":{"line":31,"column":9},"end":{"line":35,"column":9}},"type":"binary-expr","locations":[{"start":{"line":31,"column":9},"end":{"line":31,"column":31}},{"start":{"line":32,"column":10},"end":{"line":34,"column":19}}],"line":31}},"s":{"0":0,"1":0,"2":0,"3":0,"4":0,"5":0,"6":0,"7":0,"8":0,"9":0,"10":0,"11":0},"f":{"0":0,"1":0,"2":0,"3":0},"b":{"0":[0,0],"1":[0,0]}}
 ,"/Users/vlad.legkovskii/Desktop/exoticca-test/src/pages/home.tsx": {"path":"/Users/vlad.legkovskii/Desktop/exoticca-test/src/pages/home.tsx","statementMap":{"0":{"start":{"line":16,"column":19},"end":{"line":16,"column":32}},"1":{"start":{"line":17,"column":16},"end":{"line":17,"column":39}},"2":{"start":{"line":18,"column":40},"end":{"line":18,"column":60}},"3":{"start":{"line":19,"column":30},"end":{"line":19,"column":74}},"4":{"start":{"line":21,"column":23},"end":{"line":28,"column":3}},"5":{"start":{"line":22,"column":4},"end":{"line":27,"column":5}},"6":{"start":{"line":23,"column":6},"end":{"line":23,"column":31}},"7":{"start":{"line":24,"column":6},"end":{"line":24,"column":20}},"8":{"start":{"line":26,"column":6},"end":{"line":26,"column":27}},"9":{"start":{"line":30,"column":24},"end":{"line":42,"column":34}},"10":{"start":{"line":31,"column":21},"end":{"line":31,"column":41}},"11":{"start":{"line":32,"column":27},"end":{"line":32,"column":61}},"12":{"start":{"line":34,"column":4},"end":{"line":41,"column":5}},"13":{"start":{"line":36,"column":8},"end":{"line":36,"column":65}},"14":{"start":{"line":36,"column":44},"end":{"line":36,"column":63}},"15":{"start":{"line":38,"column":8},"end":{"line":38,"column":65}},"16":{"start":{"line":38,"column":44},"end":{"line":38,"column":63}},"17":{"start":{"line":40,"column":8},"end":{"line":40,"column":30}},"18":{"start":{"line":44,"column":2},"end":{"line":66,"column":4}},"19":{"start":{"line":46,"column":37},"end":{"line":46,"column":61}},"20":{"start":{"line":56,"column":8},"end":{"line":62,"column":10}},"21":{"start":{"line":59,"column":37},"end":{"line":59,"column":64}},"22":{"start":{"line":60,"column":34},"end":{"line":60,"column":66}}},"fnMap":{"0":{"name":"Home","decl":{"start":{"line":15,"column":9},"end":{"line":15,"column":13}},"loc":{"start":{"line":15,"column":16},"end":{"line":67,"column":1}},"line":15},"1":{"name":"(anonymous_1)","decl":{"start":{"line":21,"column":23},"end":{"line":21,"column":24}},"loc":{"start":{"line":21,"column":53},"end":{"line":28,"column":3}},"line":21},"2":{"name":"(anonymous_2)","decl":{"start":{"line":30,"column":32},"end":{"line":30,"column":33}},"loc":{"start":{"line":30,"column":38},"end":{"line":42,"column":3}},"line":30},"3":{"name":"(anonymous_3)","decl":{"start":{"line":36,"column":37},"end":{"line":36,"column":38}},"loc":{"start":{"line":36,"column":44},"end":{"line":36,"column":63}},"line":36},"4":{"name":"(anonymous_4)","decl":{"start":{"line":38,"column":37},"end":{"line":38,"column":38}},"loc":{"start":{"line":38,"column":44},"end":{"line":38,"column":63}},"line":38},"5":{"name":"(anonymous_5)","decl":{"start":{"line":46,"column":31},"end":{"line":46,"column":32}},"loc":{"start":{"line":46,"column":37},"end":{"line":46,"column":61}},"line":46},"6":{"name":"(anonymous_6)","decl":{"start":{"line":55,"column":25},"end":{"line":55,"column":26}},"loc":{"start":{"line":56,"column":8},"end":{"line":62,"column":10}},"line":56},"7":{"name":"(anonymous_7)","decl":{"start":{"line":59,"column":25},"end":{"line":59,"column":26}},"loc":{"start":{"line":59,"column":37},"end":{"line":59,"column":64}},"line":59},"8":{"name":"(anonymous_8)","decl":{"start":{"line":60,"column":22},"end":{"line":60,"column":23}},"loc":{"start":{"line":60,"column":34},"end":{"line":60,"column":66}},"line":60}},"branchMap":{"0":{"loc":{"start":{"line":34,"column":4},"end":{"line":41,"column":5}},"type":"switch","locations":[{"start":{"line":35,"column":6},"end":{"line":36,"column":65}},{"start":{"line":37,"column":6},"end":{"line":38,"column":65}},{"start":{"line":39,"column":6},"end":{"line":40,"column":30}}],"line":34}},"s":{"0":0,"1":0,"2":0,"3":0,"4":0,"5":0,"6":0,"7":0,"8":0,"9":0,"10":0,"11":0,"12":0,"13":0,"14":0,"15":0,"16":0,"17":0,"18":0,"19":0,"20":0,"21":0,"22":0},"f":{"0":0,"1":0,"2":0,"3":0,"4":0,"5":0,"6":0,"7":0,"8":0},"b":{"0":[0,0,0]}}
 ,"/Users/vlad.legkovskii/Desktop/exoticca-test/src/providers/with-providers.tsx": {"path":"/Users/vlad.legkovskii/Desktop/exoticca-test/src/providers/with-providers.tsx","statementMap":{"0":{"start":{"line":5,"column":18},"end":{"line":11,"column":1}},"1":{"start":{"line":5,"column":56},"end":{"line":11,"column":1}},"2":{"start":{"line":6,"column":2},"end":{"line":10,"column":4}},"3":{"start":{"line":12,"column":29},"end":{"line":12,"column":47}}},"fnMap":{"0":{"name":"(anonymous_0)","decl":{"start":{"line":5,"column":18},"end":{"line":5,"column":19}},"loc":{"start":{"line":5,"column":56},"end":{"line":11,"column":1}},"line":5},"1":{"name":"(anonymous_1)","decl":{"start":{"line":5,"column":56},"end":{"line":5,"column":57}},"loc":{"start":{"line":5,"column":62},"end":{"line":11,"column":1}},"line":5}},"branchMap":{},"s":{"0":0,"1":0,"2":0,"3":0},"f":{"0":0,"1":0},"b":{}}
-,"/Users/vlad.legkovskii/Desktop/exoticca-test/src/shared/ui/button/button.tsx": {"path":"/Users/vlad.legkovskii/Desktop/exoticca-test/src/shared/ui/button/button.tsx","statementMap":{"0":{"start":{"line":28,"column":6},"end":{"line":28,"column":11}},"1":{"start":{"line":30,"column":30},"end":{"line":36,"column":3}},"2":{"start":{"line":38,"column":2},"end":{"line":42,"column":4}}},"fnMap":{"0":{"name":"Button","decl":{"start":{"line":20,"column":16},"end":{"line":20,"column":22}},"loc":{"start":{"line":20,"column":43},"end":{"line":43,"column":1}},"line":20}},"branchMap":{"0":{"loc":{"start":{"line":23,"column":4},"end":{"line":23,"column":23}},"type":"default-arg","locations":[{"start":{"line":23,"column":14},"end":{"line":23,"column":23}}],"line":23},"1":{"loc":{"start":{"line":24,"column":4},"end":{"line":24,"column":20}},"type":"default-arg","locations":[{"start":{"line":24,"column":11},"end":{"line":24,"column":20}}],"line":24},"2":{"loc":{"start":{"line":25,"column":4},"end":{"line":25,"column":18}},"type":"default-arg","locations":[{"start":{"line":25,"column":16},"end":{"line":25,"column":18}}],"line":25}},"s":{"0":2,"1":2,"2":2},"f":{"0":2},"b":{"0":[0],"1":[2],"2":[2]},"_coverageSchema":"1a1c01bbd47fc00a2c39e90264f33305004495a9","hash":"d72196f4197fa8c28e5a5ddfbd8f74ae45917aad"}
+,"/Users/vlad.legkovskii/Desktop/exoticca-test/src/shared/ui/button/button.tsx": {"path":"/Users/vlad.legkovskii/Desktop/exoticca-test/src/shared/ui/button/button.tsx","statementMap":{"0":{"start":{"line":28,"column":6},"end":{"line":28,"column":11}},"1":{"start":{"line":30,"column":30},"end":{"line":36,"column":3}},"2":{"start":{"line":38,"column":2},"end":{"line":42,"column":4}}},"fnMap":{"0":{"name":"Button","decl":{"start":{"line":20,"column":16},"end":{"line":20,"column":22}},"loc":{"start":{"line":20,"column":43},"end":{"line":43,"column":1}},"line":20}},"branchMap":{"0":{"loc":{"start":{"line":23,"column":4},"end":{"line":23,"column":23}},"type":"default-arg","locations":[{"start":{"line":23,"column":14},"end":{"line":23,"column":23}}],"line":23},"1":{"loc":{"start":{"line":24,"column":4},"end":{"line":24,"column":20}},"type":"default-arg","locations":[{"start":{"line":24,"column":11},"end":{"line":24,"column":20}}],"line":24},"2":{"loc":{"start":{"line":25,"column":4},"end":{"line":25,"column":18}},"type":"default-arg","locations":[{"start":{"line":25,"column":16},"end":{"line":25,"column":18}}],"line":25}},"s":{"0":5,"1":5,"2":5},"f":{"0":5},"b":{"0":[3],"1":[2],"2":[5]},"_coverageSchema":"1a1c01bbd47fc00a2c39e90264f33305004495a9","hash":"d72196f4197fa8c28e5a5ddfbd8f74ae45917aad"}
 ,"/Users/vlad.legkovskii/Desktop/exoticca-test/src/shared/ui/button-group/button-group.tsx": {"path":"/Users/vlad.legkovskii/Desktop/exoticca-test/src/shared/ui/button-group/button-group.tsx","statementMap":{"0":{"start":{"line":13,"column":55},"end":{"line":13,"column":60}},"1":{"start":{"line":15,"column":2},"end":{"line":37,"column":4}},"2":{"start":{"line":18,"column":8},"end":{"line":33,"column":9}},"3":{"start":{"line":21,"column":30},"end":{"line":21,"column":32}},"4":{"start":{"line":22,"column":10},"end":{"line":26,"column":11}},"5":{"start":{"line":23,"column":12},"end":{"line":23,"column":41}},"6":{"start":{"line":24,"column":17},"end":{"line":26,"column":11}},"7":{"start":{"line":25,"column":12},"end":{"line":25,"column":40}},"8":{"start":{"line":28,"column":10},"end":{"line":32,"column":13}},"9":{"start":{"line":31,"column":27},"end":{"line":31,"column":41}},"10":{"start":{"line":34,"column":8},"end":{"line":34,"column":21}}},"fnMap":{"0":{"name":"ButtonGroup","decl":{"start":{"line":12,"column":16},"end":{"line":12,"column":27}},"loc":{"start":{"line":12,"column":53},"end":{"line":38,"column":1}},"line":12},"1":{"name":"(anonymous_1)","decl":{"start":{"line":17,"column":36},"end":{"line":17,"column":37}},"loc":{"start":{"line":17,"column":54},"end":{"line":35,"column":7}},"line":17},"2":{"name":"(anonymous_2)","decl":{"start":{"line":31,"column":21},"end":{"line":31,"column":22}},"loc":{"start":{"line":31,"column":27},"end":{"line":31,"column":41}},"line":31}},"branchMap":{"0":{"loc":{"start":{"line":13,"column":20},"end":{"line":13,"column":34}},"type":"default-arg","locations":[{"start":{"line":13,"column":32},"end":{"line":13,"column":34}}],"line":13},"1":{"loc":{"start":{"line":18,"column":8},"end":{"line":33,"column":9}},"type":"if","locations":[{"start":{"line":18,"column":8},"end":{"line":33,"column":9}},{"start":{},"end":{}}],"line":18},"2":{"loc":{"start":{"line":22,"column":10},"end":{"line":26,"column":11}},"type":"if","locations":[{"start":{"line":22,"column":10},"end":{"line":26,"column":11}},{"start":{"line":24,"column":17},"end":{"line":26,"column":11}}],"line":22},"3":{"loc":{"start":{"line":24,"column":17},"end":{"line":26,"column":11}},"type":"if","locations":[{"start":{"line":24,"column":17},"end":{"line":26,"column":11}},{"start":{},"end":{}}],"line":24},"4":{"loc":{"start":{"line":29,"column":26},"end":{"line":29,"column":53}},"type":"binary-expr","locations":[{"start":{"line":29,"column":26},"end":{"line":29,"column":47}},{"start":{"line":29,"column":51},"end":{"line":29,"column":53}}],"line":29}},"s":{"0":0,"1":0,"2":0,"3":0,"4":0,"5":0,"6":0,"7":0,"8":0,"9":0,"10":0},"f":{"0":0,"1":0,"2":0},"b":{"0":[0],"1":[0,0],"2":[0,0],"3":[0,0],"4":[0,0]}}
-,"/Users/vlad.legkovskii/Desktop/exoticca-test/src/shared/ui/form/label.tsx": {"path":"/Users/vlad.legkovskii/Desktop/exoticca-test/src/shared/ui/form/label.tsx","statementMap":{"0":{"start":{"line":10,"column":58},"end":{"line":10,"column":63}},"1":{"start":{"line":12,"column":2},"end":{"line":19,"column":4}}},"fnMap":{"0":{"name":"Label","decl":{"start":{"line":9,"column":16},"end":{"line":9,"column":21}},"loc":{"start":{"line":9,"column":41},"end":{"line":20,"column":1}},"line":9}},"branchMap":{"0":{"loc":{"start":{"line":15,"column":7},"end":{"line":17,"column":7}},"type":"binary-expr","locations":[{"start":{"line":15,"column":7},"end":{"line":15,"column":16}},{"start":{"line":16,"column":8},"end":{"line":16,"column":80}}],"line":15}},"s":{"0":0,"1":0},"f":{"0":0},"b":{"0":[0,0]}}
+,"/Users/vlad.legkovskii/Desktop/exoticca-test/src/shared/ui/form/label.tsx": {"path":"/Users/vlad.legkovskii/Desktop/exoticca-test/src/shared/ui/form/label.tsx","statementMap":{"0":{"start":{"line":10,"column":58},"end":{"line":10,"column":63}},"1":{"start":{"line":12,"column":2},"end":{"line":19,"column":4}}},"fnMap":{"0":{"name":"Label","decl":{"start":{"line":9,"column":16},"end":{"line":9,"column":21}},"loc":{"start":{"line":9,"column":41},"end":{"line":20,"column":1}},"line":9}},"branchMap":{"0":{"loc":{"start":{"line":15,"column":7},"end":{"line":17,"column":7}},"type":"binary-expr","locations":[{"start":{"line":15,"column":7},"end":{"line":15,"column":16}},{"start":{"line":16,"column":8},"end":{"line":16,"column":80}}],"line":15}},"s":{"0":3,"1":3},"f":{"0":3},"b":{"0":[3,0]},"_coverageSchema":"1a1c01bbd47fc00a2c39e90264f33305004495a9","hash":"b7653dccde1d32c5a79976f9670fd7cde209ce69"}
 ,"/Users/vlad.legkovskii/Desktop/exoticca-test/src/shared/ui/form/select.tsx": {"path":"/Users/vlad.legkovskii/Desktop/exoticca-test/src/shared/ui/form/select.tsx","statementMap":{"0":{"start":{"line":11,"column":39},"end":{"line":11,"column":44}},"1":{"start":{"line":13,"column":2},"end":{"line":26,"column":4}},"2":{"start":{"line":19,"column":12},"end":{"line":21,"column":21}}},"fnMap":{"0":{"name":"Select","decl":{"start":{"line":10,"column":16},"end":{"line":10,"column":22}},"loc":{"start":{"line":10,"column":43},"end":{"line":27,"column":1}},"line":10},"1":{"name":"(anonymous_1)","decl":{"start":{"line":18,"column":30},"end":{"line":18,"column":31}},"loc":{"start":{"line":19,"column":12},"end":{"line":21,"column":21}},"line":19}},"branchMap":{},"s":{"0":0,"1":0,"2":0},"f":{"0":0,"1":0},"b":{}}
 ,"/Users/vlad.legkovskii/Desktop/exoticca-test/src/shared/ui/form/text-area.tsx": {"path":"/Users/vlad.legkovskii/Desktop/exoticca-test/src/shared/ui/form/text-area.tsx","statementMap":{"0":{"start":{"line":5,"column":24},"end":{"line":23,"column":2}},"1":{"start":{"line":6,"column":62},"end":{"line":6,"column":67}},"2":{"start":{"line":7,"column":2},"end":{"line":22,"column":4}},"3":{"start":{"line":25,"column":0},"end":{"line":25,"column":34}}},"fnMap":{"0":{"name":"(anonymous_0)","decl":{"start":{"line":5,"column":35},"end":{"line":5,"column":36}},"loc":{"start":{"line":5,"column":51},"end":{"line":23,"column":1}},"line":5}},"branchMap":{},"s":{"0":0,"1":0,"2":0,"3":0},"f":{"0":0},"b":{}}
-,"/Users/vlad.legkovskii/Desktop/exoticca-test/src/shared/ui/form/text-input.tsx": {"path":"/Users/vlad.legkovskii/Desktop/exoticca-test/src/shared/ui/form/text-input.tsx","statementMap":{"0":{"start":{"line":5,"column":25},"end":{"line":31,"column":2}},"1":{"start":{"line":14,"column":6},"end":{"line":14,"column":11}},"2":{"start":{"line":16,"column":2},"end":{"line":30,"column":4}},"3":{"start":{"line":33,"column":0},"end":{"line":33,"column":36}}},"fnMap":{"0":{"name":"(anonymous_0)","decl":{"start":{"line":5,"column":36},"end":{"line":5,"column":37}},"loc":{"start":{"line":5,"column":52},"end":{"line":31,"column":1}},"line":5}},"branchMap":{"0":{"loc":{"start":{"line":10,"column":4},"end":{"line":10,"column":17}},"type":"default-arg","locations":[{"start":{"line":10,"column":11},"end":{"line":10,"column":17}}],"line":10}},"s":{"0":0,"1":0,"2":0,"3":0},"f":{"0":0},"b":{"0":[0]}}
-,"/Users/vlad.legkovskii/Desktop/exoticca-test/src/shared/ui/header/Header.tsx": {"path":"/Users/vlad.legkovskii/Desktop/exoticca-test/src/shared/ui/header/Header.tsx","statementMap":{"0":{"start":{"line":5,"column":23},"end":{"line":5,"column":28}},"1":{"start":{"line":6,"column":2},"end":{"line":6,"column":63}}},"fnMap":{"0":{"name":"Header","decl":{"start":{"line":4,"column":16},"end":{"line":4,"column":22}},"loc":{"start":{"line":4,"column":55},"end":{"line":7,"column":1}},"line":4}},"branchMap":{},"s":{"0":0,"1":0},"f":{"0":0},"b":{}}
-,"/Users/vlad.legkovskii/Desktop/exoticca-test/src/shared/ui/typography/h1.tsx": {"path":"/Users/vlad.legkovskii/Desktop/exoticca-test/src/shared/ui/typography/h1.tsx","statementMap":{"0":{"start":{"line":5,"column":23},"end":{"line":5,"column":28}},"1":{"start":{"line":6,"column":2},"end":{"line":6,"column":51}}},"fnMap":{"0":{"name":"H1","decl":{"start":{"line":4,"column":9},"end":{"line":4,"column":11}},"loc":{"start":{"line":4,"column":44},"end":{"line":7,"column":1}},"line":4}},"branchMap":{},"s":{"0":0,"1":0},"f":{"0":0},"b":{}}
-,"/Users/vlad.legkovskii/Desktop/exoticca-test/src/shared/ui/typography/h4.tsx": {"path":"/Users/vlad.legkovskii/Desktop/exoticca-test/src/shared/ui/typography/h4.tsx","statementMap":{"0":{"start":{"line":5,"column":23},"end":{"line":5,"column":28}},"1":{"start":{"line":6,"column":2},"end":{"line":6,"column":51}}},"fnMap":{"0":{"name":"H4","decl":{"start":{"line":4,"column":9},"end":{"line":4,"column":11}},"loc":{"start":{"line":4,"column":44},"end":{"line":7,"column":1}},"line":4}},"branchMap":{},"s":{"0":0,"1":0},"f":{"0":0},"b":{}}
-,"/Users/vlad.legkovskii/Desktop/exoticca-test/src/shared/ui/typography/h5.tsx": {"path":"/Users/vlad.legkovskii/Desktop/exoticca-test/src/shared/ui/typography/h5.tsx","statementMap":{"0":{"start":{"line":5,"column":23},"end":{"line":5,"column":28}},"1":{"start":{"line":6,"column":2},"end":{"line":6,"column":51}}},"fnMap":{"0":{"name":"H5","decl":{"start":{"line":4,"column":9},"end":{"line":4,"column":11}},"loc":{"start":{"line":4,"column":44},"end":{"line":7,"column":1}},"line":4}},"branchMap":{},"s":{"0":0,"1":0},"f":{"0":0},"b":{}}
+,"/Users/vlad.legkovskii/Desktop/exoticca-test/src/shared/ui/form/text-input.tsx": {"path":"/Users/vlad.legkovskii/Desktop/exoticca-test/src/shared/ui/form/text-input.tsx","statementMap":{"0":{"start":{"line":5,"column":25},"end":{"line":31,"column":2}},"1":{"start":{"line":14,"column":6},"end":{"line":14,"column":11}},"2":{"start":{"line":16,"column":2},"end":{"line":30,"column":4}},"3":{"start":{"line":33,"column":0},"end":{"line":33,"column":36}}},"fnMap":{"0":{"name":"(anonymous_0)","decl":{"start":{"line":5,"column":36},"end":{"line":5,"column":37}},"loc":{"start":{"line":5,"column":52},"end":{"line":31,"column":1}},"line":5}},"branchMap":{"0":{"loc":{"start":{"line":10,"column":4},"end":{"line":10,"column":17}},"type":"default-arg","locations":[{"start":{"line":10,"column":11},"end":{"line":10,"column":17}}],"line":10}},"s":{"0":1,"1":3,"2":3,"3":1},"f":{"0":3},"b":{"0":[3]},"_coverageSchema":"1a1c01bbd47fc00a2c39e90264f33305004495a9","hash":"5c7e30b28e5654f99ae08e304af0ebbf0e978d11"}
+,"/Users/vlad.legkovskii/Desktop/exoticca-test/src/shared/ui/header/Header.tsx": {"path":"/Users/vlad.legkovskii/Desktop/exoticca-test/src/shared/ui/header/Header.tsx","statementMap":{"0":{"start":{"line":7,"column":23},"end":{"line":7,"column":28}},"1":{"start":{"line":8,"column":2},"end":{"line":8,"column":63}}},"fnMap":{"0":{"name":"Header","decl":{"start":{"line":6,"column":16},"end":{"line":6,"column":22}},"loc":{"start":{"line":6,"column":43},"end":{"line":9,"column":1}},"line":6}},"branchMap":{},"s":{"0":0,"1":0},"f":{"0":0},"b":{}}
+,"/Users/vlad.legkovskii/Desktop/exoticca-test/src/shared/ui/typography/h1.tsx": {"path":"/Users/vlad.legkovskii/Desktop/exoticca-test/src/shared/ui/typography/h1.tsx","statementMap":{"0":{"start":{"line":9,"column":23},"end":{"line":9,"column":28}},"1":{"start":{"line":10,"column":2},"end":{"line":10,"column":51}}},"fnMap":{"0":{"name":"H1","decl":{"start":{"line":8,"column":9},"end":{"line":8,"column":11}},"loc":{"start":{"line":8,"column":28},"end":{"line":11,"column":1}},"line":8}},"branchMap":{},"s":{"0":0,"1":0},"f":{"0":0},"b":{}}
+,"/Users/vlad.legkovskii/Desktop/exoticca-test/src/shared/ui/typography/h4.tsx": {"path":"/Users/vlad.legkovskii/Desktop/exoticca-test/src/shared/ui/typography/h4.tsx","statementMap":{"0":{"start":{"line":9,"column":23},"end":{"line":9,"column":28}},"1":{"start":{"line":10,"column":2},"end":{"line":10,"column":51}}},"fnMap":{"0":{"name":"H4","decl":{"start":{"line":8,"column":9},"end":{"line":8,"column":11}},"loc":{"start":{"line":8,"column":29},"end":{"line":11,"column":1}},"line":8}},"branchMap":{},"s":{"0":0,"1":0},"f":{"0":0},"b":{}}
+,"/Users/vlad.legkovskii/Desktop/exoticca-test/src/shared/ui/typography/h5.tsx": {"path":"/Users/vlad.legkovskii/Desktop/exoticca-test/src/shared/ui/typography/h5.tsx","statementMap":{"0":{"start":{"line":9,"column":23},"end":{"line":9,"column":28}},"1":{"start":{"line":10,"column":2},"end":{"line":10,"column":51}}},"fnMap":{"0":{"name":"H5","decl":{"start":{"line":8,"column":9},"end":{"line":8,"column":11}},"loc":{"start":{"line":8,"column":28},"end":{"line":11,"column":1}},"line":8}},"branchMap":{},"s":{"0":0,"1":0},"f":{"0":0},"b":{}}
 ,"/Users/vlad.legkovskii/Desktop/exoticca-test/src/shared/ui/typography/text.tsx": {"path":"/Users/vlad.legkovskii/Desktop/exoticca-test/src/shared/ui/typography/text.tsx","statementMap":{"0":{"start":{"line":14,"column":59},"end":{"line":14,"column":64}},"1":{"start":{"line":15,"column":20},"end":{"line":15,"column":72}},"2":{"start":{"line":17,"column":2},"end":{"line":17,"column":79}}},"fnMap":{"0":{"name":"Text","decl":{"start":{"line":13,"column":16},"end":{"line":13,"column":20}},"loc":{"start":{"line":13,"column":39},"end":{"line":18,"column":1}},"line":13}},"branchMap":{"0":{"loc":{"start":{"line":14,"column":20},"end":{"line":14,"column":38}},"type":"default-arg","locations":[{"start":{"line":14,"column":30},"end":{"line":14,"column":38}}],"line":14},"1":{"loc":{"start":{"line":14,"column":40},"end":{"line":14,"column":54}},"type":"default-arg","locations":[{"start":{"line":14,"column":52},"end":{"line":14,"column":54}}],"line":14},"2":{"loc":{"start":{"line":15,"column":20},"end":{"line":15,"column":72}},"type":"cond-expr","locations":[{"start":{"line":15,"column":43},"end":{"line":15,"column":56}},{"start":{"line":15,"column":59},"end":{"line":15,"column":72}}],"line":15}},"s":{"0":0,"1":0,"2":0},"f":{"0":0},"b":{"0":[0],"1":[0],"2":[0,0]}}
 ,"/Users/vlad.legkovskii/Desktop/exoticca-test/src/types/trip.ts": {"path":"/Users/vlad.legkovskii/Desktop/exoticca-test/src/types/trip.ts","statementMap":{},"fnMap":{},"branchMap":{},"s":{},"f":{},"b":{}}
 ,"/Users/vlad.legkovskii/Desktop/exoticca-test/src/utils/utils.tsx": {"path":"/Users/vlad.legkovskii/Desktop/exoticca-test/src/utils/utils.tsx","statementMap":{"0":{"start":{"line":3,"column":27},"end":{"line":20,"column":1}},"1":{"start":{"line":7,"column":2},"end":{"line":7,"column":28}},"2":{"start":{"line":7,"column":15},"end":{"line":7,"column":28}},"3":{"start":{"line":9,"column":27},"end":{"line":9,"column":47}},"4":{"start":{"line":10,"column":2},"end":{"line":19,"column":4}},"5":{"start":{"line":12,"column":6},"end":{"line":18,"column":7}},"6":{"start":{"line":16,"column":10},"end":{"line":17,"column":67}}},"fnMap":{"0":{"name":"(anonymous_0)","decl":{"start":{"line":3,"column":27},"end":{"line":3,"column":28}},"loc":{"start":{"line":6,"column":13},"end":{"line":20,"column":1}},"line":6},"1":{"name":"(anonymous_1)","decl":{"start":{"line":11,"column":4},"end":{"line":11,"column":5}},"loc":{"start":{"line":12,"column":6},"end":{"line":18,"column":7}},"line":12},"2":{"name":"(anonymous_2)","decl":{"start":{"line":15,"column":8},"end":{"line":15,"column":9}},"loc":{"start":{"line":16,"column":10},"end":{"line":17,"column":67}},"line":16}},"branchMap":{"0":{"loc":{"start":{"line":7,"column":2},"end":{"line":7,"column":28}},"type":"if","locations":[{"start":{"line":7,"column":2},"end":{"line":7,"column":28}},{"start":{},"end":{}}],"line":7},"1":{"loc":{"start":{"line":12,"column":6},"end":{"line":18,"column":7}},"type":"binary-expr","locations":[{"start":{"line":12,"column":6},"end":{"line":12,"column":57}},{"start":{"line":13,"column":6},"end":{"line":13,"column":63}},{"start":{"line":14,"column":6},"end":{"line":18,"column":7}}],"line":12},"2":{"loc":{"start":{"line":16,"column":10},"end":{"line":17,"column":67}},"type":"binary-expr","locations":[{"start":{"line":16,"column":10},"end":{"line":16,"column":64}},{"start":{"line":17,"column":10},"end":{"line":17,"column":67}}],"line":16}},"s":{"0":0,"1":0,"2":0,"3":0,"4":0,"5":0,"6":0},"f":{"0":0,"1":0,"2":0},"b":{"0":[0,0],"1":[0,0,0],"2":[0,0]}}
@@ -1324,9 +1290,9 @@ end_of_record
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1721907703078" clover="3.2.0">
-  <project timestamp="1721907703078" name="All files">
-    <metrics statements="167" coveredstatements="20" conditionals="65" coveredconditionals="11" methods="63" coveredmethods="6" elements="295" coveredelements="37" complexity="0" loc="167" ncloc="167" packages="18" files="25" classes="25"/>
+<coverage generated="1721911200193" clover="3.2.0">
+  <project timestamp="1721911200193" name="All files">
+    <metrics statements="158" coveredstatements="41" conditionals="59" coveredconditionals="16" methods="64" coveredmethods="16" elements="281" coveredelements="73" complexity="0" loc="158" ncloc="158" packages="18" files="25" classes="25"/>
     <package name="src">
       <metrics statements="3" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="index.tsx" path="/Users/vlad.legkovskii/Desktop/exoticca-test/src/index.tsx">
@@ -1340,30 +1306,21 @@ end_of_record
       </file>
     </package>
     <package name="src.api">
-      <metrics statements="21" coveredstatements="0" conditionals="10" coveredconditionals="0" methods="5" coveredmethods="0"/>
+      <metrics statements="12" coveredstatements="11" conditionals="4" coveredconditionals="2" methods="6" coveredmethods="6"/>
       <file name="trips.tsx" path="/Users/vlad.legkovskii/Desktop/exoticca-test/src/api/trips.tsx">
-        <metrics statements="21" coveredstatements="0" conditionals="10" coveredconditionals="0" methods="5" coveredmethods="0"/>
-        <line num="3" count="0" type="stmt"/>
-        <line num="6" count="0" type="stmt"/>
-        <line num="7" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="8" count="0" type="stmt"/>
-        <line num="10" count="0" type="stmt"/>
-        <line num="14" count="0" type="stmt"/>
-        <line num="15" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="16" count="0" type="stmt"/>
-        <line num="18" count="0" type="stmt"/>
-        <line num="22" count="0" type="stmt"/>
-        <line num="30" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="31" count="0" type="stmt"/>
-        <line num="34" count="0" type="stmt"/>
-        <line num="38" count="0" type="stmt"/>
-        <line num="46" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="47" count="0" type="stmt"/>
-        <line num="50" count="0" type="stmt"/>
-        <line num="54" count="0" type="stmt"/>
-        <line num="55" count="0" type="stmt"/>
-        <line num="58" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="59" count="0" type="stmt"/>
+        <metrics statements="12" coveredstatements="11" conditionals="4" coveredconditionals="2" methods="6" coveredmethods="6"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="14" count="10" type="stmt"/>
+        <line num="15" count="10" type="stmt"/>
+        <line num="16" count="5" type="cond" truecount="1" falsecount="1"/>
+        <line num="17" count="0" type="stmt"/>
+        <line num="19" count="5" type="stmt"/>
+        <line num="21" count="5" type="stmt"/>
+        <line num="30" count="2" type="stmt"/>
+        <line num="36" count="2" type="stmt"/>
+        <line num="40" count="2" type="stmt"/>
+        <line num="50" count="2" type="stmt"/>
+        <line num="60" count="2" type="stmt"/>
       </file>
     </package>
     <package name="src.app">
@@ -1422,13 +1379,13 @@ end_of_record
       </file>
     </package>
     <package name="src.enteties.search-bar">
-      <metrics statements="4" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
+      <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
       <file name="search-bar.tsx" path="/Users/vlad.legkovskii/Desktop/exoticca-test/src/enteties/search-bar/search-bar.tsx">
-        <metrics statements="4" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
-        <line num="11" count="0" type="stmt"/>
-        <line num="13" count="0" type="stmt"/>
-        <line num="14" count="0" type="stmt"/>
-        <line num="17" count="0" type="stmt"/>
+        <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+        <line num="11" count="3" type="stmt"/>
+        <line num="13" count="3" type="stmt"/>
+        <line num="14" count="2" type="stmt"/>
+        <line num="17" count="3" type="stmt"/>
       </file>
     </package>
     <package name="src.enteties.trip-form">
@@ -1520,12 +1477,12 @@ end_of_record
       </file>
     </package>
     <package name="src.shared.ui.button">
-      <metrics statements="3" coveredstatements="3" conditionals="3" coveredconditionals="2" methods="1" coveredmethods="1"/>
+      <metrics statements="3" coveredstatements="3" conditionals="3" coveredconditionals="3" methods="1" coveredmethods="1"/>
       <file name="button.tsx" path="/Users/vlad.legkovskii/Desktop/exoticca-test/src/shared/ui/button/button.tsx">
-        <metrics statements="3" coveredstatements="3" conditionals="3" coveredconditionals="2" methods="1" coveredmethods="1"/>
-        <line num="28" count="2" type="stmt"/>
-        <line num="30" count="2" type="stmt"/>
-        <line num="38" count="2" type="stmt"/>
+        <metrics statements="3" coveredstatements="3" conditionals="3" coveredconditionals="3" methods="1" coveredmethods="1"/>
+        <line num="28" count="5" type="stmt"/>
+        <line num="30" count="5" type="stmt"/>
+        <line num="38" count="5" type="stmt"/>
       </file>
     </package>
     <package name="src.shared.ui.button-group">
@@ -1546,11 +1503,11 @@ end_of_record
       </file>
     </package>
     <package name="src.shared.ui.form">
-      <metrics statements="13" coveredstatements="0" conditionals="3" coveredconditionals="0" methods="5" coveredmethods="0"/>
+      <metrics statements="13" coveredstatements="6" conditionals="3" coveredconditionals="2" methods="5" coveredmethods="2"/>
       <file name="label.tsx" path="/Users/vlad.legkovskii/Desktop/exoticca-test/src/shared/ui/form/label.tsx">
-        <metrics statements="2" coveredstatements="0" conditionals="2" coveredconditionals="0" methods="1" coveredmethods="0"/>
-        <line num="10" count="0" type="stmt"/>
-        <line num="12" count="0" type="stmt"/>
+        <metrics statements="2" coveredstatements="2" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
+        <line num="10" count="3" type="stmt"/>
+        <line num="12" count="3" type="stmt"/>
       </file>
       <file name="select.tsx" path="/Users/vlad.legkovskii/Desktop/exoticca-test/src/shared/ui/form/select.tsx">
         <metrics statements="3" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
@@ -1566,37 +1523,37 @@ end_of_record
         <line num="25" count="0" type="stmt"/>
       </file>
       <file name="text-input.tsx" path="/Users/vlad.legkovskii/Desktop/exoticca-test/src/shared/ui/form/text-input.tsx">
-        <metrics statements="4" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
-        <line num="5" count="0" type="stmt"/>
-        <line num="14" count="0" type="stmt"/>
-        <line num="16" count="0" type="stmt"/>
-        <line num="33" count="0" type="stmt"/>
+        <metrics statements="4" coveredstatements="4" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="14" count="3" type="stmt"/>
+        <line num="16" count="3" type="stmt"/>
+        <line num="33" count="1" type="stmt"/>
       </file>
     </package>
     <package name="src.shared.ui.header">
       <metrics statements="2" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
       <file name="Header.tsx" path="/Users/vlad.legkovskii/Desktop/exoticca-test/src/shared/ui/header/Header.tsx">
         <metrics statements="2" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
-        <line num="5" count="0" type="stmt"/>
-        <line num="6" count="0" type="stmt"/>
+        <line num="7" count="0" type="stmt"/>
+        <line num="8" count="0" type="stmt"/>
       </file>
     </package>
     <package name="src.shared.ui.typography">
       <metrics statements="9" coveredstatements="0" conditionals="4" coveredconditionals="0" methods="4" coveredmethods="0"/>
       <file name="h1.tsx" path="/Users/vlad.legkovskii/Desktop/exoticca-test/src/shared/ui/typography/h1.tsx">
         <metrics statements="2" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
-        <line num="5" count="0" type="stmt"/>
-        <line num="6" count="0" type="stmt"/>
+        <line num="9" count="0" type="stmt"/>
+        <line num="10" count="0" type="stmt"/>
       </file>
       <file name="h4.tsx" path="/Users/vlad.legkovskii/Desktop/exoticca-test/src/shared/ui/typography/h4.tsx">
         <metrics statements="2" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
-        <line num="5" count="0" type="stmt"/>
-        <line num="6" count="0" type="stmt"/>
+        <line num="9" count="0" type="stmt"/>
+        <line num="10" count="0" type="stmt"/>
       </file>
       <file name="h5.tsx" path="/Users/vlad.legkovskii/Desktop/exoticca-test/src/shared/ui/typography/h5.tsx">
         <metrics statements="2" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
-        <line num="5" count="0" type="stmt"/>
-        <line num="6" count="0" type="stmt"/>
+        <line num="9" count="0" type="stmt"/>
+        <line num="10" count="0" type="stmt"/>
       </file>
       <file name="text.tsx" path="/Users/vlad.legkovskii/Desktop/exoticca-test/src/shared/ui/typography/text.tsx">
         <metrics statements="3" coveredstatements="0" conditionals="4" coveredconditionals="0" methods="1" coveredmethods="0"/>
@@ -1814,285 +1771,6 @@ export default Home;
 
 ```
 
-# src/api/trips.tsx
-
-```tsx
-import { Trip } from '../types/trip';
-
-const API_URL = 'http://localhost:3000/travels';
-
-export async function getTrips(): Promise<Trip[]> {
-  const response = await fetch(API_URL);
-  if (!response.ok) {
-    throw new Error('Failed to fetch trips');
-  }
-  return response.json();
-}
-
-export async function getTrip(id: string | undefined): Promise<Trip> {
-  const response = await fetch(`${API_URL}/${id}`);
-  if (!response.ok) {
-    throw new Error('Failed to fetch trip');
-  }
-  return response.json();
-}
-
-export async function createTrip(tripData: Trip): Promise<Trip> {
-  const response = await fetch(`${API_URL}`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(tripData),
-  });
-
-  if (!response.ok) {
-    throw new Error('Failed to create trip');
-  }
-
-  return response.json();
-}
-
-export async function updateTrip(tripData: Trip): Promise<Trip> {
-  const response = await fetch(`${API_URL}/${tripData.id}`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(tripData),
-  });
-
-  if (!response.ok) {
-    throw new Error('Failed to update trip');
-  }
-
-  return response.json();
-}
-
-export async function deleteTrip(id: string): Promise<void> {
-  console.log('delete', id);
-  const response = await fetch(`${API_URL}/${id}`, {
-    method: 'DELETE',
-  });
-  if (!response.ok) {
-    throw new Error('Failed to delete trip');
-  }
-}
-
-```
-
-# src/api/trips.test.tsx
-
-```tsx
-import { getTrips, getTrip, createTrip, updateTrip, deleteTrip } from './trips';
-import { Trip, Itinerary } from '../types/trip';
-
-global.fetch = jest.fn();
-
-const mockItinerary: Itinerary[] = [
-  {
-    day: 1,
-    location: 'Lisbon',
-    description: 'Explore the Alfama neighborhood and visit São Jorge Castle.',
-  },
-  {
-    day: 2,
-    location: 'Lisbon',
-    description:
-      'Visit the Jerónimos Monastery and the Monument to the Discoveries.',
-  },
-];
-
-const mockTrip: Trip = {
-  id: '1',
-  title: 'Portugala',
-  description:
-    'Embark on a journey through Portugal, where the charming streets of Lisbon captivate you, the golden beaches of the Algarve await, and Portuguese cuisine delights with authentic flavors. Explore castles in Sintra and create unforgettable memories in this destination full of history and beauty. Portugal invites you to experience something truly unique!',
-  photo_url:
-    'https://a.cdn-hotels.com/gdcs/production82/d1923/447a348f-f875-4885-b00a-e9a90603fef5.jpg',
-  status: 'todo',
-  itinerary: mockItinerary,
-};
-
-const mockTrips: Trip[] = [
-  mockTrip,
-  {
-    id: '2',
-    photo_url: 'https://example.com/london.jpg',
-    title: 'London Excursion',
-    status: 'done',
-    description: 'Exploring the streets of London',
-    itinerary: [
-      {
-        day: 1,
-        location: 'London',
-        description: 'Visit Big Ben and Westminster Abbey',
-      },
-      { day: 2, location: 'London', description: 'Explore the British Museum' },
-    ],
-  },
-];
-
-describe('API Functions', () => {
-  beforeEach(() => {
-    jest.resetAllMocks();
-  });
-
-  describe('getTrips', () => {
-    it('should fetch trips successfully', async () => {
-      (global.fetch as jest.Mock).mockResolvedValueOnce({
-        ok: true,
-        json: jest.fn().mockResolvedValueOnce(mockTrips),
-      });
-
-      const result = await getTrips();
-
-      expect(global.fetch).toHaveBeenCalledWith(
-        'http://localhost:3000/travels',
-      );
-      expect(result).toEqual(mockTrips);
-    });
-
-    it('should throw an error when fetch fails', async () => {
-      (global.fetch as jest.Mock).mockResolvedValueOnce({ ok: false });
-
-      await expect(getTrips()).rejects.toThrow('Failed to fetch trips');
-    });
-  });
-
-  describe('getTrip', () => {
-    it('should fetch a single trip successfully', async () => {
-      (global.fetch as jest.Mock).mockResolvedValueOnce({
-        ok: true,
-        json: jest.fn().mockResolvedValueOnce(mockTrip),
-      });
-
-      const result = await getTrip('1');
-
-      expect(global.fetch).toHaveBeenCalledWith(
-        'http://localhost:3000/travels/1',
-      );
-      expect(result).toEqual(mockTrip);
-    });
-
-    it('should throw an error when fetch fails', async () => {
-      (global.fetch as jest.Mock).mockResolvedValueOnce({ ok: false });
-
-      await expect(getTrip('1')).rejects.toThrow('Failed to fetch trip');
-    });
-  });
-
-  describe('createTrip', () => {
-    it('should create a trip successfully', async () => {
-      const newTrip: Trip = {
-        id: '1',
-        title: 'Portugal',
-        description:
-          'Embark on a journey through Portugal, where the charming streets of Lisbon captivate you, the golden beaches of the Algarve await, and Portuguese cuisine delights with authentic flavors. Explore castles in Sintra and create unforgettable memories in this destination full of history and beauty. Portugal invites you to experience something truly unique!',
-        photo_url:
-          'https://a.cdn-hotels.com/gdcs/production82/d1923/447a348f-f875-4885-b00a-e9a90603fef5.jpg',
-        status: 'todo',
-        itinerary: [
-          {
-            day: 1,
-            location: 'Lisbon',
-            description:
-              'Explore the Alfama neighborhood and visit São Jorge Castle.',
-          },
-          {
-            day: 2,
-            location: 'Lisbon',
-            description:
-              'Visit the Jerónimos Monastery and the Monument to the Discoveries.',
-          },
-        ],
-      };
-      const createdTrip: Trip = { ...newTrip, id: '3' };
-
-      (global.fetch as jest.Mock).mockResolvedValueOnce({
-        ok: true,
-        json: jest.fn().mockResolvedValueOnce(createdTrip),
-      });
-
-      const result = await createTrip(newTrip);
-
-      expect(global.fetch).toHaveBeenCalledWith(
-        'http://localhost:3000/travels',
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(newTrip),
-        },
-      );
-      expect(result).toEqual(createdTrip);
-    });
-
-    it('should throw an error when creation fails', async () => {
-      (global.fetch as jest.Mock).mockResolvedValueOnce({ ok: false });
-
-      await expect(createTrip(mockTrip)).rejects.toThrow(
-        'Failed to create trip',
-      );
-    });
-  });
-
-  describe('updateTrip', () => {
-    it('should update a trip successfully', async () => {
-      const updatedTrip: Trip = {
-        ...mockTrip,
-        title: 'Updated Paris Adventure',
-      };
-      (global.fetch as jest.Mock).mockResolvedValueOnce({
-        ok: true,
-        json: jest.fn().mockResolvedValueOnce(updatedTrip),
-      });
-
-      const result = await updateTrip(updatedTrip);
-
-      expect(global.fetch).toHaveBeenCalledWith(
-        'http://localhost:3000/travels/1',
-        {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(updatedTrip),
-        },
-      );
-      expect(result).toEqual(updatedTrip);
-    });
-
-    it('should throw an error when update fails', async () => {
-      (global.fetch as jest.Mock).mockResolvedValueOnce({ ok: false });
-
-      await expect(updateTrip(mockTrip)).rejects.toThrow(
-        'Failed to update trip',
-      );
-    });
-  });
-
-  describe('deleteTrip', () => {
-    it('should delete a trip successfully', async () => {
-      (global.fetch as jest.Mock).mockResolvedValueOnce({ ok: true });
-
-      await deleteTrip('1');
-
-      expect(global.fetch).toHaveBeenCalledWith(
-        'http://localhost:3000/travels/1',
-        {
-          method: 'DELETE',
-        },
-      );
-    });
-
-    it('should throw an error when deletion fails', async () => {
-      (global.fetch as jest.Mock).mockResolvedValueOnce({ ok: false });
-
-      await expect(deleteTrip('1')).rejects.toThrow('Failed to delete trip');
-    });
-  });
-});
-
-```
-
 # src/app/app.tsx
 
 ```tsx
@@ -2217,6 +1895,321 @@ import './commands';
 //     }
 //   }
 // }
+
+```
+
+# cypress/fixtures/example.json
+
+```json
+{
+  "name": "Using fixtures to represent data",
+  "email": "hello@cypress.io",
+  "body": "Fixtures are a great way to mock data for responses to routes"
+}
+
+```
+
+# cypress/e2e/spec.cy.ts
+
+```ts
+context('End to end test for the application', () => {
+  beforeEach(() => {
+    cy.visit('/');
+  });
+  describe('text', () => {
+    describe('main page text', () => {
+      it('assert text on the page', () => {
+        cy.contains(/the places you dream of/i).should('exist');
+        cy.contains(/let’s live new adventures/i).should('exist');
+      });
+    });
+  });
+});
+
+```
+
+# src/api/trips.tsx
+
+```tsx
+import { Trip } from '../types/trip';
+
+const API_URL = 'http://localhost:3000/travels';
+
+interface ApiResponse<T> {
+  data: T | null;
+  error: Error | null;
+}
+
+async function apiCall<T>(
+  url: string,
+  options?: RequestInit,
+): Promise<ApiResponse<T>> {
+  try {
+    const response = await fetch(url, options);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return await response.json();
+  } catch (error) {
+    return {
+      data: null,
+      error:
+        error instanceof Error ? error : new Error('An unknown error occurred'),
+    };
+  }
+}
+
+export async function getTrips(): Promise<ApiResponse<Trip[]>> {
+  return apiCall<Trip[]>(API_URL);
+}
+
+export async function getTrip(
+  id: string | undefined,
+): Promise<ApiResponse<Trip>> {
+  return apiCall<Trip>(`${API_URL}/${id}`);
+}
+
+export async function createTrip(tripData: Trip): Promise<ApiResponse<Trip>> {
+  return apiCall<Trip>(API_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(tripData),
+  });
+}
+
+export async function updateTrip(tripData: Trip): Promise<ApiResponse<Trip>> {
+  return apiCall<Trip>(`${API_URL}/${tripData.id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(tripData),
+  });
+}
+
+export async function deleteTrip(id: string): Promise<ApiResponse<void>> {
+  return apiCall<void>(`${API_URL}/${id}`, {
+    method: 'DELETE',
+  });
+}
+
+```
+
+# src/api/trips.test.tsx
+
+```tsx
+import { getTrips, getTrip, createTrip, updateTrip, deleteTrip } from './trips';
+import { Trip, Itinerary } from '../types/trip';
+
+global.fetch = jest.fn();
+
+const mockItinerary: Itinerary[] = [
+  {
+    day: 1,
+    location: 'Lisbon',
+    description: 'Explore the Alfama neighborhood and visit São Jorge Castle.',
+  },
+  {
+    day: 2,
+    location: 'Lisbon',
+    description:
+      'Visit the Jerónimos Monastery and the Monument to the Discoveries.',
+  },
+];
+
+const mockTrip: Trip = {
+  id: '1',
+  title: 'Portugala',
+  description:
+    'Embark on a journey through Portugal, where the charming streets of Lisbon captivate you, the golden beaches of the Algarve await, and Portuguese cuisine delights with authentic flavors. Explore castles in Sintra and create unforgettable memories in this destination full of history and beauty. Portugal invites you to experience something truly unique!',
+  photo_url:
+    'https://a.cdn-hotels.com/gdcs/production82/d1923/447a348f-f875-4885-b00a-e9a90603fef5.jpg',
+  status: 'todo',
+  itinerary: mockItinerary,
+};
+
+const mockTrips: Trip[] = [
+  mockTrip,
+  {
+    id: '2',
+    photo_url: 'https://example.com/london.jpg',
+    title: 'London Excursion',
+    status: 'done',
+    description: 'Exploring the streets of London',
+    itinerary: [
+      {
+        day: 1,
+        location: 'London',
+        description: 'Visit Big Ben and Westminster Abbey',
+      },
+      { day: 2, location: 'London', description: 'Explore the British Museum' },
+    ],
+  },
+];
+
+describe('API Functions', () => {
+  beforeEach(() => {
+    jest.resetAllMocks();
+  });
+
+  describe('getTrips', () => {
+    it('should fetch trips successfully', async () => {
+      (global.fetch as jest.Mock).mockResolvedValueOnce({
+        ok: true,
+        json: jest.fn().mockResolvedValueOnce(mockTrips),
+      });
+
+      const result = await getTrips();
+
+      expect(global.fetch).toHaveBeenCalledWith(
+        'http://localhost:3000/travels',
+        undefined,
+      );
+      expect(result).toEqual(mockTrips);
+    });
+
+    it('should return an error when fetch fails', async () => {
+      const mockError = new Error('HTTP error! status: 404');
+      (global.fetch as jest.Mock).mockRejectedValueOnce(mockError);
+
+      const result = await getTrips();
+
+      expect(result).toEqual({ data: null, error: mockError });
+    });
+  });
+
+  describe('getTrip', () => {
+    it('should fetch a single trip successfully', async () => {
+      (global.fetch as jest.Mock).mockResolvedValueOnce({
+        ok: true,
+        json: jest.fn().mockResolvedValueOnce(mockTrip),
+      });
+
+      const result = await getTrip('1');
+
+      expect(global.fetch).toHaveBeenCalledWith(
+        'http://localhost:3000/travels/1',
+        undefined,
+      );
+      expect(result).toEqual(mockTrip);
+    });
+
+    it('should return an error when fetch fails', async () => {
+      const mockError = new Error('HTTP error! status: 404');
+      (global.fetch as jest.Mock).mockRejectedValueOnce(mockError);
+
+      const result = await getTrip('1');
+
+      expect(result).toEqual({ data: null, error: mockError });
+    });
+  });
+
+  describe('createTrip', () => {
+    it('should create a trip successfully', async () => {
+      const newTrip: Trip = {
+        id: '1',
+        title: 'Portugal',
+        description:
+          'Embark on a journey through Portugal, where the charming streets of Lisbon captivate you, the golden beaches of the Algarve await, and Portuguese cuisine delights with authentic flavors. Explore castles in Sintra and create unforgettable memories in this destination full of history and beauty. Portugal invites you to experience something truly unique!',
+        photo_url:
+          'https://a.cdn-hotels.com/gdcs/production82/d1923/447a348f-f875-4885-b00a-e9a90603fef5.jpg',
+        status: 'todo',
+        itinerary: mockItinerary,
+      };
+      const createdTrip: Trip = { ...newTrip, id: '3' };
+
+      (global.fetch as jest.Mock).mockResolvedValueOnce({
+        ok: true,
+        json: jest.fn().mockResolvedValueOnce(createdTrip),
+      });
+
+      const result = await createTrip(newTrip);
+
+      expect(global.fetch).toHaveBeenCalledWith(
+        'http://localhost:3000/travels',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(newTrip),
+        },
+      );
+      expect(result).toEqual(createdTrip);
+    });
+
+    it('should return an error when creation fails', async () => {
+      const mockError = new Error('HTTP error! status: 400');
+      (global.fetch as jest.Mock).mockRejectedValueOnce(mockError);
+
+      const result = await createTrip(mockTrip);
+
+      expect(result).toEqual({ data: null, error: mockError });
+    });
+  });
+
+  describe('updateTrip', () => {
+    it('should update a trip successfully', async () => {
+      const updatedTrip: Trip = {
+        ...mockTrip,
+        title: 'Updated Paris Adventure',
+      };
+      (global.fetch as jest.Mock).mockResolvedValueOnce({
+        ok: true,
+        json: jest.fn().mockResolvedValueOnce(updatedTrip),
+      });
+
+      const result = await updateTrip(updatedTrip);
+
+      expect(global.fetch).toHaveBeenCalledWith(
+        'http://localhost:3000/travels/1',
+        {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(updatedTrip),
+        },
+      );
+      expect(result).toEqual(updatedTrip);
+    });
+
+    it('should return an error when update fails', async () => {
+      const mockError = new Error('HTTP error! status: 400');
+      (global.fetch as jest.Mock).mockRejectedValueOnce(mockError);
+
+      const result = await updateTrip(mockTrip);
+
+      expect(result).toEqual({ data: null, error: mockError });
+    });
+  });
+
+  describe('deleteTrip', () => {
+    it('should delete a trip successfully', async () => {
+      (global.fetch as jest.Mock).mockResolvedValueOnce({
+        ok: true,
+        json: jest.fn().mockResolvedValueOnce({}),
+      });
+
+      const result = await deleteTrip('1');
+
+      expect(global.fetch).toHaveBeenCalledWith(
+        'http://localhost:3000/travels/1',
+        {
+          method: 'DELETE',
+        },
+      );
+      expect(result).toEqual({});
+    });
+
+    it('should return an error when deletion fails', async () => {
+      const mockError = new Error('HTTP error! status: 404');
+      (global.fetch as jest.Mock).mockRejectedValueOnce(mockError);
+
+      const result = await deleteTrip('1');
+
+      expect(result).toEqual({ data: null, error: mockError });
+    });
+  });
+});
 
 ```
 
@@ -2469,30 +2462,30 @@ window.PR_SHOULD_USE_CONTINUATION=true;(function(){var h=["break,continue,do,els
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">12.13% </span>
+                <span class="strong">25.6% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>21/173</span>
+                <span class='fraction'>42/164</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">16.92% </span>
+                <span class="strong">27.11% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>11/65</span>
+                <span class='fraction'>16/59</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">9.52% </span>
+                <span class="strong">25% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>6/63</span>
+                <span class='fraction'>16/64</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">11.97% </span>
+                <span class="strong">25.94% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>20/167</span>
+                <span class='fraction'>41/158</span>
             </div>
         
             
@@ -2540,18 +2533,18 @@ window.PR_SHOULD_USE_CONTINUATION=true;(function(){var h=["break,continue,do,els
 	</tr>
 
 <tr>
-	<td class="file low" data-value="src/api"><a href="src/api/index.html">src/api</a></td>
-	<td data-value="0" class="pic low">
-	<div class="chart"><div class="cover-fill" style="width: 0%"></div><div class="cover-empty" style="width: 100%"></div></div>
+	<td class="file high" data-value="src/api"><a href="src/api/index.html">src/api</a></td>
+	<td data-value="91.66" class="pic high">
+	<div class="chart"><div class="cover-fill" style="width: 91%"></div><div class="cover-empty" style="width: 9%"></div></div>
 	</td>
-	<td data-value="0" class="pct low">0%</td>
-	<td data-value="21" class="abs low">0/21</td>
-	<td data-value="0" class="pct low">0%</td>
-	<td data-value="10" class="abs low">0/10</td>
-	<td data-value="0" class="pct low">0%</td>
-	<td data-value="5" class="abs low">0/5</td>
-	<td data-value="0" class="pct low">0%</td>
-	<td data-value="21" class="abs low">0/21</td>
+	<td data-value="91.66" class="pct high">91.66%</td>
+	<td data-value="12" class="abs high">11/12</td>
+	<td data-value="50" class="pct medium">50%</td>
+	<td data-value="4" class="abs medium">2/4</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="6" class="abs high">6/6</td>
+	<td data-value="91.66" class="pct high">91.66%</td>
+	<td data-value="12" class="abs high">11/12</td>
 	</tr>
 
 <tr>
@@ -2615,18 +2608,18 @@ window.PR_SHOULD_USE_CONTINUATION=true;(function(){var h=["break,continue,do,els
 	</tr>
 
 <tr>
-	<td class="file low" data-value="src/enteties/search-bar"><a href="src/enteties/search-bar/index.html">src/enteties/search-bar</a></td>
-	<td data-value="0" class="pic low">
-	<div class="chart"><div class="cover-fill" style="width: 0%"></div><div class="cover-empty" style="width: 100%"></div></div>
+	<td class="file high" data-value="src/enteties/search-bar"><a href="src/enteties/search-bar/index.html">src/enteties/search-bar</a></td>
+	<td data-value="100" class="pic high">
+	<div class="chart"><div class="cover-fill cover-full" style="width: 100%"></div><div class="cover-empty" style="width: 0%"></div></div>
 	</td>
-	<td data-value="0" class="pct low">0%</td>
-	<td data-value="4" class="abs low">0/4</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="4" class="abs high">4/4</td>
 	<td data-value="100" class="pct high">100%</td>
 	<td data-value="0" class="abs high">0/0</td>
-	<td data-value="0" class="pct low">0%</td>
-	<td data-value="2" class="abs low">0/2</td>
-	<td data-value="0" class="pct low">0%</td>
-	<td data-value="4" class="abs low">0/4</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="2" class="abs high">2/2</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="4" class="abs high">4/4</td>
 	</tr>
 
 <tr>
@@ -2696,8 +2689,8 @@ window.PR_SHOULD_USE_CONTINUATION=true;(function(){var h=["break,continue,do,els
 	</td>
 	<td data-value="100" class="pct high">100%</td>
 	<td data-value="3" class="abs high">3/3</td>
-	<td data-value="66.66" class="pct medium">66.66%</td>
-	<td data-value="3" class="abs medium">2/3</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="3" class="abs high">3/3</td>
 	<td data-value="100" class="pct high">100%</td>
 	<td data-value="1" class="abs high">1/1</td>
 	<td data-value="100" class="pct high">100%</td>
@@ -2721,17 +2714,17 @@ window.PR_SHOULD_USE_CONTINUATION=true;(function(){var h=["break,continue,do,els
 
 <tr>
 	<td class="file low" data-value="src/shared/ui/form"><a href="src/shared/ui/form/index.html">src/shared/ui/form</a></td>
-	<td data-value="0" class="pic low">
-	<div class="chart"><div class="cover-fill" style="width: 0%"></div><div class="cover-empty" style="width: 100%"></div></div>
+	<td data-value="46.15" class="pic low">
+	<div class="chart"><div class="cover-fill" style="width: 46%"></div><div class="cover-empty" style="width: 54%"></div></div>
 	</td>
-	<td data-value="0" class="pct low">0%</td>
-	<td data-value="13" class="abs low">0/13</td>
-	<td data-value="0" class="pct low">0%</td>
-	<td data-value="3" class="abs low">0/3</td>
-	<td data-value="0" class="pct low">0%</td>
-	<td data-value="5" class="abs low">0/5</td>
-	<td data-value="0" class="pct low">0%</td>
-	<td data-value="13" class="abs low">0/13</td>
+	<td data-value="46.15" class="pct low">46.15%</td>
+	<td data-value="13" class="abs low">6/13</td>
+	<td data-value="66.66" class="pct medium">66.66%</td>
+	<td data-value="3" class="abs medium">2/3</td>
+	<td data-value="40" class="pct low">40%</td>
+	<td data-value="5" class="abs low">2/5</td>
+	<td data-value="46.15" class="pct low">46.15%</td>
+	<td data-value="13" class="abs low">6/13</td>
 	</tr>
 
 <tr>
@@ -2802,7 +2795,7 @@ window.PR_SHOULD_USE_CONTINUATION=true;(function(){var h=["break,continue,do,els
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-25T11:41:43.039Z
+                at 2024-07-25T12:40:00.119Z
             </div>
         <script src="prettify.js"></script>
         <script>
@@ -3144,35 +3137,195 @@ pre.prettyprint {
 
 ```
 
-# cypress/e2e/spec.cy.ts
+# src/enteties/trip-view/trip-view.tsx
 
-```ts
-context('End to end test for the application', () => {
-  beforeEach(() => {
-    cy.visit('/');
-  });
-  describe('text', () => {
-    describe('main page text', () => {
-      it('assert text on the page', () => {
-        cy.contains(/apps by host/i).should('exist');
-        cy.contains(/for user averylongemailadress@companyname.com/i).should(
-          'exist'
-        );
-      });
-    });
-  });
-});
+```tsx
+import React from 'react';
+import { useLoaderData, useNavigate, useParams } from 'react-router-dom';
+import { H1 } from '../../shared/ui/typography/h1';
+import { Text } from '../../shared/ui/typography/text';
+import { Button } from '../../shared/ui/button/button';
+import { Modal } from '../modal/modal';
+import styles from './trip-view.module.css';
+
+export function TripView() {
+  const trip = useLoaderData();
+  const navigate = useNavigate();
+  const params = useParams();
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    navigate(`/`);
+  };
+
+  React.useEffect(() => {
+    if (params.id) {
+      setIsModalOpen(true);
+    }
+  }, [params.id]);
+
+  return (
+    <Modal isOpen={isModalOpen} onClose={closeModal}>
+      <div className={styles.tripView}>
+        <img src={trip.photo_url} alt={trip.title} className={styles.image} />
+        <H1>{trip.title}</H1>
+        {trip.status === 'todo' && (
+          <Button variant="link" disabled={trip.status === 'completed'}>
+            Mark as completed ☑️
+          </Button>
+        )}
+        <Text variant="normal" className={styles.description}>
+          {trip.description}
+        </Text>
+        <h2 className={styles.itineraryTitle}>Itinerary</h2>
+        <ul className={styles.itinerary}>
+          {trip.itinerary.map((item) => (
+            <li key={item.day} className={styles.itineraryItem}>
+              <h3 className={styles.itineraryDay}>
+                Day {item.day}: {item.location}
+              </h3>
+              <Text variant="normal">{item.description}</Text>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </Modal>
+  );
+}
 
 ```
 
-# cypress/fixtures/example.json
+# src/enteties/trip-view/trip-view.module.css
 
-```json
-{
-  "name": "Using fixtures to represent data",
-  "email": "hello@cypress.io",
-  "body": "Fixtures are a great way to mock data for responses to routes"
+```css
+.tripView {
+  max-width: 50rem;
+  margin: 0 auto;
+  padding: 1.25rem;
 }
+
+.image {
+  width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.introduction {
+  font-style: italic;
+  margin-bottom: 1.25rem;
+}
+
+.description {
+  margin-bottom: 1.875rem;
+}
+
+.itineraryTitle {
+  font-size: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.itinerary {
+  list-style-type: none;
+  padding: 0;
+}
+
+.itineraryItem {
+  margin-bottom: 1.25rem;
+}
+
+.itineraryDay {
+  font-size: 1.2rem;
+  margin-bottom: 0.625rem;
+}
+
+```
+
+# src/enteties/search-bar/search-bar.tsx
+
+```tsx
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { Button } from '../../shared/ui/button/button';
+import { TextInput } from '../../shared/ui/form/text-input';
+
+type SearchBarProps = {
+  onClick: (value: string) => void;
+};
+
+export function SearchBar({ onClick }: SearchBarProps) {
+  const { register, handleSubmit } = useForm();
+
+  const onSubmit = (data: { searchValue: string }) => {
+    onClick(data.searchValue);
+  };
+
+  return (
+    <form role="search" onSubmit={handleSubmit(onSubmit)}>
+      <TextInput
+        {...register('searchValue')}
+        placeholder="Search trips"
+        id="search-bar-input"
+        aria-label="search-bar-input"
+      >
+        <Button icon="search" size="small" type="submit">
+          Search
+        </Button>
+      </TextInput>
+    </form>
+  );
+}
+
+```
+
+# src/enteties/search-bar/search-bar.test.tsx
+
+```tsx
+import React from 'react';
+import { render, fireEvent, screen, waitFor } from '@testing-library/react';
+import { SearchBar } from './search-bar';
+describe('SearchBar', () => {
+  const setup = (onClick = jest.fn()) => {
+    const utils = render(<SearchBar onClick={onClick} />);
+    const input = screen.getByLabelText('search-bar-input');
+    const form = screen.getByRole('search');
+    const button = screen.getByRole('button', { name: /search/i });
+    return {
+      input,
+      form,
+      button,
+      onClick,
+      ...utils,
+    };
+  };
+
+  test('check search value', async () => {
+    const { input } = setup();
+    fireEvent.change(input, { target: { value: 'Portugal' } });
+    expect(input.value).toBe('Portugal');
+  });
+
+  test('submit dispatched and onClick called with correct value', async () => {
+    const { input, form, onClick } = setup();
+
+    fireEvent.change(input, { target: { value: 'Portugal' } });
+    fireEvent.submit(form);
+
+    await waitFor(() => {
+      expect(onClick).toHaveBeenCalledWith('Portugal');
+    });
+  });
+
+  test('submit triggered by clicking the search button', async () => {
+    const { input, button, onClick } = setup();
+    fireEvent.change(input, { target: { value: 'Spain' } });
+    fireEvent.click(button);
+    await waitFor(() => {
+      expect(onClick).toHaveBeenCalledWith('Spain');
+    });
+  });
+});
 
 ```
 
@@ -3350,107 +3503,63 @@ export function TripForm() {
 
 ```
 
-# src/enteties/trip-view/trip-view.tsx
+# src/enteties/header/header.tsx
 
 ```tsx
 import React from 'react';
-import { useLoaderData, useNavigate, useParams } from 'react-router-dom';
-import { H1 } from '../../shared/ui/typography/h1';
-import { Text } from '../../shared/ui/typography/text';
 import { Button } from '../../shared/ui/button/button';
-import { Modal } from '../modal/modal';
-import styles from './trip-view.module.css';
+import styles from './header.module.css';
 
-export function TripView() {
-  const trip = useLoaderData();
-  const navigate = useNavigate();
-  const params = useParams();
-  const [isModalOpen, setIsModalOpen] = React.useState(false);
+type HeaderProps = {
+  onCreateNewTrip: () => void;
+};
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-    navigate(`/`);
-  };
-
-  React.useEffect(() => {
-    if (params.id) {
-      setIsModalOpen(true);
-    }
-  }, [params.id]);
+export function Header(props: HeaderProps) {
+  const { onCreateNewTrip } = props;
 
   return (
-    <Modal isOpen={isModalOpen} onClose={closeModal}>
-      <div className={styles.tripView}>
-        <img src={trip.photo_url} alt={trip.title} className={styles.image} />
-        <H1>{trip.title}</H1>
-        {trip.status === 'todo' && (
-          <Button variant="link" disabled={trip.status === 'completed'}>
-            Mark as completed ☑️
-          </Button>
-        )}
-        <Text variant="normal" className={styles.description}>
-          {trip.description}
-        </Text>
-        <h2 className={styles.itineraryTitle}>Itinerary</h2>
-        <ul className={styles.itinerary}>
-          {trip.itinerary.map((item) => (
-            <li key={item.day} className={styles.itineraryItem}>
-              <h3 className={styles.itineraryDay}>
-                Day {item.day}: {item.location}
-              </h3>
-              <Text variant="normal">{item.description}</Text>
-            </li>
-          ))}
-        </ul>
+    <nav className={styles.nav}>
+      <div className={styles.iconContainer}>
+        <span className={styles.icon}>e</span>
       </div>
-    </Modal>
+      <Button variant="secondary" size="default" onClick={onCreateNewTrip}>
+        Create new trip
+      </Button>
+    </nav>
   );
 }
 
 ```
 
-# src/enteties/trip-view/trip-view.module.css
+# src/enteties/header/header.module.css
 
 ```css
-.tripView {
-  max-width: 50rem;
-  margin: 0 auto;
-  padding: 1.25rem;
-}
-
-.image {
+.nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
   width: 100%;
-  height: auto;
-  border-radius: 0.5rem;
-  margin-bottom: 1.25rem;
+  max-width: 58rem;
+  background: #121212;
+  border-radius: 1rem;
 }
 
-.introduction {
-  font-style: italic;
-  margin-bottom: 1.25rem;
+.iconContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 1.8125rem;
+  background: #FFFFFF;
 }
 
-.description {
-  margin-bottom: 1.875rem;
-}
-
-.itineraryTitle {
+.icon {
   font-size: 1.5rem;
-  margin-bottom: 1.25rem;
-}
-
-.itinerary {
-  list-style-type: none;
-  padding: 0;
-}
-
-.itineraryItem {
-  margin-bottom: 1.25rem;
-}
-
-.itineraryDay {
-  font-size: 1.2rem;
-  margin-bottom: 0.625rem;
+  color: #121212;
+  font-weight: bold;
 }
 
 ```
@@ -3613,93 +3722,6 @@ describe('Modal Component', () => {
 
 ```
 
-# src/enteties/search-bar/search-bar.tsx
-
-```tsx
-import React from 'react';
-import { useForm } from 'react-hook-form';
-import { Button } from '../../shared/ui/button/button';
-import { TextInput } from '../../shared/ui/form/text-input';
-
-type SearchBarProps = {
-  onClick: (value: string) => void;
-};
-
-export function SearchBar({ onClick }: SearchBarProps) {
-  const { register, handleSubmit } = useForm();
-
-  const onSubmit = (data: { searchValue: string }) => {
-    onClick(data.searchValue);
-  };
-
-  return (
-    <form role="search" onSubmit={handleSubmit(onSubmit)}>
-      <TextInput
-        {...register('searchValue')}
-        placeholder="Search trips"
-        id="search-bar-input"
-        aria-label="search-bar-input"
-      >
-        <Button icon="search" size="small" type="submit">
-          Search
-        </Button>
-      </TextInput>
-    </form>
-  );
-}
-
-```
-
-# src/enteties/search-bar/search-bar.test.tsx
-
-```tsx
-import React from 'react';
-import { render, fireEvent, screen, waitFor } from '@testing-library/react';
-import { SearchBar } from './search-bar';
-describe('SearchBar', () => {
-  const setup = (onClick = jest.fn()) => {
-    const utils = render(<SearchBar onClick={onClick} />);
-    const input = screen.getByLabelText('search-bar-input');
-    const form = screen.getByRole('search');
-    const button = screen.getByRole('button', { name: /search/i });
-    return {
-      input,
-      form,
-      button,
-      onClick,
-      ...utils,
-    };
-  };
-
-  test('check search value', async () => {
-    const { input } = setup();
-    fireEvent.change(input, { target: { value: 'Portugal' } });
-    expect(input.value).toBe('Portugal');
-  });
-
-  test('submit dispatched and onClick called with correct value', async () => {
-    const { input, form, onClick } = setup();
-
-    fireEvent.change(input, { target: { value: 'Portugal' } });
-    fireEvent.submit(form);
-
-    await waitFor(() => {
-      expect(onClick).toHaveBeenCalledWith('Portugal');
-    });
-  });
-
-  test('submit triggered by clicking the search button', async () => {
-    const { input, button, onClick } = setup();
-    fireEvent.change(input, { target: { value: 'Spain' } });
-    fireEvent.click(button);
-    await waitFor(() => {
-      expect(onClick).toHaveBeenCalledWith('Spain');
-    });
-  });
-});
-
-```
-
 # src/enteties/card/card.tsx
 
 ```tsx
@@ -3805,67 +3827,6 @@ export function Card(props: CardProps) {
 
 ```
 
-# src/enteties/header/header.tsx
-
-```tsx
-import React from 'react';
-import { Button } from '../../shared/ui/button/button';
-import styles from './header.module.css';
-
-type HeaderProps = {
-  onCreateNewTrip: () => void;
-};
-
-export function Header(props: HeaderProps) {
-  const { onCreateNewTrip } = props;
-
-  return (
-    <nav className={styles.nav}>
-      <div className={styles.iconContainer}>
-        <span className={styles.icon}>e</span>
-      </div>
-      <Button variant="secondary" size="default" onClick={onCreateNewTrip}>
-        Create new trip
-      </Button>
-    </nav>
-  );
-}
-
-```
-
-# src/enteties/header/header.module.css
-
-```css
-.nav {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem;
-  width: 100%;
-  max-width: 58rem;
-  background: #121212;
-  border-radius: 1rem;
-}
-
-.iconContainer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 1.8125rem;
-  background: #FFFFFF;
-}
-
-.icon {
-  font-size: 1.5rem;
-  color: #121212;
-  font-weight: bold;
-}
-
-```
-
 # coverage/lcov-report/src/style.module.css.d.ts.html
 
 ```html
@@ -3953,7 +3914,7 @@ export function Header(props: HeaderProps) {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-25T11:41:43.039Z
+                at 2024-07-25T12:40:00.119Z
             </div>
         <script src="../prettify.js"></script>
         <script>
@@ -4076,7 +4037,7 @@ const root = <span class="cstat-no" title="statement not covered" >createRoot(co
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-25T11:41:43.039Z
+                at 2024-07-25T12:40:00.119Z
             </div>
         <script src="../prettify.js"></script>
         <script>
@@ -4212,7 +4173,7 @@ const root = <span class="cstat-no" title="statement not covered" >createRoot(co
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-25T11:41:43.039Z
+                at 2024-07-25T12:40:00.119Z
             </div>
         <script src="../prettify.js"></script>
         <script>
@@ -4286,7 +4247,11 @@ export function Text(props: TextProps) {
 import React from 'react';
 import styles from './h5.module.css';
 
-function H5(props: React.PropsWithChildren) {
+type H5Props = {
+  children: React.ReactNode;
+};
+
+function H5(props: H5Props) {
   const { children } = props;
   return <h5 className={styles.h5}>{children}</h5>;
 }
@@ -4315,7 +4280,11 @@ export { H5 };
 import React from 'react';
 import styles from './h4.module.css';
 
-function H4(props: React.PropsWithChildren) {
+type PropType = {
+  children: React.ReactNode;
+};
+
+function H4(props: PropType) {
   const { children } = props;
   return <h4 className={styles.h4}>{children}</h4>;
 }
@@ -4344,7 +4313,11 @@ export { H4 };
 import React from 'react';
 import styles from './h1.module.css';
 
-function H1(props: React.PropsWithChildren) {
+type H1Props = {
+  children: React.ReactNode;
+};
+
+function H1(props: H1Props) {
   const { children } = props;
   return <h1 className={styles.h1}>{children}</h1>;
 }
@@ -4373,7 +4346,9 @@ export { H1 };
 import React from 'react';
 import styles from './Header.module.css';
 
-export function Header(props: React.PropsWithChildren) {
+type HeaderProps = { children: React.ReactNode };
+
+export function Header(props: HeaderProps) {
   const { children } = props;
   return <header className={styles.header}>{children}</header>;
 }
@@ -4392,96 +4367,6 @@ export function Header(props: React.PropsWithChildren) {
   *:last-child {
     flex-shrink: 0;
   }
-}
-
-```
-
-# src/shared/ui/button-group/button-group.tsx
-
-```tsx
-import React from 'react';
-import { TripFilters } from '../../../types/trip';
-import styles from './button-group.module.css';
-
-type ButtonGroupProps = {
-  children: React.ReactNode;
-  className?: string;
-  value: TripFilters;
-  onClick: (value: number) => void;
-};
-
-export function ButtonGroup(props: ButtonGroupProps) {
-  const { children, className = '', value, onClick } = props;
-
-  return (
-    <div className={`${styles.buttonGroup} ${className}`}>
-      {React.Children.map(children, (child, index) => {
-        if (
-          React.isValidElement<React.HTMLAttributes<HTMLButtonElement>>(child)
-        ) {
-          let positionClass = '';
-          if (index === 0) {
-            positionClass = styles.first;
-          } else if (index === React.Children.count(children) - 1) {
-            positionClass = styles.last;
-          }
-
-          return React.cloneElement(child, {
-            className: `${child.props.className || ''} ${styles.groupButton} ${positionClass}`,
-            active: index === value,
-            onClick: () => onClick(index),
-          });
-        }
-        return child;
-      })}
-    </div>
-  );
-}
-
-```
-
-# src/shared/ui/button-group/button-group.module.css
-
-```css
-.buttonGroup {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  padding: 0;
-  width: 19.0625rem;
-  height: 3rem;
-  border: 1px solid #D8D8D8;
-  border-radius: 6.25rem;
-}
-
-.groupButton {
-  flex: 1;
-  border: none;
-  transition: background-color 0.3s ease;
-}
-
-.groupButton:not(:last-child) {
-  border-right: 1px solid #D8D8D8;
-}
-
-.groupButton:hover {
-  opacity: .7;
-}
-
-.groupButton.selected {
-  opacity: .8;
-}
-
-.groupButton:not(.first):not(.last) {
-  border-radius: 0;
-}
-
-.first {
-  border-radius: 6.25rem 0 0 6.25rem;
-}
-
-.last {
-  border-radius: 0 6.25rem 6.25rem 0;
 }
 
 ```
@@ -4723,6 +4608,96 @@ export function Label(props: LabelProps) {
 
 ```
 
+# src/shared/ui/button-group/button-group.tsx
+
+```tsx
+import React from 'react';
+import { TripFilters } from '../../../types/trip';
+import styles from './button-group.module.css';
+
+type ButtonGroupProps = {
+  children: React.ReactNode;
+  className?: string;
+  value: TripFilters;
+  onClick: (value: number) => void;
+};
+
+export function ButtonGroup(props: ButtonGroupProps) {
+  const { children, className = '', value, onClick } = props;
+
+  return (
+    <div className={`${styles.buttonGroup} ${className}`}>
+      {React.Children.map(children, (child, index) => {
+        if (
+          React.isValidElement<React.HTMLAttributes<HTMLButtonElement>>(child)
+        ) {
+          let positionClass = '';
+          if (index === 0) {
+            positionClass = styles.first;
+          } else if (index === React.Children.count(children) - 1) {
+            positionClass = styles.last;
+          }
+
+          return React.cloneElement(child, {
+            className: `${child.props.className || ''} ${styles.groupButton} ${positionClass}`,
+            active: index === value,
+            onClick: () => onClick(index),
+          });
+        }
+        return child;
+      })}
+    </div>
+  );
+}
+
+```
+
+# src/shared/ui/button-group/button-group.module.css
+
+```css
+.buttonGroup {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0;
+  width: 19.0625rem;
+  height: 3rem;
+  border: 1px solid #D8D8D8;
+  border-radius: 6.25rem;
+}
+
+.groupButton {
+  flex: 1;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.groupButton:not(:last-child) {
+  border-right: 1px solid #D8D8D8;
+}
+
+.groupButton:hover {
+  opacity: .7;
+}
+
+.groupButton.selected {
+  opacity: .8;
+}
+
+.groupButton:not(.first):not(.last) {
+  border-radius: 0;
+}
+
+.first {
+  border-radius: 6.25rem 0 0 6.25rem;
+}
+
+.last {
+  border-radius: 0 6.25rem 6.25rem 0;
+}
+
+```
+
 # src/shared/ui/button/button.tsx
 
 ```tsx
@@ -4861,277 +4836,6 @@ export function Button(props: ButtonProps) {
 
 ```
 
-# coverage/lcov-report/src/types/trip.ts.html
-
-```html
-
-<!doctype html>
-<html lang="en">
-
-<head>
-    <title>Code coverage report for src/types/trip.ts</title>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../prettify.css" />
-    <link rel="stylesheet" href="../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <style type='text/css'>
-        .coverage-summary .sorter {
-            background-image: url(../../sort-arrow-sprite.png);
-        }
-    </style>
-</head>
-    
-<body>
-<div class='wrapper'>
-    <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/types</a> trip.ts</h1>
-        <div class='clearfix'>
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
-                <span class="quiet">Statements</span>
-                <span class='fraction'>0/0</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
-                <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
-                <span class="quiet">Functions</span>
-                <span class='fraction'>0/0</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
-                <span class="quiet">Lines</span>
-                <span class='fraction'>0/0</span>
-            </div>
-        
-            
-        </div>
-        <p class="quiet">
-            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
-        </p>
-        <template id="filterTemplate">
-            <div class="quiet">
-                Filter:
-                <input type="search" id="fileSearch">
-            </div>
-        </template>
-    </div>
-    <div class='status-line low'></div>
-    <pre><table class="coverage">
-<tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
-<a name='L2'></a><a href='#L2'>2</a>
-<a name='L3'></a><a href='#L3'>3</a>
-<a name='L4'></a><a href='#L4'>4</a>
-<a name='L5'></a><a href='#L5'>5</a>
-<a name='L6'></a><a href='#L6'>6</a>
-<a name='L7'></a><a href='#L7'>7</a>
-<a name='L8'></a><a href='#L8'>8</a>
-<a name='L9'></a><a href='#L9'>9</a>
-<a name='L10'></a><a href='#L10'>10</a>
-<a name='L11'></a><a href='#L11'>11</a>
-<a name='L12'></a><a href='#L12'>12</a>
-<a name='L13'></a><a href='#L13'>13</a>
-<a name='L14'></a><a href='#L14'>14</a>
-<a name='L15'></a><a href='#L15'>15</a>
-<a name='L16'></a><a href='#L16'>16</a>
-<a name='L17'></a><a href='#L17'>17</a>
-<a name='L18'></a><a href='#L18'>18</a>
-<a name='L19'></a><a href='#L19'>19</a>
-<a name='L20'></a><a href='#L20'>20</a>
-<a name='L21'></a><a href='#L21'>21</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">export type Itinerary = {
-  day: number;
-  location: string;
-  description: string;
-};
-&nbsp;
-export type Trip = {
-  id: string;
-  photo_url: string;
-  title: string;
-  status: 'todo' | 'done';
-  description: string;
-  itinerary: Itinerary[];
-};
-&nbsp;
-export enum TripFilters {
-  All = 0,
-  Upcoming = 1,
-  Completed = 2,
-}
-&nbsp;</pre></td></tr></table></pre>
-
-                <div class='push'></div><!-- for sticky footer -->
-            </div><!-- /wrapper -->
-            <div class='footer quiet pad2 space-top1 center small'>
-                Code coverage generated by
-                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-25T11:41:43.039Z
-            </div>
-        <script src="../../prettify.js"></script>
-        <script>
-            window.onload = function () {
-                prettyPrint();
-            };
-        </script>
-        <script src="../../sorter.js"></script>
-        <script src="../../block-navigation.js"></script>
-    </body>
-</html>
-    
-```
-
-# coverage/lcov-report/src/types/index.html
-
-```html
-
-<!doctype html>
-<html lang="en">
-
-<head>
-    <title>Code coverage report for src/types</title>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../prettify.css" />
-    <link rel="stylesheet" href="../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <style type='text/css'>
-        .coverage-summary .sorter {
-            background-image: url(../../sort-arrow-sprite.png);
-        }
-    </style>
-</head>
-    
-<body>
-<div class='wrapper'>
-    <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> src/types</h1>
-        <div class='clearfix'>
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
-                <span class="quiet">Statements</span>
-                <span class='fraction'>0/0</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
-                <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
-                <span class="quiet">Functions</span>
-                <span class='fraction'>0/0</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
-                <span class="quiet">Lines</span>
-                <span class='fraction'>0/0</span>
-            </div>
-        
-            
-        </div>
-        <p class="quiet">
-            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
-        </p>
-        <template id="filterTemplate">
-            <div class="quiet">
-                Filter:
-                <input type="search" id="fileSearch">
-            </div>
-        </template>
-    </div>
-    <div class='status-line low'></div>
-    <div class="pad1">
-<table class="coverage-summary">
-<thead>
-<tr>
-   <th data-col="file" data-fmt="html" data-html="true" class="file">File</th>
-   <th data-col="pic" data-type="number" data-fmt="html" data-html="true" class="pic"></th>
-   <th data-col="statements" data-type="number" data-fmt="pct" class="pct">Statements</th>
-   <th data-col="statements_raw" data-type="number" data-fmt="html" class="abs"></th>
-   <th data-col="branches" data-type="number" data-fmt="pct" class="pct">Branches</th>
-   <th data-col="branches_raw" data-type="number" data-fmt="html" class="abs"></th>
-   <th data-col="functions" data-type="number" data-fmt="pct" class="pct">Functions</th>
-   <th data-col="functions_raw" data-type="number" data-fmt="html" class="abs"></th>
-   <th data-col="lines" data-type="number" data-fmt="pct" class="pct">Lines</th>
-   <th data-col="lines_raw" data-type="number" data-fmt="html" class="abs"></th>
-</tr>
-</thead>
-<tbody><tr>
-	<td class="file empty" data-value="trip.ts"><a href="trip.ts.html">trip.ts</a></td>
-	<td data-value="0" class="pic empty">
-	<div class="chart"><div class="cover-fill" style="width: 0%"></div><div class="cover-empty" style="width: 100%"></div></div>
-	</td>
-	<td data-value="0" class="pct empty">0%</td>
-	<td data-value="0" class="abs empty">0/0</td>
-	<td data-value="0" class="pct empty">0%</td>
-	<td data-value="0" class="abs empty">0/0</td>
-	<td data-value="0" class="pct empty">0%</td>
-	<td data-value="0" class="abs empty">0/0</td>
-	<td data-value="0" class="pct empty">0%</td>
-	<td data-value="0" class="abs empty">0/0</td>
-	</tr>
-
-</tbody>
-</table>
-</div>
-                <div class='push'></div><!-- for sticky footer -->
-            </div><!-- /wrapper -->
-            <div class='footer quiet pad2 space-top1 center small'>
-                Code coverage generated by
-                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-25T11:41:43.039Z
-            </div>
-        <script src="../../prettify.js"></script>
-        <script>
-            window.onload = function () {
-                prettyPrint();
-            };
-        </script>
-        <script src="../../sorter.js"></script>
-        <script src="../../block-navigation.js"></script>
-    </body>
-</html>
-    
-```
-
 # coverage/lcov-report/src/utils/utils.tsx.html
 
 ```html
@@ -5267,7 +4971,7 @@ export const filterTrips = <span class="cstat-no" title="statement not covered" 
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-25T11:41:43.039Z
+                at 2024-07-25T12:40:00.119Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
@@ -5388,7 +5092,278 @@ export const filterTrips = <span class="cstat-no" title="statement not covered" 
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-25T11:41:43.039Z
+                at 2024-07-25T12:40:00.119Z
+            </div>
+        <script src="../../prettify.js"></script>
+        <script>
+            window.onload = function () {
+                prettyPrint();
+            };
+        </script>
+        <script src="../../sorter.js"></script>
+        <script src="../../block-navigation.js"></script>
+    </body>
+</html>
+    
+```
+
+# coverage/lcov-report/src/types/trip.ts.html
+
+```html
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Code coverage report for src/types/trip.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+    
+<body>
+<div class='wrapper'>
+    <div class='pad1'>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/types</a> trip.ts</h1>
+        <div class='clearfix'>
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>0/0</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>0/0</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/0</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>0/0</span>
+            </div>
+        
+            
+        </div>
+        <p class="quiet">
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+        </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input type="search" id="fileSearch">
+            </div>
+        </template>
+    </div>
+    <div class='status-line low'></div>
+    <pre><table class="coverage">
+<tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
+<a name='L2'></a><a href='#L2'>2</a>
+<a name='L3'></a><a href='#L3'>3</a>
+<a name='L4'></a><a href='#L4'>4</a>
+<a name='L5'></a><a href='#L5'>5</a>
+<a name='L6'></a><a href='#L6'>6</a>
+<a name='L7'></a><a href='#L7'>7</a>
+<a name='L8'></a><a href='#L8'>8</a>
+<a name='L9'></a><a href='#L9'>9</a>
+<a name='L10'></a><a href='#L10'>10</a>
+<a name='L11'></a><a href='#L11'>11</a>
+<a name='L12'></a><a href='#L12'>12</a>
+<a name='L13'></a><a href='#L13'>13</a>
+<a name='L14'></a><a href='#L14'>14</a>
+<a name='L15'></a><a href='#L15'>15</a>
+<a name='L16'></a><a href='#L16'>16</a>
+<a name='L17'></a><a href='#L17'>17</a>
+<a name='L18'></a><a href='#L18'>18</a>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">export type Itinerary = {
+  day: number;
+  location: string;
+  description: string;
+};
+&nbsp;
+export type Trip = {
+  id: string;
+  photo_url: string;
+  title: string;
+  status: 'todo' | 'done';
+  description: string;
+  itinerary: Itinerary[];
+};
+&nbsp;
+export enum TripFilters {
+  All = 0,
+  Upcoming = 1,
+  Completed = 2,
+}
+&nbsp;</pre></td></tr></table></pre>
+
+                <div class='push'></div><!-- for sticky footer -->
+            </div><!-- /wrapper -->
+            <div class='footer quiet pad2 space-top1 center small'>
+                Code coverage generated by
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2024-07-25T12:40:00.119Z
+            </div>
+        <script src="../../prettify.js"></script>
+        <script>
+            window.onload = function () {
+                prettyPrint();
+            };
+        </script>
+        <script src="../../sorter.js"></script>
+        <script src="../../block-navigation.js"></script>
+    </body>
+</html>
+    
+```
+
+# coverage/lcov-report/src/types/index.html
+
+```html
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Code coverage report for src/types</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+    
+<body>
+<div class='wrapper'>
+    <div class='pad1'>
+        <h1><a href="../../index.html">All files</a> src/types</h1>
+        <div class='clearfix'>
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>0/0</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>0/0</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/0</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>0/0</span>
+            </div>
+        
+            
+        </div>
+        <p class="quiet">
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+        </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input type="search" id="fileSearch">
+            </div>
+        </template>
+    </div>
+    <div class='status-line low'></div>
+    <div class="pad1">
+<table class="coverage-summary">
+<thead>
+<tr>
+   <th data-col="file" data-fmt="html" data-html="true" class="file">File</th>
+   <th data-col="pic" data-type="number" data-fmt="html" data-html="true" class="pic"></th>
+   <th data-col="statements" data-type="number" data-fmt="pct" class="pct">Statements</th>
+   <th data-col="statements_raw" data-type="number" data-fmt="html" class="abs"></th>
+   <th data-col="branches" data-type="number" data-fmt="pct" class="pct">Branches</th>
+   <th data-col="branches_raw" data-type="number" data-fmt="html" class="abs"></th>
+   <th data-col="functions" data-type="number" data-fmt="pct" class="pct">Functions</th>
+   <th data-col="functions_raw" data-type="number" data-fmt="html" class="abs"></th>
+   <th data-col="lines" data-type="number" data-fmt="pct" class="pct">Lines</th>
+   <th data-col="lines_raw" data-type="number" data-fmt="html" class="abs"></th>
+</tr>
+</thead>
+<tbody><tr>
+	<td class="file empty" data-value="trip.ts"><a href="trip.ts.html">trip.ts</a></td>
+	<td data-value="0" class="pic empty">
+	<div class="chart"><div class="cover-fill" style="width: 0%"></div><div class="cover-empty" style="width: 100%"></div></div>
+	</td>
+	<td data-value="0" class="pct empty">0%</td>
+	<td data-value="0" class="abs empty">0/0</td>
+	<td data-value="0" class="pct empty">0%</td>
+	<td data-value="0" class="abs empty">0/0</td>
+	<td data-value="0" class="pct empty">0%</td>
+	<td data-value="0" class="abs empty">0/0</td>
+	<td data-value="0" class="pct empty">0%</td>
+	<td data-value="0" class="abs empty">0/0</td>
+	</tr>
+
+</tbody>
+</table>
+</div>
+                <div class='push'></div><!-- for sticky footer -->
+            </div><!-- /wrapper -->
+            <div class='footer quiet pad2 space-top1 center small'>
+                Code coverage generated by
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2024-07-25T12:40:00.119Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
@@ -5514,7 +5489,7 @@ export const withProviders = <span class="cstat-no" title="statement not covered
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-25T11:41:43.039Z
+                at 2024-07-25T12:40:00.119Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
@@ -5635,7 +5610,7 @@ export const withProviders = <span class="cstat-no" title="statement not covered
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-25T11:41:43.039Z
+                at 2024-07-25T12:40:00.119Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
@@ -5756,7 +5731,7 @@ export const withProviders = <span class="cstat-no" title="statement not covered
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-25T11:41:43.039Z
+                at 2024-07-25T12:40:00.119Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
@@ -6053,7 +6028,7 @@ export default Home;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-25T11:41:43.039Z
+                at 2024-07-25T12:40:00.119Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
@@ -6174,7 +6149,7 @@ export default Home;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-25T11:41:43.039Z
+                at 2024-07-25T12:40:00.119Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
@@ -6396,7 +6371,7 @@ export { App };
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-25T11:41:43.039Z
+                at 2024-07-25T12:40:00.119Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
@@ -6439,30 +6414,30 @@ export { App };
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">91.66% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/21</span>
+                <span class='fraction'>11/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>2/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">91.66% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/21</span>
+                <span class='fraction'>11/12</span>
             </div>
         
             
@@ -6477,7 +6452,7 @@ export { App };
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -6540,28 +6515,29 @@ export { App };
 <a name='L59'></a><a href='#L59'>59</a>
 <a name='L60'></a><a href='#L60'>60</a>
 <a name='L61'></a><a href='#L61'>61</a>
-<a name='L62'></a><a href='#L62'>62</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -6569,98 +6545,103 @@ export { App };
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Trip } from '../types/trip';
 &nbsp;
-const API_URL = <span class="cstat-no" title="statement not covered" >'http://localhost:3000/travels';</span>
+const API_URL = 'http://localhost:3000/travels';
 &nbsp;
-export async function <span class="fstat-no" title="function not covered" >getTrips(</span>): Promise&lt;Trip[]&gt; {
-  const response = <span class="cstat-no" title="statement not covered" >await fetch(API_URL);</span>
-<span class="cstat-no" title="statement not covered" >  if (!response.ok) {</span>
-<span class="cstat-no" title="statement not covered" >    throw new Error('Failed to fetch trips');</span>
-  }
-<span class="cstat-no" title="statement not covered" >  return response.json();</span>
+interface ApiResponse&lt;T&gt; {
+  data: T | null;
+  error: Error | null;
 }
 &nbsp;
-export async function <span class="fstat-no" title="function not covered" >getTrip(</span>id: string | undefined): Promise&lt;Trip&gt; {
-  const response = <span class="cstat-no" title="statement not covered" >await fetch(`${API_URL}/${id}`);</span>
-<span class="cstat-no" title="statement not covered" >  if (!response.ok) {</span>
-<span class="cstat-no" title="statement not covered" >    throw new Error('Failed to fetch trip');</span>
+async function apiCall&lt;T&gt;(
+  url: string,
+  options?: RequestInit,
+): Promise&lt;ApiResponse&lt;T&gt;&gt; {
+  try {
+    const response = await fetch(url, options);
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (!response.ok) {
+<span class="cstat-no" title="statement not covered" >      throw new Error(`HTTP error! status: ${response.status}`);</span>
+    }
+    return await response.json();
+  } catch (error) {
+    return {
+      data: null,
+      error:
+        error instanceof Error ? error : <span class="branch-1 cbranch-no" title="branch not covered" >new Error('An unknown error occurred'),</span>
+    };
   }
-<span class="cstat-no" title="statement not covered" >  return response.json();</span>
 }
 &nbsp;
-export async function <span class="fstat-no" title="function not covered" >createTrip(</span>tripData: Trip): Promise&lt;Trip&gt; {
-  const response = <span class="cstat-no" title="statement not covered" >await fetch(`${API_URL}`, {</span>
+export async function getTrips(): Promise&lt;ApiResponse&lt;Trip[]&gt;&gt; {
+  return apiCall&lt;Trip[]&gt;(API_URL);
+}
+&nbsp;
+export async function getTrip(
+  id: string | undefined,
+): Promise&lt;ApiResponse&lt;Trip&gt;&gt; {
+  return apiCall&lt;Trip&gt;(`${API_URL}/${id}`);
+}
+&nbsp;
+export async function createTrip(tripData: Trip): Promise&lt;ApiResponse&lt;Trip&gt;&gt; {
+  return apiCall&lt;Trip&gt;(API_URL, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(tripData),
   });
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  if (!response.ok) {</span>
-<span class="cstat-no" title="statement not covered" >    throw new Error('Failed to create trip');</span>
-  }
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  return response.json();</span>
 }
 &nbsp;
-export async function <span class="fstat-no" title="function not covered" >updateTrip(</span>tripData: Trip): Promise&lt;Trip&gt; {
-  const response = <span class="cstat-no" title="statement not covered" >await fetch(`${API_URL}/${tripData.id}`, {</span>
+export async function updateTrip(tripData: Trip): Promise&lt;ApiResponse&lt;Trip&gt;&gt; {
+  return apiCall&lt;Trip&gt;(`${API_URL}/${tripData.id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(tripData),
   });
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  if (!response.ok) {</span>
-<span class="cstat-no" title="statement not covered" >    throw new Error('Failed to update trip');</span>
-  }
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  return response.json();</span>
 }
 &nbsp;
-export async function <span class="fstat-no" title="function not covered" >deleteTrip(</span>id: string): Promise&lt;void&gt; {
-<span class="cstat-no" title="statement not covered" >  console.log('delete', id);</span>
-  const response = <span class="cstat-no" title="statement not covered" >await fetch(`${API_URL}/${id}`, {</span>
+export async function deleteTrip(id: string): Promise&lt;ApiResponse&lt;void&gt;&gt; {
+  return apiCall&lt;void&gt;(`${API_URL}/${id}`, {
     method: 'DELETE',
   });
-<span class="cstat-no" title="statement not covered" >  if (!response.ok) {</span>
-<span class="cstat-no" title="statement not covered" >    throw new Error('Failed to delete trip');</span>
-  }
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -6669,7 +6650,7 @@ export async function <span class="fstat-no" title="function not covered" >delet
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-25T11:41:43.039Z
+                at 2024-07-25T12:40:00.119Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
@@ -6712,30 +6693,30 @@ export async function <span class="fstat-no" title="function not covered" >delet
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">91.66% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/21</span>
+                <span class='fraction'>11/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>2/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">91.66% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/21</span>
+                <span class='fraction'>11/12</span>
             </div>
         
             
@@ -6750,7 +6731,7 @@ export async function <span class="fstat-no" title="function not covered" >delet
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <div class="pad1">
 <table class="coverage-summary">
 <thead>
@@ -6768,18 +6749,18 @@ export async function <span class="fstat-no" title="function not covered" >delet
 </tr>
 </thead>
 <tbody><tr>
-	<td class="file low" data-value="trips.tsx"><a href="trips.tsx.html">trips.tsx</a></td>
-	<td data-value="0" class="pic low">
-	<div class="chart"><div class="cover-fill" style="width: 0%"></div><div class="cover-empty" style="width: 100%"></div></div>
+	<td class="file high" data-value="trips.tsx"><a href="trips.tsx.html">trips.tsx</a></td>
+	<td data-value="91.66" class="pic high">
+	<div class="chart"><div class="cover-fill" style="width: 91%"></div><div class="cover-empty" style="width: 9%"></div></div>
 	</td>
-	<td data-value="0" class="pct low">0%</td>
-	<td data-value="21" class="abs low">0/21</td>
-	<td data-value="0" class="pct low">0%</td>
-	<td data-value="10" class="abs low">0/10</td>
-	<td data-value="0" class="pct low">0%</td>
-	<td data-value="5" class="abs low">0/5</td>
-	<td data-value="0" class="pct low">0%</td>
-	<td data-value="21" class="abs low">0/21</td>
+	<td data-value="91.66" class="pct high">91.66%</td>
+	<td data-value="12" class="abs high">11/12</td>
+	<td data-value="50" class="pct medium">50%</td>
+	<td data-value="4" class="abs medium">2/4</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="6" class="abs high">6/6</td>
+	<td data-value="91.66" class="pct high">91.66%</td>
+	<td data-value="12" class="abs high">11/12</td>
 	</tr>
 
 </tbody>
@@ -6790,7 +6771,7 @@ export async function <span class="fstat-no" title="function not covered" >delet
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-25T11:41:43.039Z
+                at 2024-07-25T12:40:00.119Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
@@ -7039,7 +7020,7 @@ export function <span class="fstat-no" title="function not covered" >TripView(</
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-25T11:41:43.039Z
+                at 2024-07-25T12:40:00.119Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
@@ -7160,7 +7141,7 @@ export function <span class="fstat-no" title="function not covered" >TripView(</
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-25T11:41:43.039Z
+                at 2024-07-25T12:40:00.119Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
@@ -7667,7 +7648,7 @@ export function <span class="fstat-no" title="function not covered" >TripForm(</
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-25T11:41:43.039Z
+                at 2024-07-25T12:40:00.119Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
@@ -7788,7 +7769,311 @@ export function <span class="fstat-no" title="function not covered" >TripForm(</
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-25T11:41:43.039Z
+                at 2024-07-25T12:40:00.119Z
+            </div>
+        <script src="../../../prettify.js"></script>
+        <script>
+            window.onload = function () {
+                prettyPrint();
+            };
+        </script>
+        <script src="../../../sorter.js"></script>
+        <script src="../../../block-navigation.js"></script>
+    </body>
+</html>
+    
+```
+
+# coverage/lcov-report/src/enteties/search-bar/search-bar.tsx.html
+
+```html
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Code coverage report for src/enteties/search-bar/search-bar.tsx</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+    
+<body>
+<div class='wrapper'>
+    <div class='pad1'>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/enteties/search-bar</a> search-bar.tsx</h1>
+        <div class='clearfix'>
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">100% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>4/4</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">100% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>0/0</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">100% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>2/2</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">100% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>4/4</span>
+            </div>
+        
+            
+        </div>
+        <p class="quiet">
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+        </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input type="search" id="fileSearch">
+            </div>
+        </template>
+    </div>
+    <div class='status-line high'></div>
+    <pre><table class="coverage">
+<tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
+<a name='L2'></a><a href='#L2'>2</a>
+<a name='L3'></a><a href='#L3'>3</a>
+<a name='L4'></a><a href='#L4'>4</a>
+<a name='L5'></a><a href='#L5'>5</a>
+<a name='L6'></a><a href='#L6'>6</a>
+<a name='L7'></a><a href='#L7'>7</a>
+<a name='L8'></a><a href='#L8'>8</a>
+<a name='L9'></a><a href='#L9'>9</a>
+<a name='L10'></a><a href='#L10'>10</a>
+<a name='L11'></a><a href='#L11'>11</a>
+<a name='L12'></a><a href='#L12'>12</a>
+<a name='L13'></a><a href='#L13'>13</a>
+<a name='L14'></a><a href='#L14'>14</a>
+<a name='L15'></a><a href='#L15'>15</a>
+<a name='L16'></a><a href='#L16'>16</a>
+<a name='L17'></a><a href='#L17'>17</a>
+<a name='L18'></a><a href='#L18'>18</a>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react';
+import { useForm } from 'react-hook-form';
+import { Button } from '../../shared/ui/button/button';
+import { TextInput } from '../../shared/ui/form/text-input';
+&nbsp;
+type SearchBarProps = {
+  onClick: (value: string) =&gt; void;
+};
+&nbsp;
+export function SearchBar({ onClick }: SearchBarProps) {
+  const { register, handleSubmit } = useForm();
+&nbsp;
+  const onSubmit = (data: { searchValue: string }) =&gt; {
+    onClick(data.searchValue);
+  };
+&nbsp;
+  return (
+    &lt;form role="search" onSubmit={handleSubmit(onSubmit)}&gt;
+      &lt;TextInput
+        {...register('searchValue')}
+        placeholder="Search trips"
+        id="search-bar-input"
+        aria-label="search-bar-input"
+      &gt;
+        &lt;Button icon="search" size="small" type="submit"&gt;
+          Search
+        &lt;/Button&gt;
+      &lt;/TextInput&gt;
+    &lt;/form&gt;
+  );
+}
+&nbsp;</pre></td></tr></table></pre>
+
+                <div class='push'></div><!-- for sticky footer -->
+            </div><!-- /wrapper -->
+            <div class='footer quiet pad2 space-top1 center small'>
+                Code coverage generated by
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2024-07-25T12:40:00.119Z
+            </div>
+        <script src="../../../prettify.js"></script>
+        <script>
+            window.onload = function () {
+                prettyPrint();
+            };
+        </script>
+        <script src="../../../sorter.js"></script>
+        <script src="../../../block-navigation.js"></script>
+    </body>
+</html>
+    
+```
+
+# coverage/lcov-report/src/enteties/search-bar/index.html
+
+```html
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Code coverage report for src/enteties/search-bar</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+    
+<body>
+<div class='wrapper'>
+    <div class='pad1'>
+        <h1><a href="../../../index.html">All files</a> src/enteties/search-bar</h1>
+        <div class='clearfix'>
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">100% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>4/4</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">100% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>0/0</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">100% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>2/2</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">100% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>4/4</span>
+            </div>
+        
+            
+        </div>
+        <p class="quiet">
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+        </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input type="search" id="fileSearch">
+            </div>
+        </template>
+    </div>
+    <div class='status-line high'></div>
+    <div class="pad1">
+<table class="coverage-summary">
+<thead>
+<tr>
+   <th data-col="file" data-fmt="html" data-html="true" class="file">File</th>
+   <th data-col="pic" data-type="number" data-fmt="html" data-html="true" class="pic"></th>
+   <th data-col="statements" data-type="number" data-fmt="pct" class="pct">Statements</th>
+   <th data-col="statements_raw" data-type="number" data-fmt="html" class="abs"></th>
+   <th data-col="branches" data-type="number" data-fmt="pct" class="pct">Branches</th>
+   <th data-col="branches_raw" data-type="number" data-fmt="html" class="abs"></th>
+   <th data-col="functions" data-type="number" data-fmt="pct" class="pct">Functions</th>
+   <th data-col="functions_raw" data-type="number" data-fmt="html" class="abs"></th>
+   <th data-col="lines" data-type="number" data-fmt="pct" class="pct">Lines</th>
+   <th data-col="lines_raw" data-type="number" data-fmt="html" class="abs"></th>
+</tr>
+</thead>
+<tbody><tr>
+	<td class="file high" data-value="search-bar.tsx"><a href="search-bar.tsx.html">search-bar.tsx</a></td>
+	<td data-value="100" class="pic high">
+	<div class="chart"><div class="cover-fill cover-full" style="width: 100%"></div><div class="cover-empty" style="width: 0%"></div></div>
+	</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="4" class="abs high">4/4</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="0" class="abs high">0/0</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="2" class="abs high">2/2</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="4" class="abs high">4/4</td>
+	</tr>
+
+</tbody>
+</table>
+</div>
+                <div class='push'></div><!-- for sticky footer -->
+            </div><!-- /wrapper -->
+            <div class='footer quiet pad2 space-top1 center small'>
+                Code coverage generated by
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2024-07-25T12:40:00.119Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
@@ -8070,7 +8355,7 @@ export function Modal(props: ModalProps) {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-25T11:41:43.039Z
+                at 2024-07-25T12:40:00.119Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
@@ -8191,311 +8476,7 @@ export function Modal(props: ModalProps) {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-25T11:41:43.039Z
-            </div>
-        <script src="../../../prettify.js"></script>
-        <script>
-            window.onload = function () {
-                prettyPrint();
-            };
-        </script>
-        <script src="../../../sorter.js"></script>
-        <script src="../../../block-navigation.js"></script>
-    </body>
-</html>
-    
-```
-
-# coverage/lcov-report/src/enteties/search-bar/search-bar.tsx.html
-
-```html
-
-<!doctype html>
-<html lang="en">
-
-<head>
-    <title>Code coverage report for src/enteties/search-bar/search-bar.tsx</title>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../../prettify.css" />
-    <link rel="stylesheet" href="../../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../../favicon.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <style type='text/css'>
-        .coverage-summary .sorter {
-            background-image: url(../../../sort-arrow-sprite.png);
-        }
-    </style>
-</head>
-    
-<body>
-<div class='wrapper'>
-    <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/enteties/search-bar</a> search-bar.tsx</h1>
-        <div class='clearfix'>
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
-                <span class="quiet">Statements</span>
-                <span class='fraction'>0/4</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
-                <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
-                <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
-                <span class="quiet">Lines</span>
-                <span class='fraction'>0/4</span>
-            </div>
-        
-            
-        </div>
-        <p class="quiet">
-            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
-        </p>
-        <template id="filterTemplate">
-            <div class="quiet">
-                Filter:
-                <input type="search" id="fileSearch">
-            </div>
-        </template>
-    </div>
-    <div class='status-line low'></div>
-    <pre><table class="coverage">
-<tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
-<a name='L2'></a><a href='#L2'>2</a>
-<a name='L3'></a><a href='#L3'>3</a>
-<a name='L4'></a><a href='#L4'>4</a>
-<a name='L5'></a><a href='#L5'>5</a>
-<a name='L6'></a><a href='#L6'>6</a>
-<a name='L7'></a><a href='#L7'>7</a>
-<a name='L8'></a><a href='#L8'>8</a>
-<a name='L9'></a><a href='#L9'>9</a>
-<a name='L10'></a><a href='#L10'>10</a>
-<a name='L11'></a><a href='#L11'>11</a>
-<a name='L12'></a><a href='#L12'>12</a>
-<a name='L13'></a><a href='#L13'>13</a>
-<a name='L14'></a><a href='#L14'>14</a>
-<a name='L15'></a><a href='#L15'>15</a>
-<a name='L16'></a><a href='#L16'>16</a>
-<a name='L17'></a><a href='#L17'>17</a>
-<a name='L18'></a><a href='#L18'>18</a>
-<a name='L19'></a><a href='#L19'>19</a>
-<a name='L20'></a><a href='#L20'>20</a>
-<a name='L21'></a><a href='#L21'>21</a>
-<a name='L22'></a><a href='#L22'>22</a>
-<a name='L23'></a><a href='#L23'>23</a>
-<a name='L24'></a><a href='#L24'>24</a>
-<a name='L25'></a><a href='#L25'>25</a>
-<a name='L26'></a><a href='#L26'>26</a>
-<a name='L27'></a><a href='#L27'>27</a>
-<a name='L28'></a><a href='#L28'>28</a>
-<a name='L29'></a><a href='#L29'>29</a>
-<a name='L30'></a><a href='#L30'>30</a>
-<a name='L31'></a><a href='#L31'>31</a>
-<a name='L32'></a><a href='#L32'>32</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react';
-import { useForm } from 'react-hook-form';
-import { Button } from '../../shared/ui/button/button';
-import { TextInput } from '../../shared/ui/form/text-input';
-&nbsp;
-type SearchBarProps = {
-  onClick: (value: string) =&gt; void;
-};
-&nbsp;
-export function <span class="fstat-no" title="function not covered" >SearchBar(</span>{ onClick }: SearchBarProps) {
-  const { register, handleSubmit } = <span class="cstat-no" title="statement not covered" >useForm();</span>
-&nbsp;
-  const onSubmit = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(d</span>ata: { searchValue: string }) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    onClick(data.searchValue);</span>
-  };
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;form role="search" onSubmit={handleSubmit(onSubmit)}&gt;
-      &lt;TextInput
-        {...register('searchValue')}
-        placeholder="Search trips"
-        id="search-bar-input"
-        aria-label="search-bar-input"
-      &gt;
-        &lt;Button icon="search" size="small" type="submit"&gt;
-          Search
-        &lt;/Button&gt;
-      &lt;/TextInput&gt;
-    &lt;/form&gt;
-  );
-}
-&nbsp;</pre></td></tr></table></pre>
-
-                <div class='push'></div><!-- for sticky footer -->
-            </div><!-- /wrapper -->
-            <div class='footer quiet pad2 space-top1 center small'>
-                Code coverage generated by
-                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-25T11:41:43.039Z
-            </div>
-        <script src="../../../prettify.js"></script>
-        <script>
-            window.onload = function () {
-                prettyPrint();
-            };
-        </script>
-        <script src="../../../sorter.js"></script>
-        <script src="../../../block-navigation.js"></script>
-    </body>
-</html>
-    
-```
-
-# coverage/lcov-report/src/enteties/search-bar/index.html
-
-```html
-
-<!doctype html>
-<html lang="en">
-
-<head>
-    <title>Code coverage report for src/enteties/search-bar</title>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../../prettify.css" />
-    <link rel="stylesheet" href="../../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../../favicon.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <style type='text/css'>
-        .coverage-summary .sorter {
-            background-image: url(../../../sort-arrow-sprite.png);
-        }
-    </style>
-</head>
-    
-<body>
-<div class='wrapper'>
-    <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> src/enteties/search-bar</h1>
-        <div class='clearfix'>
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
-                <span class="quiet">Statements</span>
-                <span class='fraction'>0/4</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
-                <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
-                <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
-                <span class="quiet">Lines</span>
-                <span class='fraction'>0/4</span>
-            </div>
-        
-            
-        </div>
-        <p class="quiet">
-            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
-        </p>
-        <template id="filterTemplate">
-            <div class="quiet">
-                Filter:
-                <input type="search" id="fileSearch">
-            </div>
-        </template>
-    </div>
-    <div class='status-line low'></div>
-    <div class="pad1">
-<table class="coverage-summary">
-<thead>
-<tr>
-   <th data-col="file" data-fmt="html" data-html="true" class="file">File</th>
-   <th data-col="pic" data-type="number" data-fmt="html" data-html="true" class="pic"></th>
-   <th data-col="statements" data-type="number" data-fmt="pct" class="pct">Statements</th>
-   <th data-col="statements_raw" data-type="number" data-fmt="html" class="abs"></th>
-   <th data-col="branches" data-type="number" data-fmt="pct" class="pct">Branches</th>
-   <th data-col="branches_raw" data-type="number" data-fmt="html" class="abs"></th>
-   <th data-col="functions" data-type="number" data-fmt="pct" class="pct">Functions</th>
-   <th data-col="functions_raw" data-type="number" data-fmt="html" class="abs"></th>
-   <th data-col="lines" data-type="number" data-fmt="pct" class="pct">Lines</th>
-   <th data-col="lines_raw" data-type="number" data-fmt="html" class="abs"></th>
-</tr>
-</thead>
-<tbody><tr>
-	<td class="file low" data-value="search-bar.tsx"><a href="search-bar.tsx.html">search-bar.tsx</a></td>
-	<td data-value="0" class="pic low">
-	<div class="chart"><div class="cover-fill" style="width: 0%"></div><div class="cover-empty" style="width: 100%"></div></div>
-	</td>
-	<td data-value="0" class="pct low">0%</td>
-	<td data-value="4" class="abs low">0/4</td>
-	<td data-value="100" class="pct high">100%</td>
-	<td data-value="0" class="abs high">0/0</td>
-	<td data-value="0" class="pct low">0%</td>
-	<td data-value="2" class="abs low">0/2</td>
-	<td data-value="0" class="pct low">0%</td>
-	<td data-value="4" class="abs low">0/4</td>
-	</tr>
-
-</tbody>
-</table>
-</div>
-                <div class='push'></div><!-- for sticky footer -->
-            </div><!-- /wrapper -->
-            <div class='footer quiet pad2 space-top1 center small'>
-                Code coverage generated by
-                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-25T11:41:43.039Z
+                at 2024-07-25T12:40:00.119Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
@@ -8616,7 +8597,7 @@ export function <span class="fstat-no" title="function not covered" >SearchBar(<
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-25T11:41:43.039Z
+                at 2024-07-25T12:40:00.119Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
@@ -8772,7 +8753,7 @@ export function <span class="fstat-no" title="function not covered" >Header(</sp
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-25T11:41:43.039Z
+                at 2024-07-25T12:40:00.119Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
@@ -8893,7 +8874,7 @@ export function <span class="fstat-no" title="function not covered" >Header(</sp
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-25T11:41:43.039Z
+                at 2024-07-25T12:40:00.119Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
@@ -9115,7 +9096,7 @@ export function <span class="fstat-no" title="function not covered" >Card(</span
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-25T11:41:43.039Z
+                at 2024-07-25T12:40:00.119Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
@@ -9259,7 +9240,7 @@ export function <span class="fstat-no" title="function not covered" >Text(</span
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-25T11:41:43.039Z
+                at 2024-07-25T12:40:00.119Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>
@@ -9425,7 +9406,7 @@ export function <span class="fstat-no" title="function not covered" >Text(</span
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-25T11:41:43.039Z
+                at 2024-07-25T12:40:00.119Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>
@@ -9517,7 +9498,15 @@ export function <span class="fstat-no" title="function not covered" >Text(</span
 <a name='L7'></a><a href='#L7'>7</a>
 <a name='L8'></a><a href='#L8'>8</a>
 <a name='L9'></a><a href='#L9'>9</a>
-<a name='L10'></a><a href='#L10'>10</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L10'></a><a href='#L10'>10</a>
+<a name='L11'></a><a href='#L11'>11</a>
+<a name='L12'></a><a href='#L12'>12</a>
+<a name='L13'></a><a href='#L13'>13</a>
+<a name='L14'></a><a href='#L14'>14</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -9529,7 +9518,11 @@ export function <span class="fstat-no" title="function not covered" >Text(</span
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react';
 import styles from './h5.module.css';
 &nbsp;
-function <span class="fstat-no" title="function not covered" >H5(</span>props: React.PropsWithChildren) {
+type H5Props = {
+  children: React.ReactNode;
+};
+&nbsp;
+function <span class="fstat-no" title="function not covered" >H5(</span>props: H5Props) {
   const { children } = <span class="cstat-no" title="statement not covered" >props;</span>
 <span class="cstat-no" title="statement not covered" >  return &lt;h5 className={styles.h5}&gt;{children}&lt;/h5&gt;;</span>
 }
@@ -9542,7 +9535,7 @@ export { H5 };
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-25T11:41:43.039Z
+                at 2024-07-25T12:40:00.119Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>
@@ -9634,7 +9627,15 @@ export { H5 };
 <a name='L7'></a><a href='#L7'>7</a>
 <a name='L8'></a><a href='#L8'>8</a>
 <a name='L9'></a><a href='#L9'>9</a>
-<a name='L10'></a><a href='#L10'>10</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L10'></a><a href='#L10'>10</a>
+<a name='L11'></a><a href='#L11'>11</a>
+<a name='L12'></a><a href='#L12'>12</a>
+<a name='L13'></a><a href='#L13'>13</a>
+<a name='L14'></a><a href='#L14'>14</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -9646,7 +9647,11 @@ export { H5 };
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react';
 import styles from './h4.module.css';
 &nbsp;
-function <span class="fstat-no" title="function not covered" >H4(</span>props: React.PropsWithChildren) {
+type PropType = {
+  children: React.ReactNode;
+};
+&nbsp;
+function <span class="fstat-no" title="function not covered" >H4(</span>props: PropType) {
   const { children } = <span class="cstat-no" title="statement not covered" >props;</span>
 <span class="cstat-no" title="statement not covered" >  return &lt;h4 className={styles.h4}&gt;{children}&lt;/h4&gt;;</span>
 }
@@ -9659,7 +9664,7 @@ export { H4 };
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-25T11:41:43.039Z
+                at 2024-07-25T12:40:00.119Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>
@@ -9751,7 +9756,15 @@ export { H4 };
 <a name='L7'></a><a href='#L7'>7</a>
 <a name='L8'></a><a href='#L8'>8</a>
 <a name='L9'></a><a href='#L9'>9</a>
-<a name='L10'></a><a href='#L10'>10</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L10'></a><a href='#L10'>10</a>
+<a name='L11'></a><a href='#L11'>11</a>
+<a name='L12'></a><a href='#L12'>12</a>
+<a name='L13'></a><a href='#L13'>13</a>
+<a name='L14'></a><a href='#L14'>14</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -9763,7 +9776,11 @@ export { H4 };
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react';
 import styles from './h1.module.css';
 &nbsp;
-function <span class="fstat-no" title="function not covered" >H1(</span>props: React.PropsWithChildren) {
+type H1Props = {
+  children: React.ReactNode;
+};
+&nbsp;
+function <span class="fstat-no" title="function not covered" >H1(</span>props: H1Props) {
   const { children } = <span class="cstat-no" title="statement not covered" >props;</span>
 <span class="cstat-no" title="statement not covered" >  return &lt;h1 className={styles.h1}&gt;{children}&lt;/h1&gt;;</span>
 }
@@ -9776,7 +9793,245 @@ export { H1 };
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-25T11:41:43.039Z
+                at 2024-07-25T12:40:00.119Z
+            </div>
+        <script src="../../../../prettify.js"></script>
+        <script>
+            window.onload = function () {
+                prettyPrint();
+            };
+        </script>
+        <script src="../../../../sorter.js"></script>
+        <script src="../../../../block-navigation.js"></script>
+    </body>
+</html>
+    
+```
+
+# coverage/lcov-report/src/shared/ui/header/index.html
+
+```html
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Code coverage report for src/shared/ui/header</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+    
+<body>
+<div class='wrapper'>
+    <div class='pad1'>
+        <h1><a href="../../../../index.html">All files</a> src/shared/ui/header</h1>
+        <div class='clearfix'>
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>0/2</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">100% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>0/0</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/1</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>0/2</span>
+            </div>
+        
+            
+        </div>
+        <p class="quiet">
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+        </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input type="search" id="fileSearch">
+            </div>
+        </template>
+    </div>
+    <div class='status-line low'></div>
+    <div class="pad1">
+<table class="coverage-summary">
+<thead>
+<tr>
+   <th data-col="file" data-fmt="html" data-html="true" class="file">File</th>
+   <th data-col="pic" data-type="number" data-fmt="html" data-html="true" class="pic"></th>
+   <th data-col="statements" data-type="number" data-fmt="pct" class="pct">Statements</th>
+   <th data-col="statements_raw" data-type="number" data-fmt="html" class="abs"></th>
+   <th data-col="branches" data-type="number" data-fmt="pct" class="pct">Branches</th>
+   <th data-col="branches_raw" data-type="number" data-fmt="html" class="abs"></th>
+   <th data-col="functions" data-type="number" data-fmt="pct" class="pct">Functions</th>
+   <th data-col="functions_raw" data-type="number" data-fmt="html" class="abs"></th>
+   <th data-col="lines" data-type="number" data-fmt="pct" class="pct">Lines</th>
+   <th data-col="lines_raw" data-type="number" data-fmt="html" class="abs"></th>
+</tr>
+</thead>
+<tbody><tr>
+	<td class="file low" data-value="Header.tsx"><a href="Header.tsx.html">Header.tsx</a></td>
+	<td data-value="0" class="pic low">
+	<div class="chart"><div class="cover-fill" style="width: 0%"></div><div class="cover-empty" style="width: 100%"></div></div>
+	</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="2" class="abs low">0/2</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="0" class="abs high">0/0</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="1" class="abs low">0/1</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="2" class="abs low">0/2</td>
+	</tr>
+
+</tbody>
+</table>
+</div>
+                <div class='push'></div><!-- for sticky footer -->
+            </div><!-- /wrapper -->
+            <div class='footer quiet pad2 space-top1 center small'>
+                Code coverage generated by
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2024-07-25T12:40:00.119Z
+            </div>
+        <script src="../../../../prettify.js"></script>
+        <script>
+            window.onload = function () {
+                prettyPrint();
+            };
+        </script>
+        <script src="../../../../sorter.js"></script>
+        <script src="../../../../block-navigation.js"></script>
+    </body>
+</html>
+    
+```
+
+# coverage/lcov-report/src/shared/ui/header/Header.tsx.html
+
+```html
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Code coverage report for src/shared/ui/header/Header.tsx</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+    
+<body>
+<div class='wrapper'>
+    <div class='pad1'>
+        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">src/shared/ui/header</a> Header.tsx</h1>
+        <div class='clearfix'>
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>0/2</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">100% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>0/0</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/1</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>0/2</span>
+            </div>
+        
+            
+        </div>
+        <p class="quiet">
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+        </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input type="search" id="fileSearch">
+            </div>
+        </template>
+    </div>
+    <div class='status-line low'></div>
+    <pre><table class="coverage">
+<tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
+<a name='L2'></a><a href='#L2'>2</a>
+<a name='L3'></a><a href='#L3'>3</a>
+<a name='L4'></a><a href='#L4'>4</a>
+<a name='L5'></a><a href='#L5'>5</a>
+<a name='L6'></a><a href='#L6'>6</a>
+<a name='L7'></a><a href='#L7'>7</a>
+<a name='L8'></a><a href='#L8'>8</a>
+<a name='L9'></a><a href='#L9'>9</a>
+<a name='L10'></a><a href='#L10'>10</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react';
+import styles from './Header.module.css';
+&nbsp;
+type HeaderProps = { children: React.ReactNode };
+&nbsp;
+export function <span class="fstat-no" title="function not covered" >Header(</span>props: HeaderProps) {
+  const { children } = <span class="cstat-no" title="statement not covered" >props;</span>
+<span class="cstat-no" title="statement not covered" >  return &lt;header className={styles.header}&gt;{children}&lt;/header&gt;;</span>
+}
+&nbsp;</pre></td></tr></table></pre>
+
+                <div class='push'></div><!-- for sticky footer -->
+            </div><!-- /wrapper -->
+            <div class='footer quiet pad2 space-top1 center small'>
+                Code coverage generated by
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2024-07-25T12:40:00.119Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>
@@ -9819,30 +10074,30 @@ export { H1 };
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
@@ -9857,7 +10112,7 @@ export { H1 };
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -9896,7 +10151,7 @@ export { H1 };
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -9905,11 +10160,9 @@ export { H1 };
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -9924,23 +10177,25 @@ export { H1 };
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { forwardRef } from 'react';
 import styles from './form-field.module.css';
 import { Label } from './label';
 &nbsp;
-export const TextInput = <span class="cstat-no" title="statement not covered" >forwardRef(<span class="fstat-no" title="function not covered" >(p</span>rops, ref) =&gt; {</span>
+export const TextInput = forwardRef((props, ref) =&gt; {
   const {
     label,
     id,
     placeholder,
-    type = <span class="branch-0 cbranch-no" title="branch not covered" >'text',</span>
+    type = 'text',
     children,
     value,
     ...otherProps
-  } = <span class="cstat-no" title="statement not covered" >props;</span>
+  } = props;
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  return (
     &lt;div className={styles.fieldContainer}&gt;
       &lt;Label htmlFor={id}&gt;{label}&lt;/Label&gt;
       &lt;input
@@ -9957,7 +10212,7 @@ export const TextInput = <span class="cstat-no" title="statement not covered" >f
   );
 });
 &nbsp;
-<span class="cstat-no" title="statement not covered" >TextInput.displayName = 'TextInput';</span>
+TextInput.displayName = 'TextInput';
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -9965,7 +10220,7 @@ export const TextInput = <span class="cstat-no" title="statement not covered" >f
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-25T11:41:43.039Z
+                at 2024-07-25T12:40:00.119Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>
@@ -10130,7 +10385,7 @@ export const TextArea = <span class="cstat-no" title="statement not covered" >fo
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-25T11:41:43.039Z
+                at 2024-07-25T12:40:00.119Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>
@@ -10301,7 +10556,7 @@ export function <span class="fstat-no" title="function not covered" >Select(</sp
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-25T11:41:43.039Z
+                at 2024-07-25T12:40:00.119Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>
@@ -10344,30 +10599,30 @@ export function <span class="fstat-no" title="function not covered" >Select(</sp
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>1/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
@@ -10382,7 +10637,7 @@ export function <span class="fstat-no" title="function not covered" >Select(</sp
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -10413,9 +10668,9 @@ export function <span class="fstat-no" title="function not covered" >Select(</sp
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -10432,14 +10687,14 @@ type LabelProps = React.LabelHTMLAttributes&lt;HTMLLabelElement&gt; &amp; {
   maxLength?: number;
 };
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >Label(</span>props: LabelProps) {
-  const { htmlFor, children, maxLength, ...otherProps } = <span class="cstat-no" title="statement not covered" >props;</span>
+export function Label(props: LabelProps) {
+  const { htmlFor, children, maxLength, ...otherProps } = props;
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  return (
     &lt;label htmlFor={htmlFor} className={styles.label} {...otherProps}&gt;
       {children}
       {maxLength &amp;&amp; (
-        &lt;span className={styles.maxLength}&gt; (max. {maxLength} characters)&lt;/span&gt;
+<span class="branch-1 cbranch-no" title="branch not covered" >        &lt;span className={styles.maxLength}&gt; (max. {maxLength} characters)&lt;/span&gt;</span>
       )}
     &lt;/label&gt;
   );
@@ -10451,7 +10706,7 @@ export function <span class="fstat-no" title="function not covered" >Label(</spa
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-25T11:41:43.039Z
+                at 2024-07-25T12:40:00.119Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>
@@ -10494,30 +10749,30 @@ export function <span class="fstat-no" title="function not covered" >Label(</spa
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">46.15% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/13</span>
+                <span class='fraction'>6/13</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">66.66% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>2/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">40% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>2/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">46.15% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/13</span>
+                <span class='fraction'>6/13</span>
             </div>
         
             
@@ -10550,18 +10805,18 @@ export function <span class="fstat-no" title="function not covered" >Label(</spa
 </tr>
 </thead>
 <tbody><tr>
-	<td class="file low" data-value="label.tsx"><a href="label.tsx.html">label.tsx</a></td>
-	<td data-value="0" class="pic low">
-	<div class="chart"><div class="cover-fill" style="width: 0%"></div><div class="cover-empty" style="width: 100%"></div></div>
+	<td class="file high" data-value="label.tsx"><a href="label.tsx.html">label.tsx</a></td>
+	<td data-value="100" class="pic high">
+	<div class="chart"><div class="cover-fill cover-full" style="width: 100%"></div><div class="cover-empty" style="width: 0%"></div></div>
 	</td>
-	<td data-value="0" class="pct low">0%</td>
-	<td data-value="2" class="abs low">0/2</td>
-	<td data-value="0" class="pct low">0%</td>
-	<td data-value="2" class="abs low">0/2</td>
-	<td data-value="0" class="pct low">0%</td>
-	<td data-value="1" class="abs low">0/1</td>
-	<td data-value="0" class="pct low">0%</td>
-	<td data-value="2" class="abs low">0/2</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="2" class="abs high">2/2</td>
+	<td data-value="50" class="pct medium">50%</td>
+	<td data-value="2" class="abs medium">1/2</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="1" class="abs high">1/1</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="2" class="abs high">2/2</td>
 	</tr>
 
 <tr>
@@ -10595,139 +10850,18 @@ export function <span class="fstat-no" title="function not covered" >Label(</spa
 	</tr>
 
 <tr>
-	<td class="file low" data-value="text-input.tsx"><a href="text-input.tsx.html">text-input.tsx</a></td>
-	<td data-value="0" class="pic low">
-	<div class="chart"><div class="cover-fill" style="width: 0%"></div><div class="cover-empty" style="width: 100%"></div></div>
+	<td class="file high" data-value="text-input.tsx"><a href="text-input.tsx.html">text-input.tsx</a></td>
+	<td data-value="100" class="pic high">
+	<div class="chart"><div class="cover-fill cover-full" style="width: 100%"></div><div class="cover-empty" style="width: 0%"></div></div>
 	</td>
-	<td data-value="0" class="pct low">0%</td>
-	<td data-value="4" class="abs low">0/4</td>
-	<td data-value="0" class="pct low">0%</td>
-	<td data-value="1" class="abs low">0/1</td>
-	<td data-value="0" class="pct low">0%</td>
-	<td data-value="1" class="abs low">0/1</td>
-	<td data-value="0" class="pct low">0%</td>
-	<td data-value="4" class="abs low">0/4</td>
-	</tr>
-
-</tbody>
-</table>
-</div>
-                <div class='push'></div><!-- for sticky footer -->
-            </div><!-- /wrapper -->
-            <div class='footer quiet pad2 space-top1 center small'>
-                Code coverage generated by
-                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-25T11:41:43.039Z
-            </div>
-        <script src="../../../../prettify.js"></script>
-        <script>
-            window.onload = function () {
-                prettyPrint();
-            };
-        </script>
-        <script src="../../../../sorter.js"></script>
-        <script src="../../../../block-navigation.js"></script>
-    </body>
-</html>
-    
-```
-
-# coverage/lcov-report/src/shared/ui/header/index.html
-
-```html
-
-<!doctype html>
-<html lang="en">
-
-<head>
-    <title>Code coverage report for src/shared/ui/header</title>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../../../prettify.css" />
-    <link rel="stylesheet" href="../../../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <style type='text/css'>
-        .coverage-summary .sorter {
-            background-image: url(../../../../sort-arrow-sprite.png);
-        }
-    </style>
-</head>
-    
-<body>
-<div class='wrapper'>
-    <div class='pad1'>
-        <h1><a href="../../../../index.html">All files</a> src/shared/ui/header</h1>
-        <div class='clearfix'>
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
-                <span class="quiet">Statements</span>
-                <span class='fraction'>0/2</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
-                <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
-                <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
-                <span class="quiet">Lines</span>
-                <span class='fraction'>0/2</span>
-            </div>
-        
-            
-        </div>
-        <p class="quiet">
-            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
-        </p>
-        <template id="filterTemplate">
-            <div class="quiet">
-                Filter:
-                <input type="search" id="fileSearch">
-            </div>
-        </template>
-    </div>
-    <div class='status-line low'></div>
-    <div class="pad1">
-<table class="coverage-summary">
-<thead>
-<tr>
-   <th data-col="file" data-fmt="html" data-html="true" class="file">File</th>
-   <th data-col="pic" data-type="number" data-fmt="html" data-html="true" class="pic"></th>
-   <th data-col="statements" data-type="number" data-fmt="pct" class="pct">Statements</th>
-   <th data-col="statements_raw" data-type="number" data-fmt="html" class="abs"></th>
-   <th data-col="branches" data-type="number" data-fmt="pct" class="pct">Branches</th>
-   <th data-col="branches_raw" data-type="number" data-fmt="html" class="abs"></th>
-   <th data-col="functions" data-type="number" data-fmt="pct" class="pct">Functions</th>
-   <th data-col="functions_raw" data-type="number" data-fmt="html" class="abs"></th>
-   <th data-col="lines" data-type="number" data-fmt="pct" class="pct">Lines</th>
-   <th data-col="lines_raw" data-type="number" data-fmt="html" class="abs"></th>
-</tr>
-</thead>
-<tbody><tr>
-	<td class="file low" data-value="Header.tsx"><a href="Header.tsx.html">Header.tsx</a></td>
-	<td data-value="0" class="pic low">
-	<div class="chart"><div class="cover-fill" style="width: 0%"></div><div class="cover-empty" style="width: 100%"></div></div>
-	</td>
-	<td data-value="0" class="pct low">0%</td>
-	<td data-value="2" class="abs low">0/2</td>
 	<td data-value="100" class="pct high">100%</td>
-	<td data-value="0" class="abs high">0/0</td>
-	<td data-value="0" class="pct low">0%</td>
-	<td data-value="1" class="abs low">0/1</td>
-	<td data-value="0" class="pct low">0%</td>
-	<td data-value="2" class="abs low">0/2</td>
+	<td data-value="4" class="abs high">4/4</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="1" class="abs high">1/1</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="1" class="abs high">1/1</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="4" class="abs high">4/4</td>
 	</tr>
 
 </tbody>
@@ -10738,118 +10872,7 @@ export function <span class="fstat-no" title="function not covered" >Label(</spa
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-25T11:41:43.039Z
-            </div>
-        <script src="../../../../prettify.js"></script>
-        <script>
-            window.onload = function () {
-                prettyPrint();
-            };
-        </script>
-        <script src="../../../../sorter.js"></script>
-        <script src="../../../../block-navigation.js"></script>
-    </body>
-</html>
-    
-```
-
-# coverage/lcov-report/src/shared/ui/header/Header.tsx.html
-
-```html
-
-<!doctype html>
-<html lang="en">
-
-<head>
-    <title>Code coverage report for src/shared/ui/header/Header.tsx</title>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../../../prettify.css" />
-    <link rel="stylesheet" href="../../../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <style type='text/css'>
-        .coverage-summary .sorter {
-            background-image: url(../../../../sort-arrow-sprite.png);
-        }
-    </style>
-</head>
-    
-<body>
-<div class='wrapper'>
-    <div class='pad1'>
-        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">src/shared/ui/header</a> Header.tsx</h1>
-        <div class='clearfix'>
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
-                <span class="quiet">Statements</span>
-                <span class='fraction'>0/2</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
-                <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
-                <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
-                <span class="quiet">Lines</span>
-                <span class='fraction'>0/2</span>
-            </div>
-        
-            
-        </div>
-        <p class="quiet">
-            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
-        </p>
-        <template id="filterTemplate">
-            <div class="quiet">
-                Filter:
-                <input type="search" id="fileSearch">
-            </div>
-        </template>
-    </div>
-    <div class='status-line low'></div>
-    <pre><table class="coverage">
-<tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
-<a name='L2'></a><a href='#L2'>2</a>
-<a name='L3'></a><a href='#L3'>3</a>
-<a name='L4'></a><a href='#L4'>4</a>
-<a name='L5'></a><a href='#L5'>5</a>
-<a name='L6'></a><a href='#L6'>6</a>
-<a name='L7'></a><a href='#L7'>7</a>
-<a name='L8'></a><a href='#L8'>8</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react';
-import styles from './Header.module.css';
-&nbsp;
-export function <span class="fstat-no" title="function not covered" >Header(</span>props: React.PropsWithChildren) {
-  const { children } = <span class="cstat-no" title="statement not covered" >props;</span>
-<span class="cstat-no" title="statement not covered" >  return &lt;header className={styles.header}&gt;{children}&lt;/header&gt;;</span>
-}
-&nbsp;</pre></td></tr></table></pre>
-
-                <div class='push'></div><!-- for sticky footer -->
-            </div><!-- /wrapper -->
-            <div class='footer quiet pad2 space-top1 center small'>
-                Code coverage generated by
-                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-25T11:41:43.039Z
+                at 2024-07-25T12:40:00.119Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>
@@ -10970,7 +10993,7 @@ export function <span class="fstat-no" title="function not covered" >Header(</sp
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-25T11:41:43.039Z
+                at 2024-07-25T12:40:00.119Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>
@@ -11174,7 +11197,7 @@ export function <span class="fstat-no" title="function not covered" >ButtonGroup
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-25T11:41:43.039Z
+                at 2024-07-25T12:40:00.119Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>
@@ -11224,9 +11247,9 @@ export function <span class="fstat-no" title="function not covered" >ButtonGroup
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.66% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>2/3</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
@@ -11279,8 +11302,8 @@ export function <span class="fstat-no" title="function not covered" >ButtonGroup
 	</td>
 	<td data-value="100" class="pct high">100%</td>
 	<td data-value="3" class="abs high">3/3</td>
-	<td data-value="66.66" class="pct medium">66.66%</td>
-	<td data-value="3" class="abs medium">2/3</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="3" class="abs high">3/3</td>
 	<td data-value="100" class="pct high">100%</td>
 	<td data-value="1" class="abs high">1/1</td>
 	<td data-value="100" class="pct high">100%</td>
@@ -11295,7 +11318,7 @@ export function <span class="fstat-no" title="function not covered" >ButtonGroup
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-25T11:41:43.039Z
+                at 2024-07-25T12:40:00.119Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>
@@ -11345,9 +11368,9 @@ export function <span class="fstat-no" title="function not covered" >ButtonGroup
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.66% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>2/3</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
@@ -11448,17 +11471,17 @@ export function <span class="fstat-no" title="function not covered" >ButtonGroup
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -11486,7 +11509,7 @@ type ButtonProps = React.ButtonHTMLAttributes&lt;HTMLButtonElement&gt; &amp; {
 export function Button(props: ButtonProps) {
   const {
     children,
-    variant = <span class="branch-0 cbranch-no" title="branch not covered" >'primary',</span>
+    variant = 'primary',
     size = 'default',
     className = '',
     active,
@@ -11514,7 +11537,7 @@ export function Button(props: ButtonProps) {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-25T11:41:43.039Z
+                at 2024-07-25T12:40:00.119Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>
