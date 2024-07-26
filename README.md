@@ -50,7 +50,7 @@ Dream Travels is your personal space to add wild destinations and keep the flame
 ## Testing
 
 - **Unit Testing**: Run `npm run test:unit`
-- Uses Jest and @testing-library/react
+- Uses Jest and @testing-library/react // only few tests done for a showcase purpouses
 - **E2E Testing**: Run `npm run test:e2e`
 - Uses Cypress for end-to-end testing
 
